@@ -1,0 +1,343 @@
+/* Global Styles & CSS Variables */
+:root {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --primary-accent-color: #bb86fc;
+    --secondary-bg-color: #1e1e1e;
+    --card-bg-color: #1e1e1e;
+    --border-color: #333;
+    --link-color: #bb86fc;
+    --link-hover-color: #ffffff;
+    --button-text-color: #121212;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --hero-gradient-start: #1e1e1e;
+    --hero-gradient-end: #282828;
+    --job-title-color: #ccc;
+}
+
+body.light-theme {
+    --bg-color: #f4f4f4;
+    --text-color: #333333;
+    --primary-accent-color: #007bff; /* A blue for light theme */
+    --secondary-bg-color: #ffffff;
+    --card-bg-color: #ffffff;
+    --border-color: #dddddd;
+    --link-color: #007bff;
+    --link-hover-color: #0056b3;
+    --button-text-color: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --hero-gradient-start: #e9ecef;
+    --hero-gradient-end: #f8f9fa;
+    --job-title-color: #555;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth theme transition */
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    overflow: hidden;
+}
+
+h1, h2, h3 {
+    margin-bottom: 0.75em;
+    font-weight: 600;
+}
+
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--link-hover-color);
+}
+
+/* Header */
+header {
+    background-color: var(--secondary-bg-color);
+    padding: 15px 0; /* Adjusted padding */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px var(--shadow-color);
+    transition: background-color 0.3s ease;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 1.6em; /* Slightly adjusted */
+    margin: 0;
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center; /* Align items vertically */
+}
+
+header nav li {
+    margin-left: 20px;
+}
+
+header nav a {
+    display: block;
+    padding: 8px 12px; /* Adjusted padding */
+    font-weight: 500;
+    font-size: 1em; /* Adjusted font size */
+}
+
+/* Theme Toggle Button */
+#themeToggleBtn {
+    background: none;
+    border: 1px solid var(--primary-accent-color);
+    color: var(--primary-accent-color);
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1em; /* Match nav link size */
+    margin-left: 20px; /* Space from nav */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#themeToggleBtn:hover {
+    background-color: var(--primary-accent-color);
+    color: var(--button-text-color);
+}
+
+
+/* Hero Section */
+#hero {
+    padding: 60px 0; /* Adjusted padding */
+    text-align: center;
+    background: linear-gradient(135deg, var(--hero-gradient-start) 0%, var(--hero-gradient-end) 100%);
+    border-radius: 8px;
+    margin-bottom: 40px;
+    transition: background 0.3s ease;
+}
+
+#hero h2 {
+    font-size: 2.2em; /* Adjusted */
+    margin-bottom: 0.5em;
+}
+
+#hero .job-title {
+    font-size: 1.4em; /* Adjusted */
+    margin-bottom: 0.5em;
+    color: var(--job-title-color);
+}
+
+#hero .cta-button {
+    display: inline-block;
+    background-color: var(--primary-accent-color);
+    color: var(--button-text-color);
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#hero .cta-button:hover {
+    background-color: var(--link-hover-color); /* Using link hover for consistency */
+    color: var(--bg-color); /* Invert colors on hover */
+}
+
+/* About Me Section */
+#about {
+    padding: 60px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+#about p {
+    font-size: 1.1em;
+    line-height: 1.8;
+}
+
+/* Skills Section */
+#skills {
+    padding: 60px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.skills-category {
+    margin-bottom: 30px;
+}
+
+.skills-category h3 {
+    margin-bottom: 10px;
+    color: var(--primary-accent-color);
+}
+
+.skills-category ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Adjusted minmax */
+    gap: 10px;
+}
+
+.skills-category li {
+    background-color: var(--card-bg-color);
+    padding: 10px 15px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px var(--shadow-color);
+    transition: background-color 0.3s ease;
+}
+
+/* Projects Section */
+#projects {
+    padding: 60px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.project-item {
+    background-color: var(--card-bg-color);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px var(--shadow-color);
+    transition: background-color 0.3s ease;
+}
+
+.project-item h3 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.project-item p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+/* Education Section */
+#education {
+    padding: 60px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.education-item {
+    margin-bottom: 20px;
+}
+
+.education-item h3 {
+    margin-bottom: 5px;
+    font-size: 1.3em;
+}
+
+/* Contact Section */
+#contact {
+    padding: 60px 0;
+    text-align: center;
+}
+
+#contact p {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+/* Footer */
+footer {
+    background-color: var(--secondary-bg-color);
+    color: var(--text-color);
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 40px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) { /* Mobile specific adjustments */
+    header .container {
+        flex-direction: column; /* Stack header items on small screens */
+        align-items: flex-start;
+    }
+    header nav {
+        margin-top: 10px;
+        width: 100%; /* Make nav take full width */
+    }
+    header nav ul {
+        flex-direction: column; /* Stack nav items */
+        width: 100%;
+    }
+    header nav li {
+        margin-left: 0;
+        width: 100%;
+        text-align: center; /* Center nav links */
+    }
+    header nav a {
+        padding: 10px;
+        border-top: 1px solid var(--border-color);
+    }
+    header nav li:first-child a {
+        border-top: none;
+    }
+    #themeToggleBtn {
+        margin-top: 10px; /* Space above toggle on mobile */
+        align-self: flex-end; /* Push toggle to the right on mobile */
+    }
+}
+
+
+@media (min-width: 769px) { /* Tablet and larger */
+    .container {
+        width: 85%;
+    }
+
+    #hero h2 {
+        font-size: 2.8em; /* Adjusted */
+    }
+
+    #hero .job-title {
+        font-size: 1.8em; /* Adjusted */
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        width: 80%;
+    }
+}
+
+/* Scroll-to-Top Button */
+#scrollToTopBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    background-color: var(--primary-accent-color);
+    color: var(--button-text-color);
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 50%;
+    font-size: 18px;
+    box-shadow: 0 2px 5px var(--shadow-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#scrollToTopBtn:hover {
+    background-color: var(--link-hover-color);
+    color: var(--bg-color); /* Invert colors on hover */
+}
