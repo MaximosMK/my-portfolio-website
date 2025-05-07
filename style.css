@@ -55,6 +55,24 @@ h1, h2, h3 {
     font-weight: 600;
 }
 
+main > section > h2 { /* Target h2s that are direct children of sections in main */
+    font-size: 2em; /* Slightly larger */
+    margin-bottom: 1em; /* More space below */
+    position: relative;
+    display: inline-block; /* To make the pseudo-element work well with text-align */
+    padding-bottom: 0.3em;
+}
+
+main > section > h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50px; /* Length of the underline */
+    height: 3px; /* Thickness of the underline */
+    background-color: var(--primary-accent-color);
+}
+
 a {
     color: var(--link-color);
     text-decoration: none;
@@ -104,6 +122,28 @@ header nav a {
     padding: 8px 12px; /* Adjusted padding */
     font-weight: 500;
     font-size: 1em; /* Adjusted font size */
+    position: relative; /* For the pseudo-element */
+    transition: color 0.3s ease; /* Keep color transition */
+}
+
+header nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--primary-accent-color);
+    transition: width 0.3s ease;
+}
+
+header nav a:hover {
+    color: var(--link-hover-color); /* Keep existing hover color */
+}
+
+header nav a:hover::after {
+    width: 70%; /* Animate width of underline */
 }
 
 /* Theme Toggle Button */
@@ -227,7 +267,14 @@ header nav a {
     border-radius: 8px;
     margin-bottom: 20px;
     box-shadow: 0 2px 5px var(--shadow-color);
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-item:hover {
+    transform: translateY(-5px); /* Lift the card slightly */
+    box-shadow: 0 8px 15px var(--shadow-color); /* More prominent shadow */
+    /* Optionally, add a border highlight */
+    /* border: 1px solid var(--primary-accent-color); */
 }
 
 .project-item h3 {
