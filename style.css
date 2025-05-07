@@ -202,6 +202,17 @@ header nav a {
     border-radius: 4px;
     box-shadow: 0 1px 3px var(--shadow-color);
     transition: background-color 0.3s ease;
+    text-align: center; /* Center content if image is above text */
+}
+
+.skills-category li img {
+    width: 48px;  /* Define a consistent width for the image's display area */
+    height: 48px; /* Define a consistent height for the image's display area */
+    object-fit: contain; /* Scales the image to fit within this WxH box, preserving aspect ratio */
+    margin-bottom: 8px; /* Space between image and text if image is above */
+    display: block; /* Allows for auto margins for centering */
+    margin-left: auto; /* Centers the image block */
+    margin-right: auto; /* Centers the image block */
 }
 
 /* Projects Section */
