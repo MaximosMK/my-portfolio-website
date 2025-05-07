@@ -367,69 +367,71 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// --- Design Lab: 3D Geometric Field ---
+// --- Design Lab: 3D Interactive Cube ---
 document.addEventListener('DOMContentLoaded', () => {
     const fieldContainer = document.getElementById('geometricFieldContainer');
-    if (!fieldContainer) return;
+    const promptText = fieldContainer ? fieldContainer.querySelector('.geometric-field-prompt') : null;
 
-    const numShapes = 30; // Number of geometric shapes
-    const shapes = [];
-
-    function getRandomColor() {
-        // Generate a color that contrasts well with the dark background
-        // Prioritizing lighter, somewhat desaturated or vibrant colors
-        const r = Math.floor(Math.random() * 100) + 155; // 155-255
-        const g = Math.floor(Math.random() * 100) + 155; // 155-255
-        const b = Math.floor(Math.random() * 100) + 155; // 155-255
-        return `rgb(${r},${g},${b})`;
+    if (!fieldContainer) {
+        console.warn("Geometric field container not found for 3D cube.");
+        return;
     }
 
-    for (let i = 0; i < numShapes; i++) {
-        const shape = document.createElement('div');
-        shape.classList.add('geo-shape');
+    const cubeSize = 150; // pixels
+    const halfSize = cubeSize / 2;
 
-        const size = Math.random() * 20 + 10; // Size between 10px and 30px
-        shape.style.width = `${size}px`;
-        shape.style.height = `${size}px`;
-        shape.style.backgroundColor = getRandomColor();
-        
-        // Initial random 3D position
-        const x = Math.random() * fieldContainer.offsetWidth;
-        const y = Math.random() * fieldContainer.offsetHeight;
-        const z = Math.random() * 400 - 200; // Depth: -200px to 200px
+    const cubeWrapper = document.createElement('div');
+    cubeWrapper.classList.add('cube-wrapper');
+    cubeWrapper.style.width = `${cubeSize}px`;
+    cubeWrapper.style.height = `${cubeSize}px`;
 
-        shape.style.left = `${x - size / 2}px`;
-        shape.style.top = `${y - size / 2}px`;
-        shape.style.transform = `translateZ(${z}px) rotateX(0deg) rotateY(0deg)`;
-        shape.dataset.initialZ = z; // Store initial Z for reference
+    const facesData = [
+        { name: 'F', transform: `rotateY(0deg) translateZ(${halfSize}px)`, color: 'rgba(187, 134, 252, 0.4)' }, // Front
+        { name: 'Bk', transform: `rotateY(180deg) translateZ(${halfSize}px)`, color: 'rgba(134, 252, 187, 0.4)' }, // Back
+        { name: 'R', transform: `rotateY(90deg) translateZ(${halfSize}px)`, color: 'rgba(252, 134, 187, 0.4)' },  // Right
+        { name: 'L', transform: `rotateY(-90deg) translateZ(${halfSize}px)`, color: 'rgba(134, 187, 252, 0.4)' }, // Left
+        { name: 'T', transform: `rotateX(90deg) translateZ(${halfSize}px)`, color: 'rgba(252, 187, 134, 0.4)' },  // Top
+        { name: 'Bt', transform: `rotateX(-90deg) translateZ(${halfSize}px)`, color: 'rgba(187, 252, 134, 0.4)' }  // Bottom
+    ];
 
-        shapes.push(shape);
-        fieldContainer.appendChild(shape);
-    }
+    facesData.forEach(data => {
+        const face = document.createElement('div');
+        face.classList.add('cube-face');
+        face.textContent = data.name;
+        face.style.transform = data.transform;
+        face.style.backgroundColor = data.color;
+        cubeWrapper.appendChild(face);
+    });
+
+    fieldContainer.innerHTML = ''; // Clear previous content (like the prompt)
+    fieldContainer.appendChild(cubeWrapper);
+
+    let currentRotateX = -25; // Initial rotation
+    let currentRotateY = -35; // Initial rotation
 
     fieldContainer.addEventListener('mousemove', (e) => {
         const rect = fieldContainer.getBoundingClientRect();
-        // Mouse position relative to the center of the container
         const mouseX = e.clientX - rect.left - rect.width / 2;
         const mouseY = e.clientY - rect.top - rect.height / 2;
 
-        shapes.forEach(shape => {
-            const initialZ = parseFloat(shape.dataset.initialZ);
-            // Rotation effect based on mouse position
-            // The further the mouse from center, the more rotation
-            const rotateY = (mouseX / (rect.width / 2)) * 30; // Max 30deg rotation
-            const rotateX = -(mouseY / (rect.height / 2)) * 30; // Max 30deg rotation
+        const rotateSensitivity = 2; 
+        currentRotateY = - (mouseX / (rect.width / 2)) * 90 / rotateSensitivity -35;
+        currentRotateX = (mouseY / (rect.height / 2)) * 90 / rotateSensitivity -25;
 
-            // Slight Z movement based on proximity to mouse (optional, can be subtle)
-            // This is a very simplified proximity effect
-            const proximityFactor = Math.sqrt(mouseX*mouseX + mouseY*mouseY) / (Math.max(rect.width, rect.height)/2); // 0 near center, 1 near edge
-            const zOffset = (1 - proximityFactor) * 50; // Shapes near cursor come forward slightly
-
-            shape.style.transform = `translateZ(${initialZ + zOffset}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            shape.style.opacity = 0.6 + (1 - proximityFactor) * 0.4; // More opaque when closer to cursor
-        });
+        cubeWrapper.style.transform = `rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg)`;
     });
+
+    fieldContainer.addEventListener('mouseleave', () => {
+        currentRotateX = -25;
+        currentRotateY = -35;
+        cubeWrapper.style.transform = `rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg)`;
+    });
+
+    if (promptText) {
+        // promptText.style.display = 'none'; // Or remove it if you prefer
+    }
 });
+
 
 // --- Particles.js Configuration for Hero Section ---
 if (document.getElementById('particles-js')) {
