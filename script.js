@@ -246,6 +246,108 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// --- Dev Console Functionality ---
+document.addEventListener('DOMContentLoaded', () => {
+    const devConsole = document.getElementById('devConsole');
+    const consoleOutput = document.getElementById('consoleOutput');
+    const consoleInput = document.getElementById('consoleInput');
+    const closeConsoleBtn = document.getElementById('closeConsoleBtn');
+
+    let consoleVisible = false;
+
+    function toggleConsole() {
+        consoleVisible = !consoleVisible;
+        if (consoleVisible) {
+            devConsole.classList.add('visible');
+            consoleInput.focus(); // Focus on input when console opens
+        } else {
+            devConsole.classList.remove('visible');
+        }
+    }
+
+    function appendToConsole(text, type = 'info') {
+        const p = document.createElement('p');
+        if (type === 'command') {
+            p.textContent = `> ${text}`;
+        } else if (type === 'error') {
+            p.style.color = '#ff4757'; // A reddish color for errors
+            p.textContent = `Error: ${text}`;
+        } else if (type === 'success') {
+            p.style.color = '#2ed573'; // A greenish color for success
+            p.textContent = text;
+        }
+        else {
+            p.textContent = text;
+        }
+        consoleOutput.appendChild(p);
+        consoleOutput.scrollTop = consoleOutput.scrollHeight; // Auto-scroll to bottom
+    }
+
+    function processCommand(command) {
+        appendToConsole(command, 'command');
+        const parts = command.toLowerCase().trim().split(' ');
+        const cmd = parts[0];
+        // const args = parts.slice(1); // For commands with arguments
+
+        switch (cmd) {
+            case 'help':
+                appendToConsole("Available commands:");
+                appendToConsole("- help: Show this help message.");
+                appendToConsole("- clear: Clear the console output.");
+                appendToConsole("- date: Show current date and time.");
+                appendToConsole("- about_me: Display a short bio.");
+                appendToConsole("- contact_info: Show contact details.");
+                // Add more commands here
+                break;
+            case 'clear':
+                consoleOutput.innerHTML = '';
+                break;
+            case 'date':
+                appendToConsole(new Date().toLocaleString());
+                break;
+            case 'about_me':
+                appendToConsole("Mohamed Karouch: A passionate Web Developer turning ideas into digital reality with code. Specializing in creating performant, beautiful, and user-first web experiences.");
+                break;
+            case 'contact_info':
+                appendToConsole("Email: karouchmohamed21@gmail.com | LinkedIn: linkedin.com/in/mohamed-karouch");
+                break;
+            // Easter eggs or fun commands
+            case 'whoami':
+                appendToConsole("You are an explorer of this digital realm!");
+                break;
+            case 'matrix':
+                appendToConsole("Wake up, Neo... The Matrix has you.");
+                break;
+            default:
+                appendToConsole(`Command not found: ${cmd}. Type 'help' for available commands.`, 'error');
+        }
+    }
+
+    if (devConsole && consoleOutput && consoleInput && closeConsoleBtn) {
+        // Toggle console with Ctrl + \ (Backslash) or Cmd + \
+        document.addEventListener('keydown', (event) => {
+            if ((event.ctrlKey || event.metaKey) && event.key === '\\') {
+                event.preventDefault(); // Prevent default browser action for this combo
+                toggleConsole();
+            }
+        });
+
+        // Handle input submission
+        consoleInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' && consoleInput.value.trim() !== '') {
+                processCommand(consoleInput.value.trim());
+                consoleInput.value = ''; // Clear input field
+            }
+        });
+
+        // Close button
+        closeConsoleBtn.addEventListener('click', toggleConsole);
+
+    } else {
+        console.warn('Dev Console elements not found. Console functionality will be disabled.');
+    }
+});
+
 // --- Particles.js Configuration for Hero Section ---
 if (document.getElementById('particles-js')) {
     particlesJS("particles-js", {
