@@ -805,6 +805,77 @@ header nav a.active-link {
     margin-right: auto;
 }
 
+.lab-experiments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.lab-experiment {
+    background-color: var(--secondary-bg-color);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px var(--shadow-color);
+}
+
+.experiment-title {
+    font-size: 1.2em;
+    color: var(--primary-accent-color);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* 3D Card Flip Experiment Styles */
+.flip-card-container {
+    background-color: transparent; /* Or a specific background for the container */
+    width: 250px; /* Adjust as needed */
+    height: 180px; /* Adjust as needed */
+    perspective: 1000px; /* Important for 3D effect */
+    margin: 20px auto; /* Center the card */
+}
+
+.flip-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.7s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+
+.flip-card-container:hover .flip-card {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    font-weight: bold;
+}
+
+.flip-card-front {
+    background: linear-gradient(135deg, var(--primary-accent-color), #8e44ad); /* Example gradient */
+    color: var(--button-text-color);
+}
+
+.flip-card-back {
+    background: linear-gradient(135deg, #3498db, var(--primary-accent-color)); /* Example gradient */
+    color: var(--button-text-color);
+    transform: rotateY(180deg); /* Initially rotated */
+}
+
 /* Contact Section */
 #contact {
     padding: 60px 0;
