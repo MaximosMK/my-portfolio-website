@@ -31,9 +31,19 @@ body.light-theme {
     --job-title-color: #555;
 }
 
+/* Canvas for Global Particle Background */
+#globalParticleCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Behind all other content */
+}
+
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: var(--bg-color);
+    background-color: var(--bg-color); /* Fallback if canvas fails or for areas canvas doesn't cover (though it should) */
     color: var(--text-color);
     margin: 0;
     padding: 0;
