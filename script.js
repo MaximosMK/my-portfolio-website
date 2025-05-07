@@ -1,7 +1,11 @@
 // --- Scroll-to-Top Button Functionality ---
-let scrollToTopBtn = document.getElementById("scrollToTopBtn");
+const scrollToTopBtn = document.getElementById("scrollToTopBtn");
 
-window.onscroll = function() {scrollFunction(); activateNavLink();};
+function handleScroll() {
+  scrollFunction();
+  activateNavLink();
+}
+window.addEventListener('scroll', handleScroll);
 
 function scrollFunction() {
   if (scrollToTopBtn) {
@@ -14,14 +18,11 @@ function scrollFunction() {
 }
 
 if (scrollToTopBtn) {
-  scrollToTopBtn.onclick = function() {
-    topFunction();
-  }
+  scrollToTopBtn.addEventListener('click', topFunction);
 }
 
 function topFunction() {
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // --- Theme Toggle Functionality ---
