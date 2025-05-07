@@ -39,8 +39,8 @@ body {
     padding: 0;
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
-    scroll-behavior: smooth; /* Added for smooth scrolling */
-    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth theme transition */
+    scroll-behavior: smooth;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container {
@@ -56,11 +56,11 @@ h1, h2, h3 {
     font-weight: 600;
 }
 
-main > section > h2 { /* Target h2s that are direct children of sections in main */
-    font-size: 2em; /* Slightly larger */
-    margin-bottom: 1em; /* More space below */
+main > section > h2 {
+    font-size: 2em;
+    margin-bottom: 1em;
     position: relative;
-    display: inline-block; /* To make the pseudo-element work well with text-align */
+    display: inline-block;
     padding-bottom: 0.3em;
 }
 
@@ -69,8 +69,8 @@ main > section > h2::after {
     position: absolute;
     left: 0;
     bottom: 0;
-    width: 50px; /* Length of the underline */
-    height: 3px; /* Thickness of the underline */
+    width: 50px;
+    height: 3px;
     background-color: var(--primary-accent-color);
 }
 
@@ -87,7 +87,7 @@ a:hover {
 /* Header */
 header {
     background-color: var(--secondary-bg-color);
-    padding: 15px 0; /* Adjusted padding */
+    padding: 15px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -95,17 +95,16 @@ header {
     transition: background-color 0.3s ease;
 }
 
-/* Mobile Navigation Toggle */
 .mobile-nav-toggle {
-    display: none; /* Hidden by default, shown in media query */
+    display: none;
     background: transparent;
     border: 0;
     padding: 0.5em;
     cursor: pointer;
-    z-index: 9999; /* Ensure it's on top */
+    z-index: 9999;
 }
 
-.mobile-nav-toggle .sr-only { /* Screen reader only text */
+.mobile-nav-toggle .sr-only {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -117,7 +116,7 @@ header {
     border: 0;
 }
 
-.mobile-nav-toggle span.icon-bar { /* Hamburger lines */
+.mobile-nav-toggle span.icon-bar {
     display: block;
     width: 22px;
     height: 2px;
@@ -133,11 +132,11 @@ header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative; /* For positioning the mobile toggle */
+    position: relative;
 }
 
 header h1 {
-    font-size: 1.6em; /* Slightly adjusted */
+    font-size: 1.6em;
     margin: 0;
 }
 
@@ -146,7 +145,7 @@ header nav ul {
     margin: 0;
     padding: 0;
     display: flex;
-    align-items: center; /* Align items vertically */
+    align-items: center;
 }
 
 header nav li {
@@ -155,11 +154,11 @@ header nav li {
 
 header nav a {
     display: block;
-    padding: 8px 12px; /* Adjusted padding */
+    padding: 8px 12px;
     font-weight: 500;
-    font-size: 1em; /* Adjusted font size */
-    position: relative; /* For the pseudo-element */
-    transition: color 0.3s ease; /* Keep color transition */
+    font-size: 1em;
+    position: relative;
+    transition: color 0.3s ease;
 }
 
 header nav a::after {
@@ -175,20 +174,18 @@ header nav a::after {
 }
 
 header nav a:hover {
-    color: var(--link-hover-color); /* Keep existing hover color */
+    color: var(--link-hover-color);
 }
 
 header nav a:hover::after {
-    width: 70%; /* Animate width of underline */
+    width: 70%;
 }
 
-/* Active Nav Link for Scrollspy */
 header nav a.active-link {
-    color: var(--link-hover-color); /* Or your primary accent color */
-    font-weight: bold; /* Make it stand out */
+    color: var(--link-hover-color);
+    font-weight: bold;
 }
 
-/* Theme Toggle Button */
 #themeToggleBtn {
     background: none;
     border: 1px solid var(--primary-accent-color);
@@ -196,33 +193,32 @@ header nav a.active-link {
     padding: 8px 12px;
     cursor: pointer;
     border-radius: 4px;
-    font-size: 1em; /* Match nav link size */
-    margin-left: 20px; /* Space from nav */
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease; /* Added transform */
-    will-change: transform; /* Hint for performance */
+    font-size: 1em;
+    margin-left: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    will-change: transform;
 }
 
 #themeToggleBtn:hover {
     background-color: var(--primary-accent-color);
     color: var(--button-text-color);
-    transform: scale(1.05); /* Slight scale up on hover */
+    transform: scale(1.05);
 }
-
 
 /* Hero Section */
 #hero {
-    position: relative; /* Needed for absolute positioning of particles-js */
-    padding: 80px 0 100px; /* Increased padding for tagline space */
-    min-height: 90vh; /* Make hero section taller, closer to full screen */
-    display: flex; /* For centering content vertically */
-    flex-direction: column; /* Stack items vertically */
-    justify-content: center; /* Center content vertically */
+    position: relative;
+    padding: 80px 0 100px;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: center;
     background: linear-gradient(135deg, var(--hero-gradient-start) 0%, var(--hero-gradient-end) 100%);
     border-radius: 8px;
     margin-bottom: 40px;
     transition: background 0.3s ease;
-    overflow: hidden; /* To contain particles if they try to overflow */
+    overflow: hidden;
 }
 
 #particles-js {
@@ -231,22 +227,21 @@ header nav a.active-link {
     height: 100%;
     top: 0;
     left: 0;
-    z-index: 0; /* Behind the hero content */
+    z-index: 0;
 }
-#hero .container { /* Ensure hero content is above particles */
+#hero .container {
     position: relative;
     z-index: 1;
 }
 
-/* Floating Logo */
 .floating-logo-container {
-    margin-bottom: 25px; /* Space below logo */
+    margin-bottom: 25px;
 }
 .floating-logo {
-    width: 70px; /* Adjust size as needed */
-    height: 70px; /* Adjust size as needed */
+    width: 70px;
+    height: 70px;
     opacity: 0.85;
-    object-fit: contain; /* Ensure logo scales nicely */
+    object-fit: contain;
     animation: pulseLogo 3.5s infinite ease-in-out, floatLogo 7s infinite ease-in-out;
 }
 
@@ -260,32 +255,30 @@ header nav a.active-link {
     50% { transform: translateY(-12px); }
 }
 
-#hero h2 { /* This is now the tagline container */
-    font-size: 2.2em; /* Adjusted */
+#hero h2 {
+    font-size: 2.2em;
     margin-bottom: 0.5em;
-    /* text-align is handled by .hero-tagline-h2 */
 }
 
 #hero .job-title {
-    text-align: center; /* Ensure centering */
-    font-size: 1.4em; /* Adjusted */
+    text-align: center;
+    font-size: 1.4em;
     margin-bottom: 0.5em;
     color: var(--job-title-color);
 }
 
-#hero .hero-tagline-h2 { /* Styles for the tagline h2 */
-    text-align: center; /* Ensure centering */
-    min-height: 2.5em; /* Give space for text to appear, adjust if needed based on font size */
-    font-size: 2.2em; /* Match original h2 size */
-    font-weight: 600; /* Match original h2 weight */
-    color: var(--text-color); /* Ensure it uses theme text color */
+#hero .hero-tagline-h2 {
+    text-align: center;
+    min-height: 2.5em;
+    font-size: 2.2em;
+    font-weight: 600;
+    color: var(--text-color);
     margin-top: 0.5em;
 }
 
-/* Blinking cursor for GSAP TextPlugin (or manual JS typing) */
-.gsap-cursor { /* You can name this class whatever you use in JS */
-    font-weight: normal; /* Prevent cursor from being bold if h2 is bold */
-    color: var(--primary-accent-color); /* Make cursor stand out */
+.gsap-cursor {
+    font-weight: normal;
+    color: var(--primary-accent-color);
     animation: blink-gsap 0.8s infinite;
 }
 
@@ -294,10 +287,9 @@ header nav a.active-link {
     50% { opacity: 0; }
 }
 
-/* Scroll Cue */
 .scroll-cue {
     position: absolute;
-    bottom: 40px; /* Increased distance from bottom */
+    bottom: 40px;
     left: 50%;
     transform: translateX(-50%);
     animation: bounceArrow 2.5s infinite;
@@ -305,9 +297,9 @@ header nav a.active-link {
 }
 .arrow-down {
     display: block;
-    width: 24px; /* Slightly larger arrow */
+    width: 24px;
     height: 24px;
-    border-left: 3px solid var(--primary-accent-color); /* Thicker arrow */
+    border-left: 3px solid var(--primary-accent-color);
     border-bottom: 3px solid var(--primary-accent-color);
     transform: rotate(-45deg);
 }
@@ -331,38 +323,29 @@ header nav a.active-link {
 
 .about-me-content {
     display: flex;
-    align-items: flex-start; /* Align items to the top */
-    gap: 40px; /* Space between image and text */
+    align-items: flex-start;
+    gap: 40px;
 }
 
 .about-me-image {
-    flex-basis: 30%; /* Image takes up roughly 30% of the width */
-    max-width: 250px; /* Max width for the image container */
+    flex-basis: 30%;
+    max-width: 250px;
 }
 
 .about-me-image img {
     width: 100%;
     height: auto;
-    border-radius: 8px; /* Optional: rounded corners for the image */
+    border-radius: 8px;
     box-shadow: 0 4px 10px var(--shadow-color);
 }
 
 .about-me-text {
-    flex-basis: 70%; /* Text takes up roughly 70% */
+    flex-basis: 70%;
 }
-.about-me-text strong { /* Style for highlighted keywords */
+.about-me-text strong {
     color: var(--primary-accent-color);
-    font-weight: 600; /* Ensure it's bold enough */
+    font-weight: 600;
 }
-
-    /* Stack about me content on mobile */
-    .about-me-content {
-        flex-direction: column;
-        align-items: center; /* Center items when stacked */
-    }
-    .about-me-image {
-        margin-bottom: 30px; /* Space below image when stacked */
-    }
 
 /* Skills Section */
 #skills {
@@ -370,7 +353,6 @@ header nav a.active-link {
     border-bottom: 1px solid var(--border-color);
 }
 
-/* Skills Filter Controls */
 .skills-filter-controls {
     text-align: center;
     margin-bottom: 30px;
@@ -412,27 +394,26 @@ header nav a.active-link {
     list-style: none;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Adjusted minmax */
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 10px;
 }
 
 .skills-category li {
     background-color: var(--card-bg-color);
-    padding: 8px 12px; /* Slightly smaller padding for chip feel */
+    padding: 8px 12px;
     border-radius: 4px;
     box-shadow: 0 1px 3px var(--shadow-color);
     transition: background-color 0.3s ease;
-    text-align: center; /* Center content if image is above text */
-    font-size: 0.9em; /* Slightly smaller font for chips */
-    display: flex; /* Changed for better alignment */
-    flex-direction: column; /* Stack image and text vertically */
+    text-align: center;
+    font-size: 0.9em;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center; /* Center content vertically */
-    min-height: 100px; /* Give items a consistent height */
-    position: relative; /* Needed for tooltip positioning */
+    justify-content: center;
+    min-height: 100px;
+    position: relative;
 }
 
-/* CSS Tooltip for Skills */
 .skills-category li[data-tooltip]::before,
 .skills-category li[data-tooltip]::after {
     visibility: hidden;
@@ -440,16 +421,16 @@ header nav a.active-link {
     pointer-events: none;
     transition: all 0.2s ease-in-out;
     position: absolute;
-    bottom: 100%; /* Position above the skill item */
+    bottom: 100%;
     left: 50%;
-    transform: translateX(-50%) translateY(-10px); /* Initial position slightly up */
+    transform: translateX(-50%) translateY(-10px);
     z-index: 10;
 }
 
-.skills-category li[data-tooltip]::before { /* Tooltip bubble */
+.skills-category li[data-tooltip]::before {
     content: attr(data-tooltip);
     background-color: var(--primary-accent-color);
-    color: var(--button-text-color); /* Or var(--bg-color) for contrast */
+    color: var(--button-text-color);
     padding: 6px 10px;
     border-radius: 4px;
     font-size: 0.85em;
@@ -460,20 +441,18 @@ header nav a.active-link {
 .skills-category li[data-tooltip]:hover::after {
     visibility: visible;
     opacity: 1;
-    transform: translateX(-50%) translateY(-5px); /* Move into place on hover */
+    transform: translateX(-50%) translateY(-5px);
 }
 
 .skills-category li img {
-    width: 48px;  /* Define a consistent width for the image's display area */
-    height: 48px; /* Define a consistent height for the image's display area */
-    object-fit: contain; /* Scales the image to fit within this WxH box, preserving aspect ratio */
-    margin-bottom: 8px; /* Space between image and text if image is above */
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    margin-bottom: 8px;
 }
 
-/* Class to hide skill items for filtering */
 .skill-item.hidden {
-    display: none !important; /* Use important to override potential grid/flex display */
-    /* You could also use opacity and pointer-events for a fade effect with JS */
+    display: none !important;
 }
 
 /* Projects Section */
@@ -484,17 +463,13 @@ header nav a.active-link {
 
 .project-grid {
     display: grid;
-    /* For a responsive grid, you might use:
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    */
-    gap: 25px; /* Adjust gap as needed */
+    gap: 25px;
 }
 
 .project-card {
     background-color: var(--card-bg-color);
     padding: 20px;
     border-radius: 8px;
-    /* margin-bottom: 20px; /* Only needed if not using grid or for single column fallback */
     box-shadow: 0 2px 5px var(--shadow-color);
     transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
@@ -516,7 +491,7 @@ header nav a.active-link {
 .project-card p {
     margin-bottom: 15px;
     line-height: 1.6;
-    font-size: 0.95em; /* Slightly smaller project description on card */
+    font-size: 0.95em;
 }
 
 .project-tech-stack {
@@ -524,18 +499,18 @@ header nav a.active-link {
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.8); /* Darker overlay for better text contrast */
+    background-color: rgba(0, 0, 0, 0.8);
     color: #fff;
-    padding: 12px 15px; /* Increased padding */
+    padding: 12px 15px;
     text-align: center;
     transform: translateY(100%);
     transition: transform 0.35s ease-in-out;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center; /* Vertically center items if they wrap to multiple lines */
+    align-items: center;
     gap: 8px;
-    min-height: 50px; /* Ensure a minimum height for the tech stack area */
+    min-height: 50px;
 }
 
 .project-card:hover .project-tech-stack {
@@ -544,19 +519,18 @@ header nav a.active-link {
 
 .project-tech-stack span {
     background-color: var(--primary-accent-color);
-    color: var(--button-text-color); /* Ensure good contrast with accent color */
-    padding: 5px 10px; /* Slightly larger padding */
+    color: var(--button-text-color);
+    padding: 5px 10px;
     border-radius: 4px;
     font-size: 0.8em;
-    font-weight: 500; /* Slightly bolder */
+    font-weight: 500;
 }
 
-/* Fallback for .project-item if you still use it for non-modal items like ADII Internship */
 .project-item {
     background-color: var(--card-bg-color);
     padding: 20px;
     border-radius: 8px;
-    margin-bottom: 20px; /* Keep this if .project-item is used outside the grid */
+    margin-bottom: 20px;
     box-shadow: 0 2px 5px var(--shadow-color);
 }
 .project-item h3 {
@@ -568,7 +542,6 @@ header nav a.active-link {
     line-height: 1.6;
 }
 
-
 /* Project Modal Styles */
 .modal {
     display: none;
@@ -579,11 +552,11 @@ header nav a.active-link {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.7); /* Slightly darker overlay */
-    padding-top: 50px; /* Adjust as needed */
+    background-color: rgba(0,0,0,0.7);
+    padding-top: 50px;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0s linear 0.3s; /* Delay visibility transition */
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
 }
 
 .modal.visible {
@@ -595,16 +568,16 @@ header nav a.active-link {
 
 .modal-content {
     background-color: var(--secondary-bg-color) ;
-    margin: auto; /* Centered */
-    padding: 25px 30px; /* More padding */
+    margin: auto;
+    padding: 25px 30px;
     border: 1px solid var(--border-color);
     width: 85%;
-    max-width: 750px; /* Slightly wider max-width */
+    max-width: 750px;
     border-radius: 8px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.4);
     position: relative;
-    transform: translateY(-30px) scale(0.95); /* Initial state for animation */
-    opacity: 0; /* Initial state for animation */
+    transform: translateY(-30px) scale(0.95);
+    opacity: 0;
     transition: transform 0.3s ease-out, opacity 0.3s ease-out;
 }
 
@@ -634,21 +607,21 @@ header nav a.active-link {
 
 .modal-screenshot {
     width: 100%;
-    height: auto; /* Maintain aspect ratio */
-    max-height: 350px; /* Increased max height */
-    object-fit: cover; /* 'cover' usually looks better for previews */
-    border-radius: 6px; /* Softer radius */
+    height: auto;
+    max-height: 350px;
+    object-fit: cover;
+    border-radius: 6px;
     margin-bottom: 20px;
-    border: 1px solid var(--border-color); /* Subtle border */
+    border: 1px solid var(--border-color);
 }
 
-.modal-content h3 { /* Modal Title */
+.modal-content h3 {
     font-size: 1.8em;
     color: var(--primary-accent-color);
     margin-top: 0;
     margin-bottom: 15px;
 }
-.modal-content h4 { /* Section subheadings in modal */
+.modal-content h4 {
     font-size: 1.1em;
     color: var(--text-color);
     margin-top: 20px;
@@ -656,7 +629,7 @@ header nav a.active-link {
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 5px;
 }
-.modal-content p { /* Modal description text */
+.modal-content p {
     font-size: 1em;
     line-height: 1.7;
     margin-bottom: 15px;
@@ -666,7 +639,7 @@ header nav a.active-link {
     margin-top: 25px;
     padding-top: 15px;
     border-top: 1px solid var(--border-color);
-    text-align: right; /* Align links to the right */
+    text-align: right;
 }
 
 .modal-links a {
@@ -676,34 +649,14 @@ header nav a.active-link {
     padding: 8px 15px;
     border-radius: 4px;
     text-decoration: none;
-    margin-left: 10px; /* Use margin-left for spacing when right-aligned */
+    margin-left: 10px;
     display: inline-block;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .modal-links a:hover {
     background-color: var(--link-color);
-    color: var(--button-text-color); /* Or var(--bg-color) depending on desired contrast */
-}
-
-/* Responsive adjustments for modal content if needed */
-@media (max-width: 768px) {
-    .modal-content {
-        width: 90%;
-        padding: 20px;
-        margin-top: 10%; /* Adjust top margin for smaller screens */
-        margin-bottom: 10%;
-    }
-    .modal-content h3 {
-        font-size: 1.5em;
-    }
-    .modal-links {
-        text-align: center; /* Center links on mobile */
-    }
-    .modal-links a {
-        margin: 5px; /* Adjust margin for centered links */
-        display: block; /* Stack links on mobile */
-    }
+    color: var(--button-text-color);
 }
 
 /* Timeline Journey Section */
@@ -714,23 +667,21 @@ header nav a.active-link {
 
 .timeline {
     position: relative;
-    max-width: 900px; /* Adjust as needed */
+    max-width: 900px;
     margin: 0 auto;
     padding: 20px 0;
 }
 
-/* The central timeline line */
 .timeline::after {
     content: '';
     position: absolute;
-    width: 4px; /* Thickness of the line */
+    width: 4px;
     background-color: var(--primary-accent-color);
     top: 0;
     bottom: 0;
     left: 50%;
-    margin-left: -2px; /* Half of the width to center it */
+    margin-left: -2px;
     z-index: 1;
-    /* Glowing effect for the line */
     box-shadow: 0 0 8px var(--primary-accent-color),
                 0 0 12px var(--primary-accent-color),
                 0 0 16px var(--primary-accent-color);
@@ -740,49 +691,45 @@ header nav a.active-link {
     padding: 10px 40px;
     position: relative;
     background-color: inherit;
-    width: 50%; /* Each item takes up half the width */
+    width: 50%;
     box-sizing: border-box;
-    z-index: 2; /* Above the central line */
+    z-index: 2;
 }
 
-/* Position items on the left */
 .timeline-item:nth-child(odd) {
     left: 0;
-    padding-right: 25px; /* Space from the central line */
+    padding-right: 25px;
 }
 
-/* Position items on the right */
 .timeline-item:nth-child(even) {
     left: 50%;
-    padding-left: 25px; /* Space from the central line */
+    padding-left: 25px;
 }
 
-/* The circular icon on the timeline */
 .timeline-icon {
     position: absolute;
-    width: 40px; /* Size of the icon circle */
+    width: 40px;
     height: 40px;
     line-height: 40px;
-    font-size: 1.5em; /* Adjust icon size if using font icons/emojis */
-    color: var(--button-text-color); /* Text color for icon */
+    font-size: 1.5em;
+    color: var(--button-text-color);
     background-color: var(--primary-accent-color);
-    border: 3px solid var(--bg-color); /* Border to make it pop from the line */
-    top: 20px; /* Adjust vertical alignment of icon */
+    border: 3px solid var(--bg-color);
+    top: 20px;
     border-radius: 50%;
-    z-index: 3; /* Above timeline item content and line */
+    z-index: 3;
     text-align: center;
-    /* Glowing effect for the icon */
     box-shadow: 0 0 5px var(--primary-accent-color),
                 0 0 8px var(--primary-accent-color);
 }
 
 .timeline-item:nth-child(odd) .timeline-icon {
-    right: -20px; /* Position icon on the central line (half of its width) */
-    transform: translateX(0%); /* No horizontal transform needed if padding is adjusted */
+    right: -20px;
+    transform: translateX(0%);
 }
 
 .timeline-item:nth-child(even) .timeline-icon {
-    left: -20px; /* Position icon on the central line */
+    left: -20px;
     transform: translateX(0%);
 }
 
@@ -811,7 +758,7 @@ header nav a.active-link {
     line-height: 1.6;
     margin-bottom: 10px;
 }
-.timeline-content p em { /* Style for quotes */
+.timeline-content p em {
     font-style: italic;
     color: var(--text-color);
     opacity: 0.85;
@@ -827,31 +774,6 @@ header nav a.active-link {
     display: block;
     margin-top: 10px;
 }
-
-/* Responsive adjustments for the timeline */
-@media screen and (max-width: 768px) {
-    .timeline::after {
-        left: 20px; /* Move line to the left */
-        margin-left: 0;
-    }
-
-    .timeline-item {
-        width: 100%;
-        padding-left: 50px; /* Space for icon and line */
-        padding-right: 15px;
-    }
-
-    .timeline-item:nth-child(odd),
-    .timeline-item:nth-child(even) {
-        left: 0; /* All items align to the left of the line */
-    }
-
-    .timeline-item:nth-child(odd) .timeline-icon,
-    .timeline-item:nth-child(even) .timeline-icon {
-        left: 0px; /* Position icon on the line */
-    }
-}
-
 
 /* Education Section */
 #education {
@@ -874,7 +796,40 @@ header nav a.active-link {
     text-align: center;
 }
 
-#contact p {
+.contact-cta {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: var(--primary-accent-color);
+    margin-bottom: 30px;
+}
+
+.contact-buttons {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn.btn-contact {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: var(--primary-accent-color);
+    color: var(--button-text-color);
+    border: 1px solid var(--primary-accent-color);
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.btn.btn-contact:hover {
+    background-color: transparent;
+    color: var(--primary-accent-color);
+    transform: translateY(-2px);
+}
+
+.contact-details p {
     margin-bottom: 10px;
     font-size: 1.1em;
 }
@@ -889,26 +844,47 @@ footer {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.footer-content p {
+    margin: 5px 0;
+}
+
+.made-with {
+    font-size: 0.9em;
+}
+
+.heart-icon {
+    color: var(--primary-accent-color);
+    font-size: 1.1em;
+}
+
 /* Responsive Design */
-@media (max-width: 768px) { /* Mobile specific adjustments */
+@media (max-width: 768px) {
     .mobile-nav-toggle {
-        display: block; /* Show hamburger on mobile */
-        position: absolute; /* Position it relative to header or container */
-        right: 15px; /* Adjust as needed */
+        display: block;
+        position: absolute;
+        right: 15px;
         top: 50%;
         transform: translateY(-50%);
     }
 
     header nav {
-        display: none; /* Hide nav by default on mobile */
+        display: none;
         position: absolute;
-        top: 100%; /* Position below the header */
+        top: 100%;
         left: 0;
         right: 0;
         background-color: var(--secondary-bg-color);
         padding: 1em 0;
         box-shadow: 0 4px 6px var(--shadow-color);
-        z-index: 999; /* Below toggle but above content */
+        z-index: 999;
     }
 
     header nav.nav-visible {
@@ -930,7 +906,7 @@ footer {
         text-align: center;
         border-bottom: 1px solid var(--border-color);
     }
-    header nav a::after { /* Hide underline effect on mobile nav links */
+    header nav a::after {
         display: none;
     }
 
@@ -938,7 +914,6 @@ footer {
         border-bottom: none;
     }
 
-    /* Hamburger to X animation */
     .mobile-nav-toggle[aria-expanded="true"] span.icon-bar:nth-child(1) {
         transform: translateY(6px) rotate(45deg);
     }
@@ -951,23 +926,71 @@ footer {
 
     #themeToggleBtn.desktop-theme-toggle {
         margin-left: auto; 
-        margin-right: 50px; /* Make space if hamburger is on far right */
-        /* If hamburger is on left, this might not be needed or can be adjusted */
+        margin-right: 50px;
+    }
+    
+    .about-me-content {
+        flex-direction: column;
+        align-items: center;
+    }
+    .about-me-image {
+        margin-bottom: 30px;
+    }
+
+    .modal-content {
+        width: 90%;
+        padding: 20px;
+        margin-top: 10%;
+        margin-bottom: 10%;
+    }
+    .modal-content h3 {
+        font-size: 1.5em;
+    }
+    .modal-links {
+        text-align: center;
+    }
+    .modal-links a {
+        margin: 5px;
+        display: block;
+    }
+
+    .timeline::after {
+        left: 20px;
+        margin-left: 0;
+    }
+
+    .timeline-item {
+        width: 100%;
+        padding-left: 50px;
+        padding-right: 15px;
+    }
+
+    .timeline-item:nth-child(odd),
+    .timeline-item:nth-child(even) {
+        left: 0;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-icon,
+    .timeline-item:nth-child(even) .timeline-icon {
+        left: 0px;
+    }
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
     }
 }
 
-
-@media (min-width: 769px) { /* Tablet and larger */
+@media (min-width: 769px) {
     .container {
         width: 85%;
     }
 
-    #hero h2, #hero .hero-tagline-h2 { /* Apply to both original and new tagline h2 */
-        font-size: 2.8em; /* Adjusted */
+    #hero h2, #hero .hero-tagline-h2 {
+        font-size: 2.8em;
     }
 
     #hero .job-title {
-        font-size: 1.8em; /* Adjusted */
+        font-size: 1.8em;
     }
 }
 
@@ -998,5 +1021,5 @@ footer {
 
 #scrollToTopBtn:hover {
     background-color: var(--link-hover-color);
-    color: var(--bg-color); /* Invert colors on hover */
+    color: var(--bg-color);
 }
