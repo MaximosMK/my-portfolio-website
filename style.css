@@ -706,6 +706,152 @@ header nav a.active-link {
     }
 }
 
+/* Timeline Journey Section */
+#timeline-journey {
+    padding: 60px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.timeline {
+    position: relative;
+    max-width: 900px; /* Adjust as needed */
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+/* The central timeline line */
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 4px; /* Thickness of the line */
+    background-color: var(--primary-accent-color);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -2px; /* Half of the width to center it */
+    z-index: 1;
+    /* Glowing effect for the line */
+    box-shadow: 0 0 8px var(--primary-accent-color),
+                0 0 12px var(--primary-accent-color),
+                0 0 16px var(--primary-accent-color);
+}
+
+.timeline-item {
+    padding: 10px 40px;
+    position: relative;
+    background-color: inherit;
+    width: 50%; /* Each item takes up half the width */
+    box-sizing: border-box;
+    z-index: 2; /* Above the central line */
+}
+
+/* Position items on the left */
+.timeline-item:nth-child(odd) {
+    left: 0;
+    padding-right: 25px; /* Space from the central line */
+}
+
+/* Position items on the right */
+.timeline-item:nth-child(even) {
+    left: 50%;
+    padding-left: 25px; /* Space from the central line */
+}
+
+/* The circular icon on the timeline */
+.timeline-icon {
+    position: absolute;
+    width: 40px; /* Size of the icon circle */
+    height: 40px;
+    line-height: 40px;
+    font-size: 1.5em; /* Adjust icon size if using font icons/emojis */
+    color: var(--button-text-color); /* Text color for icon */
+    background-color: var(--primary-accent-color);
+    border: 3px solid var(--bg-color); /* Border to make it pop from the line */
+    top: 20px; /* Adjust vertical alignment of icon */
+    border-radius: 50%;
+    z-index: 3; /* Above timeline item content and line */
+    text-align: center;
+    /* Glowing effect for the icon */
+    box-shadow: 0 0 5px var(--primary-accent-color),
+                0 0 8px var(--primary-accent-color);
+}
+
+.timeline-item:nth-child(odd) .timeline-icon {
+    right: -20px; /* Position icon on the central line (half of its width) */
+    transform: translateX(0%); /* No horizontal transform needed if padding is adjusted */
+}
+
+.timeline-item:nth-child(even) .timeline-icon {
+    left: -20px; /* Position icon on the central line */
+    transform: translateX(0%);
+}
+
+.timeline-content {
+    padding: 20px;
+    background-color: var(--card-bg-color);
+    position: relative;
+    border-radius: 6px;
+    box-shadow: 0 3px 8px var(--shadow-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timeline-content:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px var(--shadow-color);
+}
+
+.timeline-content h3 {
+    margin-top: 0;
+    color: var(--primary-accent-color);
+    font-size: 1.4em;
+}
+
+.timeline-content p {
+    font-size: 0.95em;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+.timeline-content p em { /* Style for quotes */
+    font-style: italic;
+    color: var(--text-color);
+    opacity: 0.85;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.timeline-date {
+    font-size: 0.85em;
+    font-weight: 500;
+    color: var(--text-color);
+    opacity: 0.7;
+    display: block;
+    margin-top: 10px;
+}
+
+/* Responsive adjustments for the timeline */
+@media screen and (max-width: 768px) {
+    .timeline::after {
+        left: 20px; /* Move line to the left */
+        margin-left: 0;
+    }
+
+    .timeline-item {
+        width: 100%;
+        padding-left: 50px; /* Space for icon and line */
+        padding-right: 15px;
+    }
+
+    .timeline-item:nth-child(odd),
+    .timeline-item:nth-child(even) {
+        left: 0; /* All items align to the left of the line */
+    }
+
+    .timeline-item:nth-child(odd) .timeline-icon,
+    .timeline-item:nth-child(even) .timeline-icon {
+        left: 0px; /* Position icon on the line */
+    }
+}
+
 
 /* Education Section */
 #education {
