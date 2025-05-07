@@ -211,23 +211,66 @@ header nav a.active-link {
 
 /* Hero Section */
 #hero {
-    padding: 60px 0; /* Adjusted padding */
+    position: relative; /* Needed for absolute positioning of particles-js */
+    padding: 80px 0 100px; /* Increased padding for tagline space */
     text-align: center;
     background: linear-gradient(135deg, var(--hero-gradient-start) 0%, var(--hero-gradient-end) 100%);
     border-radius: 8px;
     margin-bottom: 40px;
     transition: background 0.3s ease;
+    overflow: hidden; /* To contain particles if they try to overflow */
 }
 
-#hero h2 {
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0; /* Behind the hero content */
+}
+#hero .container { /* Ensure hero content is above particles */
+    position: relative;
+    z-index: 1;
+}
+
+#hero h2 { /* This is now the tagline container */
     font-size: 2.2em; /* Adjusted */
     margin-bottom: 0.5em;
+    /* text-align is handled by .hero-tagline-h2 */
 }
 
 #hero .job-title {
+    text-align: center; /* Ensure centering */
     font-size: 1.4em; /* Adjusted */
     margin-bottom: 0.5em;
     color: var(--job-title-color);
+}
+
+#hero .hero-tagline-h2 { /* Styles for the tagline h2 */
+    text-align: center; /* Ensure centering */
+    min-height: 2.5em; /* Give space for text to appear, adjust if needed based on font size */
+    font-size: 2.2em; /* Match original h2 size */
+    font-weight: 600; /* Match original h2 weight */
+    color: var(--text-color); /* Ensure it uses theme text color */
+    margin-top: 0.5em;
+}
+
+.typed-text {
+    /* Styles for the text being typed, if any specific are needed */
+}
+
+.cursor {
+    display: inline-block;
+    background-color: var(--text-color);
+    margin-left: 0.1em;
+    width: 3px; /* Width of the cursor */
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
 /* About Me Section */
@@ -272,7 +315,7 @@ header nav a.active-link {
     transition: background-color 0.3s ease;
     text-align: center; /* Center content if image is above text */
     font-size: 0.9em; /* Slightly smaller font for chips */
-    display: inline-flex; /* To make them flow like tags if not using grid for the ul */
+    display: flex; /* Changed for better alignment */
     flex-direction: column; /* Stack image and text vertically */
     align-items: center;
     justify-content: center; /* Center content vertically */
@@ -284,9 +327,6 @@ header nav a.active-link {
     height: 48px; /* Define a consistent height for the image's display area */
     object-fit: contain; /* Scales the image to fit within this WxH box, preserving aspect ratio */
     margin-bottom: 8px; /* Space between image and text if image is above */
-    /* display: block;  No longer needed with flex */
-    /* margin-left: auto; No longer needed with flex */
-    /* margin-right: auto; No longer needed with flex */
 }
 
 /* Projects Section */
@@ -429,7 +469,7 @@ footer {
         width: 85%;
     }
 
-    #hero h2 {
+    #hero h2, #hero .hero-tagline-h2 { /* Apply to both original and new tagline h2 */
         font-size: 2.8em; /* Adjusted */
     }
 
