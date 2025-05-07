@@ -111,33 +111,54 @@ function activateNavLink() {
 window.addEventListener('load', activateNavLink); // Call on load too
 // Note: activateNavLink is already called in window.onscroll
 
-// --- Typing Animation for Hero Tagline ---
-const typedTextSpan = document.querySelector("#hero-tagline .typed-text");
-const cursorSpan = document.querySelector("#hero-tagline .cursor");
+// --- GSAP Terminal Intro for Hero Tagline ---
+document.addEventListener("DOMContentLoaded", function() {
+    const heroTagline = document.getElementById('hero-tagline');
 
-const textArray = ["\"Turning ideas into digital reality with code.\""]; // Your tagline
-const typingDelay = 100; // Milliseconds
-const erasingDelay = 50; // Milliseconds (not used in current version)
-const newTextDelay = 1500; // Delay before starting to type
-let textArrayIndex = 0;
-let charIndex = 0;
+    if (heroTagline && typeof gsap !== 'undefined' && typeof gsap.plugins !== 'undefined' && gsap.plugins.TextPlugin) { // Check for GSAP and TextPlugin
+        gsap.registerPlugin(gsap.plugins.TextPlugin); // Register TextPlugin
 
-function type() {
-    if (charIndex < textArray[textArrayIndex].length) {
-        if(cursorSpan && !cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
-        if (typedTextSpan) typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
-        charIndex++;
-        setTimeout(type, typingDelay);
-    } else {
-        if(cursorSpan) cursorSpan.classList.remove("typing");
-        // To make it loop and erase, you'd add an erase function call here
-        // For now, it just types once.
-    }
-}
+        const lines = [
+            { text: "Initiating sequence...", speed: 0.06, delay: 0.5, size: "1em" },
+            { text: "Loading core_modules/reality_engine.js", speed: 0.04, delay: 0.5, size: "1em" },
+            { text: "> Accessing creative_matrix...", speed: 0.05, delay: 0.8, size: "1em" },
+            { text: "Mohamed Karouch", speed: 0.08, delay: 0.5, clear: true, size: "1.5em", isName: true }, // Clears previous, types name
+            { text: "\"Turning ideas into digital reality with code.\"", speed: 0.07, delay: 0.2, size: "2.2em", isTagline: true } // Types tagline
+        ];
 
-document.addEventListener("DOMContentLoaded", function() { 
-    if (textArray.length && typedTextSpan && textArray[textArrayIndex].length > 0) {
-        setTimeout(type, newTextDelay);
+        let masterTimeline = gsap.timeline({ delay: 0.5 }); // Overall delay before starting animation
+
+        lines.forEach((line) => {
+            if (line.clear) {
+                masterTimeline.to(heroTagline, { 
+                    duration: 0.1, 
+                    text: "", 
+                    ease: "none",
+                    onStart: () => heroTagline.style.fontSize = line.size // Set size before clearing for smoother transition
+                });
+            } else {
+                 masterTimeline.call(() => heroTagline.style.fontSize = line.size, null, `+=${line.delay/1000}`); // GSAP delays are in seconds
+            }
+            
+            masterTimeline.to(heroTagline, {
+                duration: line.text.length * line.speed,
+                text: {
+                    value: line.text,
+                    delimiter: "", 
+                    newClass: "gsap-cursor" // Class for blinking cursor
+                },
+                ease: "none",
+            }, line.clear ? undefined : `+=${line.delay/1000}`); // GSAP delays are in seconds
+        });
+
+    } else if (heroTagline) {
+        // Fallback if GSAP or TextPlugin isn't loaded
+        heroTagline.innerHTML = "\"Turning ideas into digital reality with code.\""; // Use innerHTML to allow quotes
+        if (typeof gsap === 'undefined' || typeof gsap.plugins === 'undefined' || !gsap.plugins.TextPlugin) {
+            console.warn("GSAP TextPlugin not loaded. Displaying static tagline. Ensure TextPlugin.min.js is included after gsap.min.js.");
+        } else {
+            console.warn("Hero tagline element not found for GSAP animation.");
+        }
     }
 });
 
