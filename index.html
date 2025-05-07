@@ -89,84 +89,91 @@
 
         <section id="skills" class="container" data-aos="fade-up">
             <h2>Skills</h2>
+            <div class="skills-filter-controls" data-aos="fade-down" data-aos-delay="50">
+                <button type="button" class="filter-btn active" data-filter="all">All</button>
+                <button type="button" class="filter-btn" data-filter="frontend">Frontend</button>
+                <button type="button" class="filter-btn" data-filter="backend">Backend</button>
+                <button type="button" class="filter-btn" data-filter="tools">Tools & Languages</button>
+            </div>
+
             <div class="skills-category" data-aos="fade-right" data-aos-delay="100">
                 <h3>Web Development:</h3>
                 <ul>
-                    <li data-aos="zoom-in" data-aos-delay="200" data-tooltip="Core of many freelance projects">
+                    <li class="skill-item" data-category="frontend" data-aos="zoom-in" data-aos-delay="200" data-tooltip="Core of many freelance projects">
                         <img src="/images/skills/Wordpress-Logo.svg" alt="WordPress Logo">
                         <span>WordPress</span>
                     </li>
-                    <li data-aos="zoom-in" data-aos-delay="250" data-tooltip="Essential for all web projects">
+                    <li class="skill-item" data-category="frontend" data-aos="zoom-in" data-aos-delay="250" data-tooltip="Essential for all web projects">
                         <img src="/images/skills/HTML5-logo.svg" alt="HTML5 Logo">
                         <span>HTML</span>
                     </li>
-                    <li data-aos="zoom-in" data-aos-delay="300" data-tooltip="Styling modern web interfaces">
+                    <li class="skill-item" data-category="frontend" data-aos="zoom-in" data-aos-delay="300" data-tooltip="Styling modern web interfaces">
                         <img src="/images/skills/CSS3-logo.svg" alt="CSS3 Logo">
                         <span>CSS</span>
                     </li>
-                    <li data-aos="zoom-in" data-aos-delay="350" data-tooltip="Interactive UIs & ALX Program focus">
+                    <li class="skill-item" data-category="frontend" data-aos="zoom-in" data-aos-delay="350" data-tooltip="Interactive UIs & ALX Program focus">
                         <img src="/images/skills/javascript-logo-svgrepo-com.svg" alt="JavaScript Logo">
                         <span>JavaScript</span>
                     </li>
-                    <li data-aos="zoom-in" data-aos-delay="400" data-tooltip="Backend logic for e-commerce">
+                    <li class="skill-item" data-category="backend" data-aos="zoom-in" data-aos-delay="400" data-tooltip="Backend logic for e-commerce">
                         <img src="/images/skills/new-php-logo.svg" alt="PHP Logo">
                         <span>PHP</span>
                     </li>
                 </ul>
             </div>
-            <div class="skills-category" data-aos="fade-left" data-aos-delay="150" >
+            <div class="skills-category" data-aos="fade-left" data-aos-delay="150">
                 <h3>Database:</h3>
                 <ul>
-                    <li data-aos="zoom-in" data-aos-delay="200" data-tooltip="Used in e-commerce & freelance">
+                    <li class="skill-item" data-category="backend" data-aos="zoom-in" data-aos-delay="200" data-tooltip="Used in e-commerce & freelance">
                         <img src="/images/skills/mysql-ar21.svg" alt="MySQL Logo">
                         <span>MySQL</span>
                     </li>
-                    <li data-aos="zoom-in" data-aos-delay="250" data-tooltip="Fundamental for data management">
+                    <li class="skill-item" data-category="backend" data-aos="zoom-in" data-aos-delay="250" data-tooltip="Fundamental for data management">
                         <img src="/images/skills/sql-database-generic-svgrepo-com.svg" alt="SQL Logo">
                         <span>SQL</span>
                     </li>
                 </ul>
             </div>
-            <div class="skills-category" data-aos="fade-right" data-aos-delay="200" >
+            <div class="skills-category" data-aos="fade-right" data-aos-delay="200">
                 <h3>Programming Languages:</h3>
                 <ul>
-                    <li data-aos="zoom-in" data-aos-delay="200" data-tooltip="TTS Program & Web Scraper">
+                    <li class="skill-item" data-category="tools" data-aos="zoom-in" data-aos-delay="200" data-tooltip="TTS Program & Web Scraper">
                         <img src="/images/skills/python-logo-only.svg" alt="Python Logo">
                         <span>Python</span>
                     </li>
-                    <li data-aos="zoom-in" data-aos-delay="250" data-tooltip="Academic projects">
+                    <li class="skill-item" data-category="tools" data-aos="zoom-in" data-aos-delay="250" data-tooltip="Academic projects">
                         <img src="/images/skills/Logo_C_sharp.svg" alt="C# Logo">
                         <span>C#</span>
                     </li>
-                    <li data-aos="zoom-in" data-aos-delay="300" data-tooltip="Data analysis tasks">
+                    <li class="skill-item" data-category="tools" data-aos="zoom-in" data-aos-delay="300" data-tooltip="Data analysis tasks">
                         <img src="/images/skills/R_logo.svg" alt="R Logo">
                         <span>R</span>
                     </li>
                 </ul>
             </div>
-            <div class="skills-category" data-aos="fade-left" data-aos-delay="250" >
+            <div class="skills-category" data-aos="fade-left" data-aos-delay="250">
                 <h3>Tools:</h3>
                 <ul>
-                    <li data-aos="zoom-in" data-aos-delay="200" data-tooltip="Optimizing WordPress sites">Yoast SEO</li>
-                    <li data-aos="zoom-in" data-aos-delay="250" data-tooltip="Project documentation">Google Docs</li>
-                    <li data-aos="zoom-in" data-aos-delay="300" data-tooltip="Data management">Google Sheets</li>
+                    <li class="skill-item" data-category="tools" data-aos="zoom-in" data-aos-delay="200" data-tooltip="Optimizing WordPress sites">Yoast SEO</li>
+                    <li class="skill-item" data-category="tools" data-aos="zoom-in" data-aos-delay="250" data-tooltip="Project documentation">Google Docs</li>
+                    <li class="skill-item" data-category="tools" data-aos="zoom-in" data-aos-delay="300" data-tooltip="Data management">Google Sheets</li>
                 </ul>
             </div>
             <div class="skills-category" data-aos="fade-right" data-aos-delay="300">
                 <h3>Soft Skills:</h3>
                 <ul>
-                    <li data-aos="zoom-in" data-aos-delay="200" data-tooltip="Key in development & freelance">Problem-solving</li>
-                    <li data-aos="zoom-in" data-aos-delay="250" data-tooltip="Collaborative project experience">Teamwork</li>
-                    <li data-aos="zoom-in" data-aos-delay="300" data-tooltip="Adapting to new technologies">Flexibility</li>
-                    <li data-aos="zoom-in" data-aos-delay="350" data-tooltip="Ensuring code quality">Attention to detail</li>
+                    <li class="skill-item" data-category="soft-skills" data-aos="zoom-in" data-aos-delay="200" data-tooltip="Key in development & freelance">Problem-solving</li>
+                    <li class="skill-item" data-category="soft-skills" data-aos="zoom-in" data-aos-delay="250" data-tooltip="Collaborative project experience">Teamwork</li>
+                    <li class="skill-item" data-category="soft-skills" data-aos="zoom-in" data-aos-delay="300" data-tooltip="Adapting to new technologies">Flexibility</li>
+                    <li class="skill-item" data-category="soft-skills" data-aos="zoom-in" data-aos-delay="350" data-tooltip="Ensuring code quality">Attention to detail</li>
                 </ul>
             </div>
             <div class="skills-category" data-aos="fade-left" data-aos-delay="350">
                 <h3>Languages:</h3>
                 <ul>
-                    <li data-aos="zoom-in" data-aos-delay="200">Arabic (Native)</li>
-                    <li data-aos="zoom-in" data-aos-delay="250">French (Fluent)</li>
-                    <li data-aos="zoom-in" data-aos-delay="300">English (Fluent)</li>
+                    <li class="skill-item" data-category="human-languages" data-aos="zoom-in" data-aos-delay="200">Arabic (Native)</li>
+                    <li class="skill-item" data-category="human-languages" data-aos="zoom-in" data-aos-delay="250">French (Fluent)</li>
+                    <li class="skill-item" data-category="human-languages" data-aos="zoom-in" data-aos-delay="300">English (Fluent)</li>
                 </ul>
             </div>
         </section>

@@ -370,6 +370,35 @@ header nav a.active-link {
     border-bottom: 1px solid var(--border-color);
 }
 
+/* Skills Filter Controls */
+.skills-filter-controls {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.filter-btn {
+    background-color: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--primary-accent-color);
+    padding: 8px 16px;
+    margin: 0 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 0.9em;
+}
+
+.filter-btn:hover {
+    background-color: var(--primary-accent-color);
+    color: var(--button-text-color);
+}
+
+.filter-btn.active {
+    background-color: var(--primary-accent-color);
+    color: var(--button-text-color);
+    font-weight: bold;
+}
+
 .skills-category {
     margin-bottom: 30px;
 }
@@ -439,6 +468,12 @@ header nav a.active-link {
     height: 48px; /* Define a consistent height for the image's display area */
     object-fit: contain; /* Scales the image to fit within this WxH box, preserving aspect ratio */
     margin-bottom: 8px; /* Space between image and text if image is above */
+}
+
+/* Class to hide skill items for filtering */
+.skill-item.hidden {
+    display: none !important; /* Use important to override potential grid/flex display */
+    /* You could also use opacity and pointer-events for a fade effect with JS */
 }
 
 /* Projects Section */
