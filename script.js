@@ -2,7 +2,7 @@
 let scrollToTopBtn = document.getElementById("scrollToTopBtn");
 
 // When the user scrolls down 200px from the top of the document, show the button
-window.onscroll = function() {scrollFunction()};
+window.onscroll = function() {scrollFunction(); activateNavLink();}; // Combined scroll functions
 
 function scrollFunction() {
   if (scrollToTopBtn) { // Check if the button exists
@@ -64,3 +64,49 @@ if (themeToggleBtn) { // Check if the button exists
 
 // --- Initialize AOS (Animate On Scroll) ---
 AOS.init();
+
+// --- Mobile Navigation Toggle ---
+const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+const primaryNav = document.querySelector('header nav'); 
+
+if (mobileNavToggle && primaryNav) {
+    mobileNavToggle.addEventListener('click', () => {
+        const isVisible = primaryNav.classList.contains('nav-visible');
+        primaryNav.classList.toggle('nav-visible');
+        mobileNavToggle.setAttribute('aria-expanded', !isVisible);
+
+        // Optional: Prevent body scroll when mobile menu is open
+        // if (!isVisible) {
+        //     document.body.style.overflow = 'hidden';
+        // } else {
+        //     document.body.style.overflow = 'auto';
+        // }
+    });
+}
+
+// --- Scrollspy for Navigation ---
+const sections = document.querySelectorAll('main section[id]'); 
+const navLinks = document.querySelectorAll('header nav a');
+const headerHeight = document.querySelector('header') ? document.querySelector('header').offsetHeight : 0; // Get header height
+
+function activateNavLink() {
+    let currentSectionId = '';
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        // Adjust offset if you have a sticky header
+        if (pageYOffset >= sectionTop - headerHeight - (sectionHeight / 3) ) { // Consider header height and trigger point
+            currentSectionId = section.getAttribute('id');
+        }
+    });
+
+    navLinks.forEach(link => {
+        link.classList.remove('active-link');
+        if (link.getAttribute('href') === `#${currentSectionId}`) {
+            link.classList.add('active-link');
+        }
+    });
+}
+
+window.addEventListener('load', activateNavLink); // Call on load too
+// Note: activateNavLink is already called in window.onscroll

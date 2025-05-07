@@ -39,6 +39,7 @@ body {
     padding: 0;
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth; /* Added for smooth scrolling */
     transition: background-color 0.3s ease, color 0.3s ease; /* Smooth theme transition */
 }
 
@@ -94,10 +95,45 @@ header {
     transition: background-color 0.3s ease;
 }
 
+/* Mobile Navigation Toggle */
+.mobile-nav-toggle {
+    display: none; /* Hidden by default, shown in media query */
+    background: transparent;
+    border: 0;
+    padding: 0.5em;
+    cursor: pointer;
+    z-index: 9999; /* Ensure it's on top */
+}
+
+.mobile-nav-toggle .sr-only { /* Screen reader only text */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.mobile-nav-toggle span.icon-bar { /* Hamburger lines */
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: var(--text-color);
+    border-radius: 1px;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+.mobile-nav-toggle span.icon-bar + span.icon-bar {
+    margin-top: 4px;
+}
+
 header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative; /* For positioning the mobile toggle */
 }
 
 header h1 {
@@ -146,6 +182,12 @@ header nav a:hover::after {
     width: 70%; /* Animate width of underline */
 }
 
+/* Active Nav Link for Scrollspy */
+header nav a.active-link {
+    color: var(--link-hover-color); /* Or your primary accent color */
+    font-weight: bold; /* Make it stand out */
+}
+
 /* Theme Toggle Button */
 #themeToggleBtn {
     background: none;
@@ -156,12 +198,14 @@ header nav a:hover::after {
     border-radius: 4px;
     font-size: 1em; /* Match nav link size */
     margin-left: 20px; /* Space from nav */
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease; /* Added transform */
+    will-change: transform; /* Hint for performance */
 }
 
 #themeToggleBtn:hover {
     background-color: var(--primary-accent-color);
     color: var(--button-text-color);
+    transform: scale(1.05); /* Slight scale up on hover */
 }
 
 
@@ -184,22 +228,6 @@ header nav a:hover::after {
     font-size: 1.4em; /* Adjusted */
     margin-bottom: 0.5em;
     color: var(--job-title-color);
-}
-
-#hero .cta-button {
-    display: inline-block;
-    background-color: var(--primary-accent-color);
-    color: var(--button-text-color);
-    padding: 12px 24px;
-    border-radius: 4px;
-    font-weight: 600;
-    margin-top: 20px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-#hero .cta-button:hover {
-    background-color: var(--link-hover-color); /* Using link hover for consistency */
-    color: var(--bg-color); /* Invert colors on hover */
 }
 
 /* About Me Section */
@@ -238,11 +266,17 @@ header nav a:hover::after {
 
 .skills-category li {
     background-color: var(--card-bg-color);
-    padding: 10px 15px;
+    padding: 8px 12px; /* Slightly smaller padding for chip feel */
     border-radius: 4px;
     box-shadow: 0 1px 3px var(--shadow-color);
     transition: background-color 0.3s ease;
     text-align: center; /* Center content if image is above text */
+    font-size: 0.9em; /* Slightly smaller font for chips */
+    display: inline-flex; /* To make them flow like tags if not using grid for the ul */
+    flex-direction: column; /* Stack image and text vertically */
+    align-items: center;
+    justify-content: center; /* Center content vertically */
+    min-height: 100px; /* Give items a consistent height */
 }
 
 .skills-category li img {
@@ -250,9 +284,9 @@ header nav a:hover::after {
     height: 48px; /* Define a consistent height for the image's display area */
     object-fit: contain; /* Scales the image to fit within this WxH box, preserving aspect ratio */
     margin-bottom: 8px; /* Space between image and text if image is above */
-    display: block; /* Allows for auto margins for centering */
-    margin-left: auto; /* Centers the image block */
-    margin-right: auto; /* Centers the image block */
+    /* display: block;  No longer needed with flex */
+    /* margin-left: auto; No longer needed with flex */
+    /* margin-right: auto; No longer needed with flex */
 }
 
 /* Projects Section */
@@ -273,8 +307,7 @@ header nav a:hover::after {
 .project-item:hover {
     transform: translateY(-5px); /* Lift the card slightly */
     box-shadow: 0 8px 15px var(--shadow-color); /* More prominent shadow */
-    /* Optionally, add a border highlight */
-    /* border: 1px solid var(--primary-accent-color); */
+    cursor: pointer; /* Change cursor to pointer, or use a custom one */
 }
 
 .project-item h3 {
@@ -325,33 +358,68 @@ footer {
 
 /* Responsive Design */
 @media (max-width: 768px) { /* Mobile specific adjustments */
-    header .container {
-        flex-direction: column; /* Stack header items on small screens */
-        align-items: flex-start;
+    .mobile-nav-toggle {
+        display: block; /* Show hamburger on mobile */
+        position: absolute; /* Position it relative to header or container */
+        right: 15px; /* Adjust as needed */
+        top: 50%;
+        transform: translateY(-50%);
     }
+
     header nav {
-        margin-top: 10px;
-        width: 100%; /* Make nav take full width */
+        display: none; /* Hide nav by default on mobile */
+        position: absolute;
+        top: 100%; /* Position below the header */
+        left: 0;
+        right: 0;
+        background-color: var(--secondary-bg-color);
+        padding: 1em 0;
+        box-shadow: 0 4px 6px var(--shadow-color);
+        z-index: 999; /* Below toggle but above content */
     }
+
+    header nav.nav-visible {
+        display: block;
+    }
+
     header nav ul {
-        flex-direction: column; /* Stack nav items */
-        width: 100%;
+        flex-direction: column;
+        align-items: center;
     }
+
     header nav li {
-        margin-left: 0;
+        margin: 0;
         width: 100%;
-        text-align: center; /* Center nav links */
     }
+
     header nav a {
-        padding: 10px;
-        border-top: 1px solid var(--border-color);
+        padding: 0.75em 1em;
+        text-align: center;
+        border-bottom: 1px solid var(--border-color);
     }
-    header nav li:first-child a {
-        border-top: none;
+    header nav a::after { /* Hide underline effect on mobile nav links */
+        display: none;
     }
-    #themeToggleBtn {
-        margin-top: 10px; /* Space above toggle on mobile */
-        align-self: flex-end; /* Push toggle to the right on mobile */
+
+    header nav li:last-child a {
+        border-bottom: none;
+    }
+
+    /* Hamburger to X animation */
+    .mobile-nav-toggle[aria-expanded="true"] span.icon-bar:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
+    }
+    .mobile-nav-toggle[aria-expanded="true"] span.icon-bar:nth-child(2) {
+        opacity: 0;
+    }
+    .mobile-nav-toggle[aria-expanded="true"] span.icon-bar:nth-child(3) {
+        transform: translateY(-6px) rotate(-45deg);
+    }
+
+    #themeToggleBtn.desktop-theme-toggle {
+        margin-left: auto; 
+        margin-right: 50px; /* Make space if hamburger is on far right */
+        /* If hamburger is on left, this might not be needed or can be adjusted */
     }
 }
 

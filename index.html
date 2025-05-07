@@ -14,8 +14,8 @@
         <meta property="og:title" content="Mohamed Karouch - Web Developer Portfolio">
         <meta property="og:description" content="Discover the work of Mohamed Karouch, a freelance web developer creating digital solutions.">
         <meta property="og:type" content="website">
-        <meta property="og:url" content="https://karouchmohamed.netlify.app/"> <!-- Updated with your actual domain -->
-        <meta property="og:image" content="https://karouchmohamed.netlify.app/images/social-preview.jpg"> <!-- Updated with your image path -->
+        <meta property="og:url" content="https://karouchmohamed.netlify.app/">
+        <meta property="og:image" content="https://karouchmohamed.netlify.app/images/social-preview.jpg">
 
 
         <!-- Favicon and App Icons -->
@@ -39,6 +39,12 @@
 <body>
     <header>
         <div class="container">
+            <button class="mobile-nav-toggle" aria-controls="primary-navigation" aria-expanded="false">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="sr-only">Menu</span>
+            </button>
             <h1>Mohamed Karouch</h1>
             <nav>
                 <ul>
@@ -49,7 +55,7 @@
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
-            <button id="themeToggleBtn" aria-label="Toggle theme">🌙</button>
+            <button id="themeToggleBtn" aria-label="Toggle theme" class="desktop-theme-toggle">🌙</button>
         </div>
     </header>
 
