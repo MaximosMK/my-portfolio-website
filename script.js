@@ -433,111 +433,138 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// --- Particles.js Configuration for Hero Section ---
-if (document.getElementById('particles-js')) {
-    particlesJS("particles-js", {
-        "particles": {
-            "number": {
-                "value": 80,
-                "density": {
-                    "enable": true,
-                    "value_area": 800
-                }
-            },
-            "color": {
-                "value": "#ffffff"
-            },
-            "shape": {
-                "type": "circle",
-                "stroke": {
-                    "width": 0,
-                    "color": "#000000"
-                },
-                "polygon": {
-                    "nb_sides": 5
-                }
-            },
-            "opacity": {
-                "value": 0.5,
-                "random": false,
-                "anim": {
-                    "enable": false,
-                    "speed": 1,
-                    "opacity_min": 0.1,
-                    "sync": false
-                }
-            },
-            "size": {
-                "value": 3,
-                "random": true,
-                "anim": {
-                    "enable": false,
-                    "speed": 40,
-                    "size_min": 0.1,
-                    "sync": false
-                }
-            },
-            "line_linked": {
-                "enable": true,
-                "distance": 150,
-                "color": "#ffffff",
-                "opacity": 0.4,
-                "width": 1
-            },
-            "move": {
-                "enable": true,
-                "speed": 2,
-                "direction": "none",
-                "random": false,
-                "straight": false,
-                "out_mode": "out",
-                "bounce": false,
-                "attract": {
-                    "enable": false,
-                    "rotateX": 600,
-                    "rotateY": 1200
-                }
-            }
-        },
-        "interactivity": {
-            "detect_on": "canvas",
-            "events": {
-                "onhover": {
-                    "enable": true,
-                    "mode": "grab"
-                },
-                "onclick": {
-                    "enable": true,
-                    "mode": "push"
-                },
-                "resize": true
-            },
-            "modes": {
-                "grab": {
-                    "distance": 140,
-                    "line_linked": {
-                        "opacity": 1
-                    }
-                },
-                "bubble": {
-                    "distance": 400,
-                    "size": 40,
-                    "duration": 2,
-                    "opacity": 8,
-                    "speed": 3
-                },
-                "repulse": {
-                    "distance": 200,
-                    "duration": 0.4
-                },
-                "push": {
-                    "particles_nb": 4
-                },
-                "remove": {
-                    "particles_nb": 2
-                }
-            }
-        },
-        "retina_detect": true
+// --- Global Canvas Particle System ---
+document.addEventListener('DOMContentLoaded', () => {
+    const canvas = document.getElementById('globalParticleCanvas');
+    if (!canvas) {
+        console.warn('Global particle canvas not found.');
+        return;
+    }
+    const ctx = canvas.getContext('2d');
+    let particlesArray;
+
+    // Set canvas dimensions
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', () => {
+        resizeCanvas();
+        initParticles(); // Re-initialize particles on resize for new density/positions
     });
-}
+
+    // Particle class
+    class Particle {
+        constructor(x, y, directionX, directionY, size, color) {
+            this.x = x;
+            this.y = y;
+            this.directionX = directionX;
+            this.directionY = directionY;
+            this.size = size;
+            this.color = color;
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+            ctx.fillStyle = this.color;
+            ctx.fill();
+        }
+
+        update() {
+            // Check collision with canvas edges
+            if (this.x + this.size > canvas.width || this.x - this.size < 0) {
+                this.directionX = -this.directionX;
+            }
+            if (this.y + this.size > canvas.height || this.y - this.size < 0) {
+                this.directionY = -this.directionY;
+            }
+            // Move particle
+            this.x += this.directionX;
+            this.y += this.directionY;
+            this.draw();
+        }
+    }
+
+    // Create particle array
+    function initParticles() {
+        particlesArray = [];
+        // Adjust number of particles based on screen size for performance
+        let numberOfParticles = (canvas.height * canvas.width) / 9000;
+        if (numberOfParticles > 150) numberOfParticles = 150; // Max particles
+        if (numberOfParticles < 30) numberOfParticles = 30; // Min particles
+
+        for (let i = 0; i < numberOfParticles; i++) {
+            let size = (Math.random() * 1.5) + 0.5; // Particle size 0.5px to 2px
+            let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+            let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+            let directionX = (Math.random() * .3) - .15; // Movement speed X: -0.15 to 0.15
+            let directionY = (Math.random() * .3) - .15; // Movement speed Y: -0.15 to 0.15
+            
+            let colorValue = getComputedStyle(document.documentElement).getPropertyValue('--text-color').trim() || '#e0e0e0';
+            let alpha = (Math.random() * 0.4) + 0.2; // Opacity 0.2 to 0.6 for subtlety
+            
+            let finalColor;
+            if (colorValue.startsWith('#')) { 
+                let r = parseInt(colorValue.slice(1, 3), 16);
+                let g = parseInt(colorValue.slice(3, 5), 16);
+                let b = parseInt(colorValue.slice(5, 7), 16);
+                finalColor = `rgba(${r},${g},${b},${alpha})`;
+            } else if (colorValue.startsWith('rgb(')) { 
+                 finalColor = colorValue.replace('rgb(', 'rgba(').replace(')', `,${alpha})`);
+            } else { 
+                finalColor = `rgba(224, 224, 224, ${alpha})`; 
+            }
+
+            particlesArray.push(new Particle(x, y, directionX, directionY, size, finalColor));
+        }
+    }
+
+    // Animation loop
+    function animateParticles() {
+        requestAnimationFrame(animateParticles);
+        ctx.clearRect(0, 0, innerWidth, innerHeight);
+
+        for (let i = 0; i < particlesArray.length; i++) {
+            particlesArray[i].update();
+        }
+        // connectParticles(); // Optional: function to draw lines between particles
+    }
+
+    // Optional: Function to connect particles with lines
+    /*
+    function connectParticles(){
+        let opacityValue = 1;
+        for (let a = 0; a < particlesArray.length; a++) {
+            for (let b = a; b < particlesArray.length; b++) {
+                let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x))
+                             + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                if (distance < (canvas.width/10) * (canvas.height/10)) { // Adjust connection distance
+                    opacityValue = 1 - (distance/15000); // Adjust opacity based on distance
+                    let lineColorValue = getComputedStyle(document.documentElement).getPropertyValue('--primary-accent-color').trim() || '#bb86fc';
+                    let finalLineColor;
+                     if (lineColorValue.startsWith('#')) { 
+                        let r = parseInt(lineColorValue.slice(1, 3), 16);
+                        let g = parseInt(lineColorValue.slice(3, 5), 16);
+                        let b = parseInt(lineColorValue.slice(5, 7), 16);
+                        finalLineColor = `rgba(${r},${g},${b},${opacityValue})`;
+                    } else { // Fallback for rgb or other formats, less precise for this example
+                        finalLineColor = `rgba(187,134,252,${opacityValue})`;
+                    }
+                    ctx.strokeStyle = finalLineColor;
+                    ctx.lineWidth = 0.3; // Thinner lines
+                    ctx.beginPath();
+                    ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                    ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                    ctx.stroke();
+                }
+            }
+        }
+    }
+    */
+
+    initParticles();
+    animateParticles();
+});
+
