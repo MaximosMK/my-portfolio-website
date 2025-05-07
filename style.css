@@ -400,6 +400,38 @@ header nav a.active-link {
     align-items: center;
     justify-content: center; /* Center content vertically */
     min-height: 100px; /* Give items a consistent height */
+    position: relative; /* Needed for tooltip positioning */
+}
+
+/* CSS Tooltip for Skills */
+.skills-category li[data-tooltip]::before,
+.skills-category li[data-tooltip]::after {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s ease-in-out;
+    position: absolute;
+    bottom: 100%; /* Position above the skill item */
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px); /* Initial position slightly up */
+    z-index: 10;
+}
+
+.skills-category li[data-tooltip]::before { /* Tooltip bubble */
+    content: attr(data-tooltip);
+    background-color: var(--primary-accent-color);
+    color: var(--button-text-color); /* Or var(--bg-color) for contrast */
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    white-space: nowrap;
+}
+
+.skills-category li[data-tooltip]:hover::before,
+.skills-category li[data-tooltip]:hover::after {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(-5px); /* Move into place on hover */
 }
 
 .skills-category li img {
