@@ -381,6 +381,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const cubeSize = 150; // pixels
     const halfSize = cubeSize / 2;
 
+    const INITIAL_ROTATE_X = -25; // degrees
+    const INITIAL_ROTATE_Y = -35; // degrees
+    const ROTATE_SENSITIVITY_DIVISOR = 2; // Smaller = more sensitive
+
     const cubeWrapper = document.createElement('div');
     cubeWrapper.classList.add('cube-wrapper');
     cubeWrapper.style.width = `${cubeSize}px`;
@@ -407,24 +411,26 @@ document.addEventListener('DOMContentLoaded', () => {
     fieldContainer.innerHTML = ''; // Clear previous content (like the prompt)
     fieldContainer.appendChild(cubeWrapper);
 
-    let currentRotateX = -25; // Initial rotation
-    let currentRotateY = -35; // Initial rotation
+    let currentRotateX = INITIAL_ROTATE_X;
+    let currentRotateY = INITIAL_ROTATE_Y;
+    cubeWrapper.style.transform = `rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg)`; // Apply initial rotation
 
     fieldContainer.addEventListener('mousemove', (e) => {
         const rect = fieldContainer.getBoundingClientRect();
         const mouseX = e.clientX - rect.left - rect.width / 2;
         const mouseY = e.clientY - rect.top - rect.height / 2;
 
-        const rotateSensitivity = 2; 
-        currentRotateY = - (mouseX / (rect.width / 2)) * 90 / rotateSensitivity -35;
-        currentRotateX = (mouseY / (rect.height / 2)) * 90 / rotateSensitivity -25;
+        // Calculate rotation based on mouse position relative to center, adjusted by sensitivity
+        // The 90 is a factor to determine the maximum rotation influence from mouse movement
+        currentRotateY = INITIAL_ROTATE_Y - (mouseX / (rect.width / 2)) * (90 / ROTATE_SENSITIVITY_DIVISOR);
+        currentRotateX = INITIAL_ROTATE_X + (mouseY / (rect.height / 2)) * (90 / ROTATE_SENSITIVITY_DIVISOR);
 
         cubeWrapper.style.transform = `rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg)`;
     });
 
     fieldContainer.addEventListener('mouseleave', () => {
-        currentRotateX = -25;
-        currentRotateY = -35;
+        currentRotateX = INITIAL_ROTATE_X;
+        currentRotateY = INITIAL_ROTATE_Y;
         cubeWrapper.style.transform = `rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg)`;
     });
 
