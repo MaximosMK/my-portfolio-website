@@ -871,20 +871,20 @@ footer {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 40%; /* Adjust height as needed */
-    max-height: 300px; /* Max height */
-    background-color: #0a0a0a; /* Very dark background */
-    color: #00ff00; /* Classic green terminal text */
+    height: 40%;
+    max-height: 300px;
+    background-color: #0a0a0a;
+    color: #00ff00;
     font-family: 'Courier New', Courier, monospace;
     font-size: 0.9em;
     border-top: 2px solid var(--primary-accent-color);
     box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
-    z-index: 2000; /* Ensure it's on top of everything */
+    z-index: 2000;
     display: flex;
     flex-direction: column;
-    transform: translateY(100%); /* Initially hidden below the viewport */
+    transform: translateY(100%);
     transition: transform 0.3s ease-in-out;
-    visibility: hidden; /* To prevent interaction when hidden */
+    visibility: hidden;
 }
 
 .dev-console.visible {
@@ -911,7 +911,7 @@ footer {
     padding: 0 5px;
 }
 .console-close-btn:hover {
-    color: #ff0000; /* Red on hover */
+    color: #ff0000;
 }
 
 .console-output {
@@ -923,11 +923,11 @@ footer {
 
 .console-output p {
     margin: 0 0 5px 0;
-    word-break: break-all; /* Prevent long strings from breaking layout */
+    word-break: break-all;
 }
 
 .console-input {
-    width: calc(100% - 20px); /* Full width minus padding */
+    width: calc(100% - 20px);
     padding: 8px 10px;
     margin: 0;
     background-color: #111;
@@ -935,7 +935,7 @@ footer {
     border: none;
     border-top: 1px solid #333;
     font-family: 'Courier New', Courier, monospace;
-    outline: none; /* Remove default browser outline */
+    outline: none;
 }
 
 /* Responsive Design */
@@ -1050,6 +1050,10 @@ footer {
     .footer-content {
         flex-direction: column;
         text-align: center;
+    }
+    .dev-console {
+        height: 50%;
+        font-size: 0.8em;
     }
 }
 
