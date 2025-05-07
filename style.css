@@ -790,6 +790,21 @@ header nav a.active-link {
     font-size: 1.3em;
 }
 
+/* Design Lab Section */
+#design-lab {
+    padding: 60px 0;
+    border-bottom: 1px solid var(--border-color);
+    text-align: center; /* Center the intro text */
+}
+
+.lab-intro {
+    font-size: 1.1em;
+    margin-bottom: 30px;
+    max-width: 700px; /* Constrain width of intro text */
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* Contact Section */
 #contact {
     padding: 60px 0;
