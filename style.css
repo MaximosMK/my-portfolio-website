@@ -232,7 +232,6 @@ header nav a.active-link {
     margin-bottom: 40px;
     transition: background 0.3s ease; /* Keep for theme changes if any part of gradient uses theme vars */
     overflow: hidden; /* Keep this if hero content might overflow its bounds */
-    position: relative; /* Needed for pseudo-element overlay */
 }
 
 @keyframes animateHeroGradient {
@@ -469,6 +468,19 @@ header nav a.active-link {
     border-radius: 4px;
     font-size: 0.85em;
     white-space: nowrap;
+}
+
+.skills-category li[data-tooltip]::after { /* Arrow for the tooltip */
+    content: '';
+    position: absolute;
+    bottom: 100%; /* At the top of the tooltip, but ::before is already there */
+    left: 50%;
+    transform: translateX(-50%) translateY(calc(-5px + 7px)); /* Position below ::before, adjust 7px as needed */
+    margin-left: -5px; /* Half of the arrow's width */
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent var(--primary-accent-color) transparent;
+    /* This makes an upward pointing arrow if tooltip is above. If below, change border-color order */
 }
 
 .skills-category li[data-tooltip]:hover::before,

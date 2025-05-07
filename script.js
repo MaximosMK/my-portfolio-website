@@ -443,6 +443,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const ctx = canvas.getContext('2d');
     let particlesArray;
 
+    // Configuration constants for the particle system
+    const PARTICLE_DENSITY_FACTOR = 9000; // Lower = more dense, Higher = less dense
+    const MAX_PARTICLES = 150;
+    const MIN_PARTICLES = 30;
+    const MIN_PARTICLE_SIZE = 0.5;
+    const MAX_PARTICLE_SIZE = 2.0;
+    const MIN_PARTICLE_SPEED = -0.15;
+    const MAX_PARTICLE_SPEED = 0.15;
+    const MIN_PARTICLE_ALPHA = 0.2;
+    const MAX_PARTICLE_ALPHA = 0.6;
+
     // Set canvas dimensions
     function resizeCanvas() {
         canvas.width = window.innerWidth;
@@ -491,19 +502,20 @@ document.addEventListener('DOMContentLoaded', () => {
     function initParticles() {
         particlesArray = [];
         // Adjust number of particles based on screen size for performance
-        let numberOfParticles = (canvas.height * canvas.width) / 9000;
-        if (numberOfParticles > 150) numberOfParticles = 150; // Max particles
-        if (numberOfParticles < 30) numberOfParticles = 30; // Min particles
+        let numberOfParticles = (canvas.height * canvas.width) / PARTICLE_DENSITY_FACTOR;
+        if (numberOfParticles > MAX_PARTICLES) numberOfParticles = MAX_PARTICLES;
+        if (numberOfParticles < MIN_PARTICLES) numberOfParticles = MIN_PARTICLES;
 
         for (let i = 0; i < numberOfParticles; i++) {
-            let size = (Math.random() * 1.5) + 0.5; // Particle size 0.5px to 2px
+            let size = (Math.random() * (MAX_PARTICLE_SIZE - MIN_PARTICLE_SIZE)) + MIN_PARTICLE_SIZE;
             let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
             let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-            let directionX = (Math.random() * .3) - .15; // Movement speed X: -0.15 to 0.15
-            let directionY = (Math.random() * .3) - .15; // Movement speed Y: -0.15 to 0.15
+            let speedRange = MAX_PARTICLE_SPEED - MIN_PARTICLE_SPEED;
+            let directionX = (Math.random() * speedRange) + MIN_PARTICLE_SPEED;
+            let directionY = (Math.random() * speedRange) + MIN_PARTICLE_SPEED;
             
             let colorValue = getComputedStyle(document.documentElement).getPropertyValue('--text-color').trim() || '#e0e0e0';
-            let alpha = (Math.random() * 0.4) + 0.2; // Opacity 0.2 to 0.6 for subtlety
+            let alpha = (Math.random() * (MAX_PARTICLE_ALPHA - MIN_PARTICLE_ALPHA)) + MIN_PARTICLE_ALPHA;
             
             let finalColor;
             if (colorValue.startsWith('#')) { 
@@ -536,12 +548,15 @@ document.addEventListener('DOMContentLoaded', () => {
     /*
     function connectParticles(){
         let opacityValue = 1;
+        const CONNECT_DISTANCE_FACTOR_W = 10; // Lower = larger connection area
+        const CONNECT_DISTANCE_FACTOR_H = 10;
+        const OPACITY_DISTANCE_DIVISOR = 15000; // Higher = lines fade slower
         for (let a = 0; a < particlesArray.length; a++) {
             for (let b = a; b < particlesArray.length; b++) {
                 let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x))
                              + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
-                if (distance < (canvas.width/10) * (canvas.height/10)) { // Adjust connection distance
-                    opacityValue = 1 - (distance/15000); // Adjust opacity based on distance
+                if (distance < (canvas.width/CONNECT_DISTANCE_FACTOR_W) * (canvas.height/CONNECT_DISTANCE_FACTOR_H)) {
+                    opacityValue = 1 - (distance/OPACITY_DISTANCE_DIVISOR);
                     let lineColorValue = getComputedStyle(document.documentElement).getPropertyValue('--primary-accent-color').trim() || '#bb86fc';
                     let finalLineColor;
                      if (lineColorValue.startsWith('#')) { 
@@ -567,4 +582,3 @@ document.addEventListener('DOMContentLoaded', () => {
     initParticles();
     animateParticles();
 });
-
