@@ -876,6 +876,29 @@ header nav a.active-link {
     transform: rotateY(180deg); /* Initially rotated */
 }
 
+/* Cursor-Reactive Background Experiment Styles */
+.reactive-bg-container {
+    width: 100%;
+    height: 250px; /* Adjust as needed */
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* For pseudo-elements or other layers if needed */
+    overflow: hidden; /* Important if the gradient might exceed bounds */
+    background-color: var(--secondary-bg-color); /* Fallback background */
+    /* The magic happens with this variable background */
+    background-image: radial-gradient(
+        circle farthest-corner at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(187, 134, 252, 0.2) 0%, /* --primary-accent-color with low alpha */
+        rgba(187, 134, 252, 0.05) 25%,
+        transparent 50%
+    );
+    transition: background-image 0.1s ease-out; /* Smooth transition for the gradient */
+    color: var(--text-color); /* Text color for the prompt */
+    font-style: italic;
+}
+
 /* Contact Section */
 #contact {
     padding: 60px 0;

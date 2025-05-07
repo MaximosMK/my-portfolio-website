@@ -348,6 +348,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// --- Design Lab: Cursor-Reactive Background ---
+document.addEventListener('DOMContentLoaded', () => {
+    const reactiveContainers = document.querySelectorAll('.reactive-bg-container');
+
+    reactiveContainers.forEach(container => {
+        container.addEventListener('mousemove', (e) => {
+            const rect = container.getBoundingClientRect();
+            const x = e.clientX - rect.left; // x position within the element.
+            const y = e.clientY - rect.top;  // y position within the element.
+
+            const xPercent = (x / rect.width) * 100;
+            const yPercent = (y / rect.height) * 100;
+
+            container.style.setProperty('--mouse-x', `${xPercent}%`);
+            container.style.setProperty('--mouse-y', `${yPercent}%`);
+        });
+    });
+});
+
 // --- Particles.js Configuration for Hero Section ---
 if (document.getElementById('particles-js')) {
     particlesJS("particles-js", {
