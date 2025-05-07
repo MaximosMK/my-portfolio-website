@@ -28,32 +28,35 @@ function topFunction() {
 // --- Theme Toggle Functionality ---
 const themeToggleBtn = document.getElementById('themeToggleBtn');
 const body = document.body;
+const LIGHT_THEME = 'light';
+const DARK_THEME = 'dark';
 const currentTheme = localStorage.getItem('theme');
 
 function setTheme(theme) {
-    if (theme === 'light') {
+    if (theme === LIGHT_THEME) {
         body.classList.add('light-theme');
         if (themeToggleBtn) themeToggleBtn.textContent = '☀️';
-        localStorage.setItem('theme', 'light');
-    } else {
+        localStorage.setItem('theme', LIGHT_THEME);
+    } else { // Assumes dark if not light
         body.classList.remove('light-theme');
         if (themeToggleBtn) themeToggleBtn.textContent = '🌙';
-        localStorage.setItem('theme', 'dark');
+        localStorage.setItem('theme', DARK_THEME);
     }
 }
 
-if (currentTheme) {
-    setTheme(currentTheme);
-} else {
-    setTheme('dark');
+// Set initial theme
+if (currentTheme === LIGHT_THEME) { // Explicitly check for light theme
+    setTheme(LIGHT_THEME);
+} else { // Default to dark theme if no theme stored or if it's 'dark' (or any other unexpected value)
+    setTheme(DARK_THEME);
 }
 
 if (themeToggleBtn) {
     themeToggleBtn.addEventListener('click', () => {
         if (body.classList.contains('light-theme')) {
-            setTheme('dark');
+            setTheme(DARK_THEME);
         } else {
-            setTheme('light');
+            setTheme(LIGHT_THEME);
         }
     });
 }
