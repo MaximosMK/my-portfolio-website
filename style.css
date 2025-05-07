@@ -899,6 +899,36 @@ header nav a.active-link {
     font-style: italic;
 }
 
+/* 3D Geometric Field Experiment Styles */
+.geometric-field-container {
+    width: 100%;
+    height: 300px; /* Adjust as needed */
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    background-color: #080808; /* Darker background for contrast with shapes */
+    perspective: 800px; /* Crucial for 3D effect */
+    cursor: crosshair; /* Indicate interactivity */
+}
+
+.geometric-field-prompt {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.9em;
+    pointer-events: none; /* So it doesn't interfere with mouse events on the container */
+}
+
+.geo-shape { /* Base style for dynamically created shapes */
+    position: absolute;
+    /* width, height, background-color, top, left, transform will be set by JS */
+    transition: transform 0.1s ease-out, opacity 0.2s ease-out; /* Smooth transitions */
+    opacity: 0.7;
+    border-radius: 2px; /* Slight rounding for shapes */
+}
+
 /* Contact Section */
 #contact {
     padding: 60px 0;

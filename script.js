@@ -367,6 +367,70 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// --- Design Lab: 3D Geometric Field ---
+document.addEventListener('DOMContentLoaded', () => {
+    const fieldContainer = document.getElementById('geometricFieldContainer');
+    if (!fieldContainer) return;
+
+    const numShapes = 30; // Number of geometric shapes
+    const shapes = [];
+
+    function getRandomColor() {
+        // Generate a color that contrasts well with the dark background
+        // Prioritizing lighter, somewhat desaturated or vibrant colors
+        const r = Math.floor(Math.random() * 100) + 155; // 155-255
+        const g = Math.floor(Math.random() * 100) + 155; // 155-255
+        const b = Math.floor(Math.random() * 100) + 155; // 155-255
+        return `rgb(${r},${g},${b})`;
+    }
+
+    for (let i = 0; i < numShapes; i++) {
+        const shape = document.createElement('div');
+        shape.classList.add('geo-shape');
+
+        const size = Math.random() * 20 + 10; // Size between 10px and 30px
+        shape.style.width = `${size}px`;
+        shape.style.height = `${size}px`;
+        shape.style.backgroundColor = getRandomColor();
+        
+        // Initial random 3D position
+        const x = Math.random() * fieldContainer.offsetWidth;
+        const y = Math.random() * fieldContainer.offsetHeight;
+        const z = Math.random() * 400 - 200; // Depth: -200px to 200px
+
+        shape.style.left = `${x - size / 2}px`;
+        shape.style.top = `${y - size / 2}px`;
+        shape.style.transform = `translateZ(${z}px) rotateX(0deg) rotateY(0deg)`;
+        shape.dataset.initialZ = z; // Store initial Z for reference
+
+        shapes.push(shape);
+        fieldContainer.appendChild(shape);
+    }
+
+    fieldContainer.addEventListener('mousemove', (e) => {
+        const rect = fieldContainer.getBoundingClientRect();
+        // Mouse position relative to the center of the container
+        const mouseX = e.clientX - rect.left - rect.width / 2;
+        const mouseY = e.clientY - rect.top - rect.height / 2;
+
+        shapes.forEach(shape => {
+            const initialZ = parseFloat(shape.dataset.initialZ);
+            // Rotation effect based on mouse position
+            // The further the mouse from center, the more rotation
+            const rotateY = (mouseX / (rect.width / 2)) * 30; // Max 30deg rotation
+            const rotateX = -(mouseY / (rect.height / 2)) * 30; // Max 30deg rotation
+
+            // Slight Z movement based on proximity to mouse (optional, can be subtle)
+            // This is a very simplified proximity effect
+            const proximityFactor = Math.sqrt(mouseX*mouseX + mouseY*mouseY) / (Math.max(rect.width, rect.height)/2); // 0 near center, 1 near edge
+            const zOffset = (1 - proximityFactor) * 50; // Shapes near cursor come forward slightly
+
+            shape.style.transform = `translateZ(${initialZ + zOffset}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            shape.style.opacity = 0.6 + (1 - proximityFactor) * 0.4; // More opaque when closer to cursor
+        });
+    });
+});
+
 // --- Particles.js Configuration for Hero Section ---
 if (document.getElementById('particles-js')) {
     particlesJS("particles-js", {
