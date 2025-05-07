@@ -224,24 +224,48 @@ header nav a.active-link {
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    background: linear-gradient(135deg, var(--hero-gradient-start) 0%, var(--hero-gradient-end) 100%);
+    /* New animated gradient background */
+    background: linear-gradient(270deg, var(--hero-gradient-start), var(--hero-gradient-end), var(--primary-accent-color), var(--hero-gradient-start));
+    background-size: 400% 400%;
+    animation: animateHeroGradient 25s ease infinite;
     border-radius: 8px;
     margin-bottom: 40px;
-    transition: background 0.3s ease;
-    overflow: hidden;
+    transition: background 0.3s ease; /* Keep for theme changes if any part of gradient uses theme vars */
+    overflow: hidden; /* Keep this if hero content might overflow its bounds */
+    position: relative; /* Needed for pseudo-element overlay */
 }
 
-#particles-js {
+@keyframes animateHeroGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Subtle pattern overlay for hero */
+#hero::before {
+    content: '';
     position: absolute;
-    width: 100%;
-    height: 100%;
     top: 0;
     left: 0;
-    z-index: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.08) 1px, transparent 0), /* Tiny dots */
+        radial-gradient(circle at 10px 10px, rgba(255, 255, 255, 0.05) 1px, transparent 0); /* Slightly larger, sparser dots */
+    background-size: 50px 50px, 150px 150px; /* Control density of dots */
+    opacity: 0.5;
+    animation: animateHeroPattern 60s linear infinite;
+    z-index: 0; /* Behind hero content but above hero gradient */
 }
+
+@keyframes animateHeroPattern {
+    from { background-position: 0 0, 0 0; }
+    to { background-position: 500px 500px, -300px 600px; } /* Adjust for desired movement */
+}
+
 #hero .container {
     position: relative;
-    z-index: 1;
+    z-index: 1; /* Ensure hero content is above its own background and pattern */
 }
 
 .floating-logo-container {
@@ -265,7 +289,7 @@ header nav a.active-link {
     50% { transform: translateY(-12px); }
 }
 
-#hero h2 {
+#hero h2 { /* This targets the h2 inside #hero .container, which is fine */
     font-size: 2.2em;
     margin-bottom: 0.5em;
 }
