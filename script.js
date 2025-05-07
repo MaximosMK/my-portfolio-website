@@ -162,6 +162,45 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+// --- Skills Filter Functionality ---
+document.addEventListener('DOMContentLoaded', () => {
+    const filterButtons = document.querySelectorAll('.skills-filter-controls .filter-btn');
+    const skillItems = document.querySelectorAll('#skills .skill-item'); // Target all skill items
+
+    if (filterButtons.length > 0 && skillItems.length > 0) {
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to the clicked button
+                button.classList.add('active');
+
+                const filterValue = button.getAttribute('data-filter');
+
+                skillItems.forEach(item => {
+                    const itemCategory = item.getAttribute('data-category');
+                    
+                    // Show item if filter is 'all' or if item's category matches the filter
+                    if (filterValue === 'all' || itemCategory === filterValue) {
+                        item.classList.remove('hidden');
+                        // Optional: Re-trigger AOS animation if you want them to animate in again
+                        // if (item.hasAttribute('data-aos')) {
+                        //     item.classList.remove('aos-animate'); // Remove to allow re-animation
+                        //     setTimeout(() => item.classList.add('aos-animate'), 50); // Add back after a tiny delay
+                        // }
+                    } else {
+                        item.classList.add('hidden');
+                        // Optional: Remove AOS animation if hidden
+                        // if (item.hasAttribute('data-aos')) {
+                        //     item.classList.remove('aos-animate');
+                        // }
+                    }
+                });
+            });
+        });
+    }
+});
+
 
 // --- Particles.js Configuration for Hero Section ---
 if (document.getElementById('particles-js')) {
