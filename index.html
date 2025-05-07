@@ -180,27 +180,80 @@
 
         <section id="projects" class="container" data-aos="fade-up">
             <h2>My Projects</h2>
-            <div class="project-item" data-aos="fade-up" data-aos-delay="100">
-                <h3>Freelance Web Developer (Oct 2023 – Present)</h3>
-                <p>Developed responsive, SEO-optimized websites for businesses using WordPress, HTML, CSS, and JavaScript. Provided support and plugin updates.</p>
-            </div>
-            <div class="project-item" data-aos="fade-up" data-aos-delay="200">
-                <h3>E-Commerce Website (May 2022)</h3>
-                <p>School project for a clothing brand. Built with HTML, CSS, PHP, with payment integration and inventory features.</p>
-            </div>
-            <div class="project-item" data-aos="fade-up" data-aos-delay="300">
-                <h3>GUI TTS Program – Piper TTS Converter (2024)</h3>
-                <p>Designed and built a Python-based Text-to-Speech program using Piper. Developed both a local GUI and a server-based API version. Focused on user-friendly interface and fast voice generation.</p>
-            </div>
-            <div class="project-item" data-aos="fade-up" data-aos-delay="400">
-                <h3>Web Scraper for WTR-Lab.com (2024)</h3>
-                <p>Created a Python web scraper to collect structured data from wtr-lab.com. Automated data extraction and export for analysis.</p>
-            </div>
-            <div class="project-item" data-aos="fade-up" data-aos-delay="500">
-                <h3>ADII Internship – Customs & Indirect Taxes (Sept–Dec 2022)</h3>
-                <p>Optimized algorithms for budget forecasting and fraud detection. Resolved database issues to improve accuracy in a smart system.</p>
+            <div class="project-grid">
+                <div class="project-card"
+                     data-aos="fade-up"
+                     data-aos-delay="100"
+                     data-modal-title="Freelance Web Development"
+                     data-modal-description="Developed responsive, SEO-optimized websites for various small and medium-sized businesses. Focused on delivering custom solutions tailored to client needs, including theme customization, plugin integration, and performance optimization. Provided ongoing support and maintenance, including security updates and content management."
+                     data-modal-problems="Clients needed modern, mobile-friendly online presences. Many required e-commerce capabilities or specific functionalities not available in off-the-shelf themes. Ensuring site speed and SEO best practices were common challenges."
+                     data-modal-screenshot="/images/projects/freelance-placeholder.jpg"
+                     data-modal-github=""
+                     data-modal-demo="">
+                    <h3>Freelance Web Developer (Oct 2023 – Present)</h3>
+                    <p>Responsive, SEO-optimized websites using WordPress, HTML, CSS, JS. Support & updates.</p>
+                    <div class="project-tech-stack">
+                        <span>WordPress</span><span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>PHP</span><span>SEO</span>
+                    </div>
+                </div>
+
+                <div class="project-card"
+                     data-aos="fade-up"
+                     data-aos-delay="200"
+                     data-modal-title="E-Commerce Website (School Project)"
+                     data-modal-description="A comprehensive school project to design and build an e-commerce platform for a fictional clothing brand. The project involved front-end design, back-end development for product management, user accounts, shopping cart functionality, and a simulated payment gateway."
+                     data-modal-problems="Integrating a secure (simulated) payment system. Managing product inventory and variations. Creating a user-friendly shopping experience from browsing to checkout. Ensuring data persistence for orders and user information."
+                     data-modal-screenshot="/images/projects/ecommerce-placeholder.jpg"
+                     data-modal-github="https://github.com/yourusername/ecommerce-project"
+                     data-modal-demo="">
+                    <h3>E-Commerce Website (May 2022)</h3>
+                    <p>School project for a clothing brand. HTML, CSS, PHP, payment integration, inventory.</p>
+                    <div class="project-tech-stack">
+                        <span>HTML5</span><span>CSS3</span><span>PHP</span><span>MySQL</span><span>JavaScript</span>
+                    </div>
+                </div>
+
+                <div class="project-card"
+                     data-aos="fade-up"
+                     data-aos-delay="300"
+                     data-modal-title="GUI TTS Program – Piper TTS Converter"
+                     data-modal-description="Designed and developed a user-friendly Text-to-Speech (TTS) application utilizing the Piper TTS engine. The program features a graphical user interface (GUI) for local use and a server-based API version for integration into other services. Key focus was on ease of use, fast voice generation, and multiple voice selection."
+                     data-modal-problems="Making advanced TTS technology accessible to non-technical users. Optimizing voice generation speed. Creating a robust API for developers. Packaging the application for easy distribution."
+                     data-modal-screenshot="/images/projects/piper-tts-placeholder.jpg"
+                     data-modal-github="https://github.com/yourusername/piper-tts-converter"
+                     data-modal-demo="">
+                    <h3>GUI TTS Program – Piper TTS Converter (2024)</h3>
+                    <p>Python-based TTS program using Piper. GUI and server API. User-friendly, fast voice generation.</p>
+                    <div class="project-tech-stack">
+                        <span>Python</span><span>Tkinter</span><span>Flask</span><span>Piper TTS</span>
+                    </div>
+                </div>
+
+                <div class="project-card"
+                     data-aos="fade-up"
+                     data-aos-delay="400"
+                     data-modal-title="Web Scraper for WTR-Lab.com"
+                     data-modal-description="Developed a Python-based web scraper to efficiently collect and structure publicly available data from wtr-lab.com. The script automates the process of navigating the website, extracting relevant information, and exporting it into a usable format (e.g., CSV, JSON) for further analysis."
+                     data-modal-problems="Handling dynamic website content (if any). Navigating website pagination. Ensuring ethical scraping practices (respecting robots.txt, rate limiting). Parsing HTML to extract specific data points accurately."
+                     data-modal-screenshot="/images/projects/webscraper-placeholder.jpg"
+                     data-modal-github="https://github.com/yourusername/wtr-lab-scraper"
+                     data-modal-demo="">
+                    <h3>Web Scraper for WTR-Lab.com (2024)</h3>
+                    <p>Python web scraper for wtr-lab.com. Automated data extraction and export for analysis.</p>
+                    <div class="project-tech-stack">
+                        <span>Python</span><span>Beautiful Soup</span><span>Requests</span>
+                    </div>
+                </div>
+
+                <!-- If you want the ADII Internship to also be a clickable card, convert its structure like the others -->
+                <!-- Otherwise, you can leave it as a simple project-item if it doesn't need a modal -->
+                <div class="project-item" data-aos="fade-up" data-aos-delay="500">
+                     <h3>ADII Internship – Customs & Indirect Taxes (Sept–Dec 2022)</h3>
+                     <p>Optimized algorithms for budget forecasting and fraud detection. Resolved database issues to improve accuracy in a smart system.</p>
+                </div>
             </div>
         </section>
+
 
         <section id="education" class="container" data-aos="fade-up">
             <h2>Education</h2>
@@ -226,6 +279,24 @@
             <p>Location: Hay Amadel, Amizmiz, El Haouz, Morocco</p>
         </section>
     </main>
+
+        <!-- Project Modal Structure (Initially Hidden) -->
+        <div id="projectModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal-btn">&times;</span>
+                <img src="" alt="Project Screenshot" id="modalScreenshot" class="modal-screenshot">
+                <h3 id="modalTitle"></h3>
+                <h4>Description:</h4>
+                <p id="modalDescription"></p>
+                <h4>Problems Solved:</h4>
+                <p id="modalProblems"></p>
+                <div class="modal-links">
+                    <a href="#" id="modalGithubLink" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+                    <a href="#" id="modalDemoLink" target="_blank" rel="noopener noreferrer">Live Demo</a>
+                </div>
+            </div>
+        </div>
+    
 
     <footer>
         <p class="container">&copy; 2024 Mohamed Karouch. All rights reserved.</p>

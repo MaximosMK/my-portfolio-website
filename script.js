@@ -201,6 +201,86 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// --- Project Modal Functionality ---
+document.addEventListener('DOMContentLoaded', () => {
+    const projectCards = document.querySelectorAll('.project-card');
+    const modal = document.getElementById('projectModal');
+    const closeModalBtn = document.querySelector('.close-modal-btn');
+
+    // Modal content elements
+    const modalScreenshot = document.getElementById('modalScreenshot');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDescription = document.getElementById('modalDescription');
+    const modalProblems = document.getElementById('modalProblems');
+    const modalGithubLink = document.getElementById('modalGithubLink');
+    const modalDemoLink = document.getElementById('modalDemoLink');
+
+    if (projectCards.length > 0 && modal && closeModalBtn) {
+        projectCards.forEach(card => {
+            card.addEventListener('click', () => {
+                // Populate modal content
+                modalTitle.textContent = card.dataset.modalTitle || 'Project Details';
+                modalDescription.textContent = card.dataset.modalDescription || 'No description available.';
+                modalProblems.textContent = card.dataset.modalProblems || 'No specific problems detailed.';
+                
+                if (card.dataset.modalScreenshot) {
+                    modalScreenshot.src = card.dataset.modalScreenshot;
+                    modalScreenshot.style.display = 'block';
+                } else {
+                    modalScreenshot.style.display = 'none';
+                }
+
+                // Handle GitHub link
+                if (card.dataset.modalGithub && card.dataset.modalGithub !== '#') {
+                    modalGithubLink.href = card.dataset.modalGithub;
+                    modalGithubLink.style.display = 'inline-block';
+                } else {
+                    modalGithubLink.style.display = 'none';
+                }
+
+                // Handle Demo link
+                if (card.dataset.modalDemo && card.dataset.modalDemo !== '#') {
+                    modalDemoLink.href = card.dataset.modalDemo;
+                    modalDemoLink.style.display = 'inline-block';
+                } else {
+                    modalDemoLink.style.display = 'none';
+                }
+                
+                // Show the modal
+                modal.classList.add('visible');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            });
+        });
+
+        // Close modal when the close button is clicked
+        closeModalBtn.addEventListener('click', () => {
+            modal.classList.remove('visible');
+            document.body.style.overflow = 'auto'; // Restore background scrolling
+        });
+
+        // Close modal when clicking outside the modal content
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) { // Check if the click is on the modal overlay itself
+                modal.classList.remove('visible');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && modal.classList.contains('visible')) {
+                modal.classList.remove('visible');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+    } else {
+        if (projectCards.length === 0) console.warn('No project cards found for modal functionality.');
+        if (!modal) console.warn('Project modal element not found.');
+        if (!closeModalBtn) console.warn('Modal close button not found.');
+    }
+});
+
 
 // --- Particles.js Configuration for Hero Section ---
 if (document.getElementById('particles-js')) {
