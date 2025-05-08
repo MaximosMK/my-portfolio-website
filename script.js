@@ -191,55 +191,59 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalGithubLink = document.getElementById('modalGithubLink');
     const modalDemoLink = document.getElementById('modalDemoLink');
 
+    function populateAndOpenModal(card) {
+        modalTitle.textContent = card.dataset.modalTitle || 'Project Details';
+        modalDescription.textContent = card.dataset.modalDescription || 'No description available.';
+        modalProblems.textContent = card.dataset.modalProblems || 'No specific problems detailed.';
+        
+        if (card.dataset.modalScreenshot) {
+            modalScreenshot.src = card.dataset.modalScreenshot;
+            modalScreenshot.style.display = 'block';
+        } else {
+            modalScreenshot.style.display = 'none';
+        }
+
+        if (card.dataset.modalGithub && card.dataset.modalGithub !== '#') {
+            modalGithubLink.href = card.dataset.modalGithub;
+            modalGithubLink.style.display = 'inline-block';
+        } else {
+            modalGithubLink.style.display = 'none';
+        }
+
+        if (card.dataset.modalDemo && card.dataset.modalDemo !== '#') {
+            modalDemoLink.href = card.dataset.modalDemo;
+            modalDemoLink.style.display = 'inline-block';
+        } else {
+            modalDemoLink.style.display = 'none';
+        }
+        
+        modal.classList.add('visible');
+        document.body.style.overflow = 'hidden';
+    }
+
     if (projectCards.length > 0 && modal && closeModalBtn) {
         projectCards.forEach(card => {
             card.addEventListener('click', () => {
-                modalTitle.textContent = card.dataset.modalTitle || 'Project Details';
-                modalDescription.textContent = card.dataset.modalDescription || 'No description available.';
-                modalProblems.textContent = card.dataset.modalProblems || 'No specific problems detailed.';
-                
-                if (card.dataset.modalScreenshot) {
-                    modalScreenshot.src = card.dataset.modalScreenshot;
-                    modalScreenshot.style.display = 'block';
-                } else {
-                    modalScreenshot.style.display = 'none';
-                }
-
-                if (card.dataset.modalGithub && card.dataset.modalGithub !== '#') {
-                    modalGithubLink.href = card.dataset.modalGithub;
-                    modalGithubLink.style.display = 'inline-block';
-                } else {
-                    modalGithubLink.style.display = 'none';
-                }
-
-                if (card.dataset.modalDemo && card.dataset.modalDemo !== '#') {
-                    modalDemoLink.href = card.dataset.modalDemo;
-                    modalDemoLink.style.display = 'inline-block';
-                } else {
-                    modalDemoLink.style.display = 'none';
-                }
-                
-                modal.classList.add('visible');
-                document.body.style.overflow = 'hidden';
+                populateAndOpenModal(card);
             });
         });
 
-        closeModalBtn.addEventListener('click', () => {
+        function closeModal() {
             modal.classList.remove('visible');
             document.body.style.overflow = 'auto';
-        });
+        }
+
+        closeModalBtn.addEventListener('click', closeModal);
 
         modal.addEventListener('click', (event) => {
             if (event.target === modal) {
-                modal.classList.remove('visible');
-                document.body.style.overflow = 'auto';
+                closeModal();
             }
         });
 
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Escape' && modal.classList.contains('visible')) {
-                modal.classList.remove('visible');
-                document.body.style.overflow = 'auto';
+                closeModal();
             }
         });
 
