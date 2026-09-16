@@ -5,27 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Primary SEO Meta Tags -->
-    <title>Mohamed Karouch — Web Developer & Software Engineer</title>
-    <meta name="title" content="Mohamed Karouch — Web Developer & Software Engineer">
-    <meta name="description" content="Portfolio of Mohamed Karouch, a passionate freelance web developer & ALX Software Engineer based in Morocco. Specializing in WordPress, PHP, JavaScript, Python, and modern responsive web solutions.">
-    <meta name="keywords" content="Mohamed Karouch, MaximosMK, web developer, software engineer, portfolio, Morocco, Marrakech, WordPress, PHP, JavaScript, Python, frontend, backend, full stack developer">
+    <title>Mohamed Karouch — Web Developer &amp; Software Engineer | Portfolio</title>
+    <meta name="title" content="Mohamed Karouch — Web Developer &amp; Software Engineer | Portfolio">
+    <meta name="description" content="Portfolio of Mohamed Karouch, an active freelance web developer &amp; 1337 Coding School student (42 Network) based in Morocco. Specializing in WordPress, PHP, JavaScript, Python automation, and performant web applications.">
+    <meta name="keywords" content="Mohamed Karouch, MaximosMK, web developer, software engineer, 1337 school, 42 network, portfolio, Morocco, Marrakech, WordPress, PHP, JavaScript, Python, frontend, backend, full stack developer, freelance web developer">
     <meta name="author" content="Mohamed Karouch">
     <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#090a10">
+    <link rel="canonical" href="https://karouchmohamed.netlify.app/">
+
+    <!-- Theme Colors (Dark & Light Mode Support) -->
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#090a10">
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8fafc">
 
     <!-- Open Graph / Facebook / LinkedIn -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://karouchmohamed.netlify.app/">
-    <meta property="og:title" content="Mohamed Karouch — Web Developer & Software Engineer">
-    <meta property="og:description" content="Turning ideas into digital reality. Explore projects, skills, and web solutions by Mohamed Karouch.">
-    <meta property="og:image" content="./images/social-preview.jpg">
+    <meta property="og:site_name" content="Mohamed Karouch Portfolio">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="Mohamed Karouch — Web Developer &amp; Software Engineer">
+    <meta property="og:description" content="Turning ideas into digital reality with code. Explore custom web solutions, Python automation, and projects by Mohamed Karouch.">
+    <meta property="og:image" content="https://karouchmohamed.netlify.app/images/social-preview.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Mohamed Karouch - Web Developer &amp; Software Engineer Portfolio Preview">
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://karouchmohamed.netlify.app/">
-    <meta name="twitter:title" content="Mohamed Karouch — Web Developer & Software Engineer">
-    <meta name="twitter:description" content="Explore custom web development, Python automation, and modern digital experiences by Mohamed Karouch.">
-    <meta name="twitter:image" content="./images/social-preview.jpg">
+    <meta name="twitter:title" content="Mohamed Karouch — Web Developer &amp; Software Engineer">
+    <meta name="twitter:description" content="Turning ideas into digital reality with code. Explore custom web solutions, Python automation, and projects by Mohamed Karouch.">
+    <meta name="twitter:image" content="https://karouchmohamed.netlify.app/images/social-preview.jpg">
+    <meta name="twitter:image:alt" content="Mohamed Karouch - Web Developer &amp; Software Engineer Portfolio Preview">
 
     <!-- Favicons & App Icons (Fixed Relative Paths) -->
     <link rel="apple-touch-icon" sizes="180x180" href="./logo/apple-touch-icon.png">
@@ -34,15 +44,92 @@
     <link rel="shortcut icon" href="./logo/favicon.ico">
     <link rel="manifest" href="./logo/site.webmanifest">
 
-    <!-- Google Fonts & Libraries -->
+    <!-- Google Fonts & Preconnects -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="style.css">
+
+    <!-- JSON-LD Structured Data (Schema.org) for Rich Search Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://karouchmohamed.netlify.app/#person",
+          "name": "Mohamed Karouch",
+          "givenName": "Mohamed",
+          "familyName": "Karouch",
+          "url": "https://karouchmohamed.netlify.app/",
+          "image": "https://karouchmohamed.netlify.app/images/profile-photo.jpg",
+          "jobTitle": ["Web Developer", "Software Engineer", "Freelance Developer"],
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Freelance Web Development"
+          },
+          "alumniOf": [
+            {
+              "@type": "EducationalOrganization",
+              "name": "1337 Coding School (42 Network)",
+              "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "Morocco"
+              }
+            },
+            {
+              "@type": "EducationalOrganization",
+              "name": "ISTA NTIC Syba",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Marrakech",
+                "addressCountry": "Morocco"
+              }
+            }
+          ],
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Marrakech / Amizmiz",
+            "addressCountry": "Morocco"
+          },
+          "sameAs": [
+            "https://github.com/MaximosMK",
+            "https://www.linkedin.com/in/mohamed-karouch/"
+          ],
+          "knowsAbout": [
+            "Web Development",
+            "WordPress",
+            "PHP",
+            "JavaScript",
+            "Python",
+            "HTML5",
+            "CSS3",
+            "SQL",
+            "MySQL",
+            "Search Engine Optimization (SEO)",
+            "Systems Programming in C"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://karouchmohamed.netlify.app/#website",
+          "url": "https://karouchmohamed.netlify.app/",
+          "name": "Mohamed Karouch Portfolio",
+          "description": "Personal portfolio of Mohamed Karouch, an active freelance web developer and software engineering student at 1337 Coding School in Morocco.",
+          "publisher": {
+            "@id": "https://karouchmohamed.netlify.app/#person"
+          }
+        }
+      ]
+    }
+    </script>
 </head>
 
 <body>
+    <!-- Reading Progress Bar -->
+    <div id="scrollProgressBar" class="scroll-progress-bar" aria-hidden="true"></div>
+
     <!-- Background Interactive Particle Canvas -->
     <canvas id="globalParticleCanvas" aria-hidden="true"></canvas>
 
@@ -61,6 +148,7 @@
                 <ul class="nav-menu">
                     <li><a href="#about" class="nav-link">About</a></li>
                     <li><a href="#skills" class="nav-link">Skills</a></li>
+                    <li><a href="#services" class="nav-link">Services</a></li>
                     <li><a href="#projects" class="nav-link">Projects</a></li>
                     <li><a href="#timeline-journey" class="nav-link">Journey</a></li>
                     <li><a href="#education" class="nav-link">Education</a></li>
@@ -70,8 +158,14 @@
             </nav>
 
             <div class="header-actions">
+                <!-- Resume Viewer Trigger Button -->
+                <button id="openResumeBtn" class="action-btn resume-trigger-btn" aria-label="View Resume &amp; Credentials" title="View Resume">
+                    <span class="btn-icon">📄</span>
+                    <span class="btn-text">Resume</span>
+                </button>
+
                 <!-- Terminal Trigger Button -->
-                <button id="openTerminalBtn" class="action-btn terminal-trigger-btn" aria-label="Open Dev Terminal" title="Open Dev Console (Ctrl + \)">
+                <button id="openTerminalBtn" class="action-btn terminal-trigger-btn" aria-label="Open Dev Terminal" title="Open Dev Console (Cmd/Ctrl + K or Ctrl + \)">
                     <span class="btn-icon">&gt;_</span>
                     <span class="btn-text">Terminal</span>
                 </button>
@@ -126,6 +220,10 @@
                         <span>Explore Projects</span>
                         <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                     </a>
+                    <button type="button" class="btn btn-secondary" id="heroResumeBtn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        <span>View Resume</span>
+                    </button>
                     <a href="#contact" class="btn btn-secondary">
                         <span>Get In Touch</span>
                     </a>
@@ -165,7 +263,7 @@
                 <div class="about-me-content">
                     <div class="about-me-image-wrapper" data-aos="fade-right" data-aos-delay="100">
                         <div class="image-frame-decor">
-                            <img src="./images/profile-photo.jpg" alt="Mohamed Karouch" class="about-portrait" loading="lazy">
+                            <img src="./images/profile-photo.jpg" alt="Mohamed Karouch - Web Developer in Morocco" class="about-portrait" width="320" height="400" fetchpriority="high">
                             <div class="frame-backdrop-glow"></div>
                         </div>
                     </div>
@@ -178,7 +276,7 @@
                             Over the past <strong>2+ years</strong>, I have worked as an active freelance developer with small and medium businesses to transform concepts into robust digital platforms. My core stack includes <strong>WordPress, PHP, JavaScript, modern HTML5/CSS3, and SQL</strong>, coupled with back-end automation in <strong>Python</strong>.
                         </p>
                         <p>
-                            Currently, I am immersed in the rigorous peer-to-peer software engineering curriculum at <strong>1337 Coding School (Morocco, 42 Network)</strong>, mastering low-level systems programming in C/C++, algorithms, memory management, and Unix architectures, while continuing to deliver custom freelance web solutions for clients.
+                            Currently, I am immersed in the rigorous peer-to-peer software engineering curriculum at <strong>1337 Coding School (Morocco, 42 Network)</strong>, mastering low-level systems programming in C/C++, algorithms, memory management, and Unix architectures, while continuing to deliver custom freelance web solutions for clients globally.
                         </p>
 
                         <!-- Key Metrics / Highlights Grid -->
@@ -226,7 +324,7 @@
                     <!-- Web Development Frontend -->
                     <div class="skill-card" data-category="frontend" data-aos="zoom-in" data-aos-delay="100" data-tooltip="Custom CMS themes &amp; client solutions">
                         <div class="skill-icon-wrap">
-                            <img src="./images/skills/Wordpress-Logo.svg" alt="WordPress Logo" loading="lazy">
+                            <img src="./images/skills/Wordpress-Logo.svg" alt="WordPress CMS Logo" width="48" height="48" loading="lazy">
                         </div>
                         <span class="skill-name">WordPress</span>
                         <span class="skill-badge">CMS Core</span>
@@ -234,7 +332,7 @@
 
                     <div class="skill-card" data-category="frontend" data-aos="zoom-in" data-aos-delay="150" data-tooltip="Semantic, accessible web markup">
                         <div class="skill-icon-wrap">
-                            <img src="./images/skills/HTML5-logo.svg" alt="HTML5 Logo" loading="lazy">
+                            <img src="./images/skills/HTML5-logo.svg" alt="HTML5 Markup Logo" width="48" height="48" loading="lazy">
                         </div>
                         <span class="skill-name">HTML5</span>
                         <span class="skill-badge">Semantic Web</span>
@@ -242,7 +340,7 @@
 
                     <div class="skill-card" data-category="frontend" data-aos="zoom-in" data-aos-delay="200" data-tooltip="Modern CSS3, animations, &amp; responsive layouts">
                         <div class="skill-icon-wrap">
-                            <img src="./images/skills/CSS3-logo.svg" alt="CSS3 Logo" loading="lazy">
+                            <img src="./images/skills/CSS3-logo.svg" alt="CSS3 Styling Logo" width="48" height="48" loading="lazy">
                         </div>
                         <span class="skill-name">CSS3 / Vanilla</span>
                         <span class="skill-badge">Styling &amp; FX</span>
@@ -250,7 +348,7 @@
 
                     <div class="skill-card" data-category="frontend" data-aos="zoom-in" data-aos-delay="250" data-tooltip="Interactive UIs, DOM manipulation, ES6+">
                         <div class="skill-icon-wrap">
-                            <img src="./images/skills/javascript-logo-svgrepo-com.svg" alt="JavaScript Logo" loading="lazy">
+                            <img src="./images/skills/javascript-logo-svgrepo-com.svg" alt="JavaScript ES6 Logo" width="48" height="48" loading="lazy">
                         </div>
                         <span class="skill-name">JavaScript (ES6+)</span>
                         <span class="skill-badge">Frontend Logic</span>
@@ -259,7 +357,7 @@
                     <!-- Backend & Databases -->
                     <div class="skill-card" data-category="backend" data-aos="zoom-in" data-aos-delay="300" data-tooltip="Server-side logic, custom themes, &amp; API handling">
                         <div class="skill-icon-wrap">
-                            <img src="./images/skills/new-php-logo.svg" alt="PHP Logo" loading="lazy">
+                            <img src="./images/skills/new-php-logo.svg" alt="PHP Server Side Scripting Logo" width="48" height="48" loading="lazy">
                         </div>
                         <span class="skill-name">PHP</span>
                         <span class="skill-badge">Server-Side</span>
@@ -267,7 +365,7 @@
 
                     <div class="skill-card" data-category="backend" data-aos="zoom-in" data-aos-delay="350" data-tooltip="Relational schema design &amp; query optimization">
                         <div class="skill-icon-wrap">
-                            <img src="./images/skills/mysql-ar21.svg" alt="MySQL Logo" loading="lazy">
+                            <img src="./images/skills/mysql-ar21.svg" alt="MySQL Relational Database Logo" width="48" height="48" loading="lazy">
                         </div>
                         <span class="skill-name">MySQL</span>
                         <span class="skill-badge">Database</span>
@@ -275,7 +373,7 @@
 
                     <div class="skill-card" data-category="backend" data-aos="zoom-in" data-aos-delay="400" data-tooltip="Relational database queries &amp; management">
                         <div class="skill-icon-wrap">
-                            <img src="./images/skills/sql-database-generic-svgrepo-com.svg" alt="SQL Logo" loading="lazy">
+                            <img src="./images/skills/sql-database-generic-svgrepo-com.svg" alt="SQL Database Query Logo" width="48" height="48" loading="lazy">
                         </div>
                         <span class="skill-name">SQL</span>
                         <span class="skill-badge">Queries</span>
@@ -284,7 +382,7 @@
                     <!-- Languages & Tools -->
                     <div class="skill-card" data-category="tools" data-aos="zoom-in" data-aos-delay="450" data-tooltip="Web scraping, TTS GUI apps, scripting">
                         <div class="skill-icon-wrap">
-                            <img src="./images/skills/python-logo-only.svg" alt="Python Logo" loading="lazy">
+                            <img src="./images/skills/python-logo-only.svg" alt="Python Programming Language Logo" width="48" height="48" loading="lazy">
                         </div>
                         <span class="skill-name">Python</span>
                         <span class="skill-badge">Automation &amp; App</span>
@@ -292,7 +390,7 @@
 
                     <div class="skill-card" data-category="tools" data-aos="zoom-in" data-aos-delay="500" data-tooltip="Academic object-oriented software projects">
                         <div class="skill-icon-wrap">
-                            <img src="./images/skills/Logo_C_sharp.svg" alt="C# Logo" loading="lazy">
+                            <img src="./images/skills/Logo_C_sharp.svg" alt="C# Language Logo" width="48" height="48" loading="lazy">
                         </div>
                         <span class="skill-name">C#</span>
                         <span class="skill-badge">OOP</span>
@@ -300,7 +398,7 @@
 
                     <div class="skill-card" data-category="tools" data-aos="zoom-in" data-aos-delay="550" data-tooltip="Statistical computing &amp; data analysis">
                         <div class="skill-icon-wrap">
-                            <img src="./images/skills/R_logo.svg" alt="R Logo" loading="lazy">
+                            <img src="./images/skills/R_logo.svg" alt="R Data Analysis Logo" width="48" height="48" loading="lazy">
                         </div>
                         <span class="skill-name">R</span>
                         <span class="skill-badge">Data Analysis</span>
@@ -348,6 +446,91 @@
             </div>
         </section>
 
+        <!-- Services & Offerings Section -->
+        <section id="services" class="section-container">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-subtitle">What I Deliver</span>
+                    <h2 class="section-title">Services &amp; Solutions</h2>
+                    <p class="section-lead">Tailored development solutions built to solve business challenges, boost conversions, and scale effortlessly.</p>
+                </div>
+
+                <div class="services-grid">
+                    <!-- Service 1: Custom Web Development -->
+                    <div class="service-card glass-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="service-icon-box">💻</div>
+                        <h3 class="service-title">Custom Web Development</h3>
+                        <p class="service-desc">
+                            Responsive, high-performance web applications built from scratch with clean, semantic HTML5, modern CSS3, and JavaScript.
+                        </p>
+                        <ul class="service-deliverables">
+                            <li>100% Mobile &amp; Tablet Responsive</li>
+                            <li>Clean &amp; Maintainable Codebase</li>
+                            <li>Cross-Browser Compatibility</li>
+                            <li>Fluid Micro-Animations</li>
+                        </ul>
+                        <button type="button" class="service-action-btn" data-service-select="Web Development">
+                            Request Web Project &rarr;
+                        </button>
+                    </div>
+
+                    <!-- Service 2: WordPress & E-Commerce -->
+                    <div class="service-card glass-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="service-icon-box">🛒</div>
+                        <h3 class="service-title">WordPress &amp; E-Commerce</h3>
+                        <p class="service-desc">
+                            Tailored WordPress solutions, WooCommerce setups, and custom PHP themes that empower businesses to manage content easily.
+                        </p>
+                        <ul class="service-deliverables">
+                            <li>Custom Theme &amp; Plugin Integration</li>
+                            <li>WooCommerce Stores &amp; Payments</li>
+                            <li>Security Hardening &amp; Backups</li>
+                            <li>Client-Friendly CMS Training</li>
+                        </ul>
+                        <button type="button" class="service-action-btn" data-service-select="WordPress &amp; E-Commerce">
+                            Request WordPress Store &rarr;
+                        </button>
+                    </div>
+
+                    <!-- Service 3: Performance & Technical SEO -->
+                    <div class="service-card glass-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="service-icon-box">🚀</div>
+                        <h3 class="service-title">Performance &amp; Technical SEO</h3>
+                        <p class="service-desc">
+                            Full audit and optimization of web speed, Core Web Vitals, metadata, and schema markup to rank higher on search engines.
+                        </p>
+                        <ul class="service-deliverables">
+                            <li>PageSpeed 90+ Score Tuning</li>
+                            <li>Schema.org JSON-LD Markup</li>
+                            <li>On-Page Keyword Architecture</li>
+                            <li>Zero Layout Shift (CLS) Optimization</li>
+                        </ul>
+                        <button type="button" class="service-action-btn" data-service-select="SEO &amp; Performance Optimization">
+                            Request SEO Audit &rarr;
+                        </button>
+                    </div>
+
+                    <!-- Service 4: Python Automation & Scripting -->
+                    <div class="service-card glass-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="service-icon-box">⚙️</div>
+                        <h3 class="service-title">Python Automation &amp; Scripting</h3>
+                        <p class="service-desc">
+                            Automate tedious workflows, scrape literature/e-commerce datasets, and build custom desktop/API utilities.
+                        </p>
+                        <ul class="service-deliverables">
+                            <li>Web Scraping &amp; Data Mining</li>
+                            <li>REST API &amp; Microservice Creation</li>
+                            <li>CSV / JSON Data Pipelines</li>
+                            <li>Desktop GUIs (Tkinter / Flask)</li>
+                        </ul>
+                        <button type="button" class="service-action-btn" data-service-select="Python Automation">
+                            Request Automation &rarr;
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Projects Section -->
         <section id="projects" class="section-container">
             <div class="container">
@@ -379,7 +562,7 @@
                          data-modal-github="https://github.com/MaximosMK"
                          data-modal-demo="">
                         <div class="project-media">
-                            <img src="./images/projects/freelance-showcase.jpg" alt="Freelance Web Development Showcase" loading="lazy">
+                            <img src="./images/projects/freelance-showcase.jpg" alt="Freelance Web Development Showcase Mockup" width="600" height="338" loading="lazy">
                             <span class="project-category-tag">Client Project</span>
                         </div>
                         <div class="project-body">
@@ -413,7 +596,7 @@
                          data-modal-github="https://github.com/MaximosMK"
                          data-modal-demo="">
                         <div class="project-media">
-                            <img src="./images/projects/ecommerce-showcase.jpg" alt="E-Commerce Platform Showcase" loading="lazy">
+                            <img src="./images/projects/ecommerce-showcase.jpg" alt="E-Commerce Fashion Platform Showcase Mockup" width="600" height="338" loading="lazy">
                             <span class="project-category-tag">Full Stack Web</span>
                         </div>
                         <div class="project-body">
@@ -447,7 +630,7 @@
                          data-modal-github="https://github.com/MaximosMK"
                          data-modal-demo="">
                         <div class="project-media">
-                            <img src="./images/projects/piper-tts-showcase.jpg" alt="Piper TTS Converter Showcase" loading="lazy">
+                            <img src="./images/projects/piper-tts-showcase.jpg" alt="Piper TTS Audio Synthesizer Interface Mockup" width="600" height="338" loading="lazy">
                             <span class="project-category-tag">Desktop &amp; API</span>
                         </div>
                         <div class="project-body">
@@ -481,7 +664,7 @@
                          data-modal-github="https://github.com/MaximosMK"
                          data-modal-demo="">
                         <div class="project-media">
-                            <img src="./images/projects/webscraper-showcase.jpg" alt="Web Scraper Showcase" loading="lazy">
+                            <img src="./images/projects/webscraper-showcase.jpg" alt="Python Web Scraper and Data Pipeline Dashboard Mockup" width="600" height="338" loading="lazy">
                             <span class="project-category-tag">Automation</span>
                         </div>
                         <div class="project-body">
@@ -514,7 +697,7 @@
                          data-modal-github="https://github.com/MaximosMK"
                          data-modal-demo="">
                         <div class="project-media">
-                            <img src="./images/projects/adii-showcase.jpg" alt="ADII Customs Analytics Showcase" loading="lazy">
+                            <img src="./images/projects/adii-showcase.jpg" alt="ADII Customs Analytics and Forecasting Dashboard Mockup" width="600" height="338" loading="lazy">
                             <span class="project-category-tag">Analytics &amp; Gov</span>
                         </div>
                         <div class="project-body">
@@ -608,7 +791,7 @@
                         </div>
                     </div>
 
-                    <!-- Item 6: ALX SE Program -->
+                    <!-- Item 6: ALX SE Program (Foundations Phase) -->
                     <div class="timeline-item" data-aos="fade-left">
                         <div class="timeline-icon">🎓</div>
                         <div class="timeline-content glass-card">
@@ -753,44 +936,101 @@
             </div>
         </section>
 
-        <!-- Contact Section -->
+        <!-- Contact Section with Interactive Inquiry Form -->
         <section id="contact" class="section-container">
             <div class="container">
                 <div class="contact-card glass-card" data-aos="zoom-in">
-                    <span class="section-subtitle">Let's Connect</span>
-                    <h2 class="contact-headline">Ready to build something extraordinary?</h2>
+                    <span class="section-subtitle">Start A Project</span>
+                    <h2 class="contact-headline">Let's build something extraordinary together</h2>
                     <p class="contact-subtext">
-                        Whether you have a freelance project, need a WordPress or full-stack web developer, or want to discuss software opportunities — my inbox is always open.
+                        Have a freelance project, WordPress store, performance bottleneck, or software engineering opening? Send a message below or reach out directly.
                     </p>
 
-                    <!-- Quick Copy Contact Row -->
-                    <div class="quick-contact-row">
-                        <button type="button" class="copy-pill-btn" id="copyEmailBtn" data-copy="karouchmohamed21@gmail.com" title="Click to copy email">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                            <span>karouchmohamed21@gmail.com</span>
-                            <span class="copy-action-text">(Click to copy)</span>
-                        </button>
+                    <!-- Interactive Dual-Column Layout -->
+                    <div class="contact-interactive-grid">
+                        <!-- Left Info & Quick Copy Column -->
+                        <div class="contact-info-panel">
+                            <h3 class="contact-panel-title">Direct Channels</h3>
+                            <p class="contact-panel-desc">Fastest response times for project kick-offs and consultations:</p>
+                            
+                            <div class="contact-pills-stack">
+                                <button type="button" class="copy-pill-btn" id="copyEmailBtn" data-copy="karouchmohamed21@gmail.com" title="Click to copy email">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                    <span class="copy-text-val">karouchmohamed21@gmail.com</span>
+                                    <span class="copy-action-text">Copy</span>
+                                </button>
 
-                        <button type="button" class="copy-pill-btn" id="copyPhoneBtn" data-copy="+212618238201" title="Click to copy phone">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                            <span>+212-618238201</span>
-                            <span class="copy-action-text">(Click to copy)</span>
-                        </button>
-                    </div>
+                                <button type="button" class="copy-pill-btn" id="copyPhoneBtn" data-copy="+212618238201" title="Click to copy phone">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                    <span class="copy-text-val">+212-618238201</span>
+                                    <span class="copy-action-text">Copy</span>
+                                </button>
+                            </div>
 
-                    <div class="contact-cta-buttons">
-                        <a href="mailto:karouchmohamed21@gmail.com" class="btn btn-primary">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                            <span>Send an Email</span>
-                        </a>
-                        <a href="https://www.linkedin.com/in/mohamed-karouch/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                            <span>Connect on LinkedIn</span>
-                        </a>
-                        <a href="https://github.com/MaximosMK" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                            <span>Follow on GitHub</span>
-                        </a>
+                            <div class="contact-channels-row">
+                                <a href="https://www.linkedin.com/in/mohamed-karouch/" target="_blank" rel="noopener noreferrer" class="social-icon-badge" aria-label="LinkedIn Profile">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                                    <span>LinkedIn</span>
+                                </a>
+                                <a href="https://github.com/MaximosMK" target="_blank" rel="noopener noreferrer" class="social-icon-badge" aria-label="GitHub Profile">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                    <span>GitHub</span>
+                                </a>
+                            </div>
+
+                            <div class="response-pledge">
+                                <span class="pledge-dot"></span>
+                                <span>Typical response time: within 24 hours.</span>
+                            </div>
+                        </div>
+
+                        <!-- Right Form Column -->
+                        <form id="contactInquiryForm" class="contact-inquiry-form" novalidate>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="senderName" class="form-label">Your Name <span class="required-star">*</span></label>
+                                    <input type="text" id="senderName" name="name" class="form-input" placeholder="e.g. Sarah Jenkins" required>
+                                    <span class="field-error-msg" id="nameError">Please enter your name.</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="senderEmail" class="form-label">Your Email <span class="required-star">*</span></label>
+                                    <input type="email" id="senderEmail" name="email" class="form-input" placeholder="e.g. sarah@example.com" required>
+                                    <span class="field-error-msg" id="emailError">Please enter a valid email address.</span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="serviceType" class="form-label">Service Needed</label>
+                                    <select id="serviceType" name="service" class="form-select">
+                                        <option value="Web Development">Custom Web Development</option>
+                                        <option value="WordPress &amp; E-Commerce">WordPress &amp; E-Commerce Store</option>
+                                        <option value="SEO &amp; Performance Optimization">SEO &amp; Performance Optimization</option>
+                                        <option value="Python Automation">Python Automation &amp; Scraping</option>
+                                        <option value="Full-Time Role / Consultation">Job Inquiry / Consultation</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="projectTimeline" class="form-label">Estimated Timeline</label>
+                                    <select id="projectTimeline" name="timeline" class="form-select">
+                                        <option value="Immediately (1-2 weeks)">Immediately (1-2 weeks)</option>
+                                        <option value="Within 1 month">Within 1 month</option>
+                                        <option value="Flexible">Flexible / Planning stage</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="senderMessage" class="form-label">Project Details <span class="required-star">*</span></label>
+                                <textarea id="senderMessage" name="message" class="form-textarea" rows="4" placeholder="Describe your project goals, deliverables, or questions..." required></textarea>
+                                <span class="field-error-msg" id="messageError">Please enter a brief message.</span>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-submit-inquiry" id="submitInquiryBtn">
+                                <span>Send Project Inquiry</span>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -803,7 +1043,7 @@
         <div class="modal-content glass-card">
             <button class="close-modal-btn" id="closeModalBtn" aria-label="Close modal">&times;</button>
             <div class="modal-image-container">
-                <img src="" alt="Project Showcase Screenshot" id="modalScreenshot" class="modal-screenshot" loading="lazy">
+                <img src="" alt="Project Showcase Screenshot" id="modalScreenshot" class="modal-screenshot" width="750" height="380" loading="lazy">
                 <span id="modalCategoryTag" class="modal-category-tag">Project</span>
             </div>
             <div class="modal-inner-body">
@@ -833,6 +1073,113 @@
         </div>
     </div>
 
+    <!-- Interactive Resume / CV Modal Dialog -->
+    <div id="resumeModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="resumeTitle">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content glass-card resume-modal-card">
+            <button class="close-modal-btn" id="closeResumeBtn" aria-label="Close resume modal">&times;</button>
+            <div class="resume-modal-header">
+                <div>
+                    <h3 id="resumeTitle" class="resume-name">Mohamed Karouch</h3>
+                    <p class="resume-role">Web Developer &amp; Software Engineer &bull; Morocco</p>
+                </div>
+                <div class="resume-header-actions">
+                    <button type="button" class="btn btn-secondary btn-sm" id="printResumeBtn" title="Print or Save to PDF">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                        <span>Print / Save PDF</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="resume-modal-body">
+                <!-- Summary Section -->
+                <div class="resume-block">
+                    <h4 class="resume-section-title">Executive Summary</h4>
+                    <p class="resume-text">
+                        Dedicated Web Developer with 2+ years of professional freelance experience designing, building, and maintaining high-performance, SEO-optimized web applications. Currently advancing software engineering mastery as an enrolled student at 1337 Coding School in Morocco (42 Network), specializing in systems programming, memory safety, algorithms, and full-stack web solutions.
+                    </p>
+                </div>
+
+                <!-- Core Technologies -->
+                <div class="resume-block">
+                    <h4 class="resume-section-title">Technical Expertise</h4>
+                    <div class="resume-skills-categories">
+                        <div>
+                            <strong>Frontend &amp; CMS:</strong> WordPress, HTML5, CSS3, JavaScript (ES6+), Responsive UI Design, Cross-Browser Compatibility.
+                        </div>
+                        <div>
+                            <strong>Backend &amp; Databases:</strong> PHP, MySQL, SQL, Relational Schema Architecture, REST APIs.
+                        </div>
+                        <div>
+                            <strong>Systems &amp; Languages:</strong> C/C++ (1337 / 42 Network), Python, C#, R.
+                        </div>
+                        <div>
+                            <strong>Tools &amp; Marketing:</strong> Git/GitHub, Yoast SEO, On-Page SEO, Google PageSpeed Optimization, Flask, Tkinter.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience -->
+                <div class="resume-block">
+                    <h4 class="resume-section-title">Professional Experience</h4>
+                    <div class="resume-item">
+                        <div class="resume-item-header">
+                            <span class="resume-item-title">Freelance Web Developer</span>
+                            <span class="resume-item-dates">Oct 2023 – Present</span>
+                        </div>
+                        <span class="resume-item-subtitle">Self-Employed &bull; Remote</span>
+                        <ul class="resume-bullets">
+                            <li>Delivered tailored, responsive WordPress and PHP web solutions for SMB clients, driving measurable increases in user engagement and search visibility.</li>
+                            <li>Engineered custom layouts, optimized PageSpeed metrics to 90+, and implemented robust on-page SEO structures.</li>
+                            <li>Maintained persistent security hardening, backups, and ongoing technical support.</li>
+                        </ul>
+                    </div>
+
+                    <div class="resume-item">
+                        <div class="resume-item-header">
+                            <span class="resume-item-title">Software Engineering Intern</span>
+                            <span class="resume-item-dates">Sept – Dec 2022</span>
+                        </div>
+                        <span class="resume-item-subtitle">Moroccan Customs &amp; Indirect Taxes Administration (ADII)</span>
+                        <ul class="resume-bullets">
+                            <li>Assisted in algorithmic refinement for national budget forecasting models and automated anomaly fraud detection.</li>
+                            <li>Tuned complex relational database queries to resolve reporting bottlenecks and ensure transaction precision.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="resume-block">
+                    <h4 class="resume-section-title">Education &amp; Training</h4>
+                    <div class="resume-item">
+                        <div class="resume-item-header">
+                            <span class="resume-item-title">Software Engineering (42 Network)</span>
+                            <span class="resume-item-dates">Current &bull; Present</span>
+                        </div>
+                        <span class="resume-item-subtitle">1337 Coding School &bull; Morocco</span>
+                        <p class="resume-text">Rigorous, peer-to-peer engineering curriculum centered on C systems programming, data structures, memory management, and Unix environment.</p>
+                    </div>
+
+                    <div class="resume-item">
+                        <div class="resume-item-header">
+                            <span class="resume-item-title">Diploma in Informatics Development Techniques</span>
+                            <span class="resume-item-dates">2021 – 2022</span>
+                        </div>
+                        <span class="resume-item-subtitle">ISTA NTIC Syba &bull; Marrakech, Morocco</span>
+                    </div>
+
+                    <div class="resume-item">
+                        <div class="resume-item-header">
+                            <span class="resume-item-title">ALX Software Engineering (Foundations Phase)</span>
+                            <span class="resume-item-dates">2024 (2 Months)</span>
+                        </div>
+                        <span class="resume-item-subtitle">ALX Africa</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Dev Console Terminal Popup -->
     <div id="devConsole" class="dev-console" role="region" aria-label="Interactive Developer Console">
         <div class="console-header">
@@ -840,16 +1187,16 @@
                 <span class="terminal-dot red"></span>
                 <span class="terminal-dot yellow"></span>
                 <span class="terminal-dot green"></span>
-                <span class="console-title">MK_Dev_Terminal_v2.0 — (Press Ctrl + \ to close)</span>
+                <span class="console-title">MK_Dev_Terminal_v2.1 — (Press Cmd/Ctrl + K or Ctrl + \ to toggle)</span>
             </div>
             <button id="closeConsoleBtn" class="console-close-btn" aria-label="Close Developer Console">&times;</button>
         </div>
         <div id="consoleOutput" class="console-output">
-            <p class="console-welcome">Welcome to Mohamed's Dev Terminal v2.0! Type '<span class="code-hl">help</span>' to inspect commands.</p>
+            <p class="console-welcome">Welcome to Mohamed's Dev Terminal! Type '<span class="code-hl">help</span>' to inspect commands.</p>
         </div>
         <div class="console-input-row">
             <span class="console-prompt">guest@mk-portfolio:~$</span>
-            <input type="text" id="consoleInput" class="console-input" placeholder="Type a command (e.g. help, skills, projects)..." autocomplete="off" spellcheck="false">
+            <input type="text" id="consoleInput" class="console-input" placeholder="Type a command (e.g. help, skills, services, projects)..." autocomplete="off" spellcheck="false">
         </div>
     </div>
 
@@ -862,7 +1209,7 @@
             </div>
             <div class="footer-meta">
                 <p>&copy; <span id="currentYear">2026</span> Mohamed Karouch. All rights reserved.</p>
-                <p class="footer-crafted">Crafted with precision, vanilla CSS, and JavaScript.</p>
+                <p class="footer-crafted">Crafted with precision, vanilla CSS, and JavaScript. SEO &amp; Performance Optimized.</p>
             </div>
         </div>
     </footer>

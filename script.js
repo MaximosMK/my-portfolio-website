@@ -103,10 +103,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Scroll-to-Top Button
+    // Scroll-to-Top Button & Reading Progress Indicator
     const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+    const scrollProgressBar = document.getElementById('scrollProgressBar');
+
+    function updateScrollProgress() {
+        if (!scrollProgressBar) return;
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        scrollProgressBar.style.width = `${Math.min(100, Math.max(0, scrollPercent))}%`;
+    }
+
     function handleScrollEvents() {
         updateActiveNavLink();
+        updateScrollProgress();
 
         if (scrollToTopBtn) {
             if (window.scrollY > 300) {
@@ -306,9 +317,44 @@ document.addEventListener('DOMContentLoaded', () => {
     if (closeModalBtn) closeModalBtn.addEventListener('click', closeProjectModal);
     if (modalBackdrop) modalBackdrop.addEventListener('click', closeProjectModal);
 
+    // Resume Modal Elements & Handlers
+    const resumeModal = document.getElementById('resumeModal');
+    const openResumeBtn = document.getElementById('openResumeBtn');
+    const heroResumeBtn = document.getElementById('heroResumeBtn');
+    const closeResumeBtn = document.getElementById('closeResumeBtn');
+    const printResumeBtn = document.getElementById('printResumeBtn');
+    const resumeModalBackdrop = resumeModal ? resumeModal.querySelector('.modal-backdrop') : null;
+
+    function openResumeModal() {
+        if (!resumeModal) return;
+        resumeModal.classList.add('visible');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeResumeModal() {
+        if (!resumeModal) return;
+        resumeModal.classList.remove('visible');
+        document.body.style.overflow = '';
+    }
+
+    if (openResumeBtn) openResumeBtn.addEventListener('click', openResumeModal);
+    if (heroResumeBtn) heroResumeBtn.addEventListener('click', openResumeModal);
+    if (closeResumeBtn) closeResumeBtn.addEventListener('click', closeResumeModal);
+    if (resumeModalBackdrop) resumeModalBackdrop.addEventListener('click', closeResumeModal);
+    if (printResumeBtn) {
+        printResumeBtn.addEventListener('click', () => {
+            window.print();
+        });
+    }
+
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal && modal.classList.contains('visible')) {
-            closeProjectModal();
+        if (e.key === 'Escape') {
+            if (modal && modal.classList.contains('visible')) {
+                closeProjectModal();
+            }
+            if (resumeModal && resumeModal.classList.contains('visible')) {
+                closeResumeModal();
+            }
         }
     });
 
@@ -418,7 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.addEventListener('keydown', (e) => {
-        if ((e.ctrlKey || e.metaKey) && e.key === '\\') {
+        if ((e.ctrlKey || e.metaKey) && (e.key === '\\' || e.key === 'k' || e.key === 'K')) {
             e.preventDefault();
             toggleDevConsole();
         }
@@ -457,6 +503,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 appendConsoleMessage("Available Terminal Commands:");
                 appendConsoleMessage("  help        - Display list of available commands");
                 appendConsoleMessage("  skills      - Inspect core technologies and skills");
+                appendConsoleMessage("  services    - Inspect offered services & solutions");
                 appendConsoleMessage("  projects    - Summary of featured engineering projects");
                 appendConsoleMessage("  about       - Read developer background & bio");
                 appendConsoleMessage("  contact     - Display direct contact details");
@@ -467,6 +514,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 appendConsoleMessage("  hire        - Inquire for project availability");
                 appendConsoleMessage("  sudo        - Request root permissions");
                 appendConsoleMessage("  clear       - Clear terminal screen");
+                break;
+            case 'services':
+                appendConsoleMessage("Services & Solutions Offered:");
+                appendConsoleMessage("  1. Custom Web Development — High-performance responsive websites (HTML/CSS/JS).");
+                appendConsoleMessage("  2. WordPress & E-Commerce — Custom WooCommerce stores, themes, security & SEO.");
+                appendConsoleMessage("  3. Performance & SEO — PageSpeed 90+ tuning, schema JSON-LD, Core Web Vitals.");
+                appendConsoleMessage("  4. Python Automation — Custom scrapers, data workflows, APIs & desktop utilities.");
                 break;
             case 'skills':
                 appendConsoleMessage("Core Stack: WordPress, PHP, JavaScript (ES6+), HTML5, CSS3, SQL, MySQL, Python, C#, R.");
@@ -530,7 +584,125 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 10. HIGH-PERFORMANCE PARTICLE CANVAS
+    // 10. SERVICES AUTO-SELECTION & INQUIRY ROUTING
+    // ==========================================================================
+    const serviceActionBtns = document.querySelectorAll('.service-action-btn');
+    const serviceTypeSelect = document.getElementById('serviceType');
+
+    serviceActionBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetService = btn.getAttribute('data-service-select');
+            if (serviceTypeSelect && targetService) {
+                for (let option of serviceTypeSelect.options) {
+                    if (option.value.toLowerCase().includes(targetService.toLowerCase()) || 
+                        targetService.toLowerCase().includes(option.value.toLowerCase())) {
+                        serviceTypeSelect.value = option.value;
+                        break;
+                    }
+                }
+            }
+            const contactSection = document.getElementById('contact');
+            if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            const nameInput = document.getElementById('senderName');
+            if (nameInput) {
+                setTimeout(() => nameInput.focus(), 600);
+            }
+        });
+    });
+
+    // ==========================================================================
+    // 11. CONTACT INQUIRY FORM VALIDATION & DISPATCH
+    // ==========================================================================
+    const contactForm = document.getElementById('contactInquiryForm');
+    const senderName = document.getElementById('senderName');
+    const senderEmail = document.getElementById('senderEmail');
+    const projectTimeline = document.getElementById('projectTimeline');
+    const senderMessage = document.getElementById('senderMessage');
+
+    const nameError = document.getElementById('nameError');
+    const emailError = document.getElementById('emailError');
+    const messageError = document.getElementById('messageError');
+
+    function validateEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    if (contactForm) {
+        if (senderName) {
+            senderName.addEventListener('input', () => {
+                senderName.classList.remove('is-invalid');
+                if (nameError) nameError.classList.remove('visible');
+            });
+        }
+        if (senderEmail) {
+            senderEmail.addEventListener('input', () => {
+                senderEmail.classList.remove('is-invalid');
+                if (emailError) emailError.classList.remove('visible');
+            });
+        }
+        if (senderMessage) {
+            senderMessage.addEventListener('input', () => {
+                senderMessage.classList.remove('is-invalid');
+                if (messageError) messageError.classList.remove('visible');
+            });
+        }
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let isValid = true;
+
+            if (!senderName || !senderName.value.trim()) {
+                if (senderName) senderName.classList.add('is-invalid');
+                if (nameError) nameError.classList.add('visible');
+                isValid = false;
+            }
+
+            if (!senderEmail || !validateEmail(senderEmail.value.trim())) {
+                if (senderEmail) senderEmail.classList.add('is-invalid');
+                if (emailError) emailError.classList.add('visible');
+                isValid = false;
+            }
+
+            if (!senderMessage || !senderMessage.value.trim()) {
+                if (senderMessage) senderMessage.classList.add('is-invalid');
+                if (messageError) messageError.classList.add('visible');
+                isValid = false;
+            }
+
+            if (!isValid) {
+                showToast('Please correct highlighted fields before submitting.');
+                return;
+            }
+
+            const nameVal = senderName.value.trim();
+            const emailVal = senderEmail.value.trim();
+            const serviceVal = serviceTypeSelect ? serviceTypeSelect.value : 'Web Development';
+            const timelineVal = projectTimeline ? projectTimeline.value : 'Flexible';
+            const messageVal = senderMessage.value.trim();
+
+            const subject = encodeURIComponent(`Project Inquiry: ${serviceVal} (${nameVal})`);
+            const body = encodeURIComponent(
+                `Hi Mohamed,\n\n` +
+                `I would like to discuss a project with you:\n\n` +
+                `Name: ${nameVal}\n` +
+                `Email: ${emailVal}\n` +
+                `Service Needed: ${serviceVal}\n` +
+                `Estimated Timeline: ${timelineVal}\n\n` +
+                `Project Details:\n${messageVal}\n\n` +
+                `Best regards,\n${nameVal}`
+            );
+
+            showToast('Opening your email client to dispatch the inquiry... 🚀');
+            window.location.href = `mailto:karouchmohamed21@gmail.com?subject=${subject}&body=${body}`;
+
+            contactForm.reset();
+        });
+    }
+
+    // ==========================================================================
+    // 12. HIGH-PERFORMANCE PARTICLE CANVAS
     // ==========================================================================
     const canvas = document.getElementById('globalParticleCanvas');
     if (canvas) {

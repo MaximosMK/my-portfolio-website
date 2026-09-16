@@ -99,6 +99,20 @@ body {
     transition: background-color var(--transition-normal), color var(--transition-normal);
 }
 
+/* Reading Progress Indicator */
+.scroll-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: var(--accent-gradient);
+    z-index: 9999;
+    box-shadow: 0 0 12px rgba(139, 92, 246, 0.7);
+    transition: width 0.08s ease-out;
+    pointer-events: none;
+}
+
 /* Background Particle Canvas */
 #globalParticleCanvas {
     position: fixed;
@@ -389,6 +403,19 @@ img {
 .action-btn:hover {
     border-color: var(--border-hover);
     transform: translateY(-1px);
+}
+
+.resume-trigger-btn {
+    padding: 6px 14px;
+    gap: 6px;
+    font-size: 0.82rem;
+    color: var(--accent-secondary);
+    border-color: rgba(6, 182, 212, 0.4);
+}
+
+.resume-trigger-btn:hover {
+    background: rgba(6, 182, 212, 0.12);
+    border-color: var(--accent-secondary);
 }
 
 .terminal-trigger-btn {
@@ -810,6 +837,145 @@ img {
     font-size: 0.82rem;
     font-weight: 500;
     border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+/* ==========================================================================
+   SERVICES & SOLUTIONS SECTION
+   ========================================================================== */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 26px;
+    margin-top: 40px;
+}
+
+.service-card {
+    display: flex;
+    flex-direction: column;
+    padding: 32px 24px;
+    border-radius: var(--radius-lg);
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: transform var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent-gradient);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.service-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+.service-card:hover::before {
+    opacity: 1;
+}
+
+.service-icon-box {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    transition: transform var(--transition-fast);
+}
+
+.service-card:hover .service-icon-box {
+    transform: scale(1.08) rotate(3deg);
+    background: rgba(139, 92, 246, 0.18);
+}
+
+.service-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+.service-desc {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.service-deliverables {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.service-deliverables li {
+    font-size: 0.86rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.service-deliverables li::before {
+    content: "✓";
+    font-weight: 700;
+    color: var(--accent-emerald);
+    background: rgba(16, 185, 129, 0.12);
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    flex-shrink: 0;
+}
+
+.service-action-btn {
+    background: transparent;
+    color: var(--accent-primary);
+    border: 1px solid var(--border-hover);
+    padding: 10px 18px;
+    border-radius: var(--radius-full);
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    transition: all var(--transition-fast);
+    outline: none;
+}
+
+.service-action-btn:hover {
+    background: var(--accent-gradient);
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: 0 4px 15px var(--accent-glow);
+    transform: translateY(-2px);
 }
 
 /* ==========================================================================
@@ -1317,42 +1483,76 @@ img {
    CONTACT SECTION
    ========================================================================== */
 .contact-card {
-    padding: 60px 40px;
+    padding: 50px 40px;
     text-align: center;
-    max-width: 800px;
+    max-width: 1050px;
     margin: 0 auto;
+    border-radius: var(--radius-lg);
 }
 
 .contact-headline {
-    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
     letter-spacing: -0.02em;
-    margin: 10px 0 16px;
+    margin: 10px 0 14px;
 }
 
 .contact-subtext {
-    font-size: 1.05rem;
-    max-width: 600px;
+    font-size: 1.02rem;
+    max-width: 650px;
     margin: 0 auto 35px;
     color: var(--text-secondary);
 }
 
-.quick-contact-row {
+.contact-interactive-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.35fr;
+    gap: 36px;
+    text-align: left;
+    align-items: start;
+    margin-top: 15px;
+}
+
+.contact-info-panel {
+    background: rgba(10, 12, 20, 0.4);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-md);
+    padding: 28px 24px;
+}
+
+body.light-theme .contact-info-panel {
+    background: rgba(241, 245, 249, 0.6);
+}
+
+.contact-panel-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+}
+
+.contact-panel-desc {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+.contact-pills-stack {
     display: flex;
-    justify-content: center;
-    gap: 14px;
-    flex-wrap: wrap;
-    margin-bottom: 35px;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 22px;
 }
 
 .copy-pill-btn {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: space-between;
+    width: 100%;
     background: var(--bg-surface);
     border: 1px solid var(--border-card);
-    padding: 10px 18px;
-    border-radius: var(--radius-full);
-    font-size: 0.88rem;
+    padding: 11px 16px;
+    border-radius: var(--radius-md);
+    font-size: 0.86rem;
     color: var(--text-primary);
     cursor: pointer;
     transition: all var(--transition-fast);
@@ -1362,19 +1562,178 @@ img {
     border-color: var(--border-hover);
     transform: translateY(-2px);
     box-shadow: var(--shadow-sm);
+    color: var(--accent-primary);
+}
+
+.copy-text-val {
+    flex-grow: 1;
+    margin: 0 10px;
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    word-break: break-all;
 }
 
 .copy-action-text {
-    font-size: 0.76rem;
+    font-size: 0.74rem;
     color: var(--accent-primary);
-    font-weight: 500;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: rgba(139, 92, 246, 0.1);
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
 }
 
-.contact-cta-buttons {
+.contact-channels-row {
     display: flex;
-    justify-content: center;
-    gap: 14px;
+    gap: 12px;
     flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.social-icon-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-card);
+    padding: 8px 14px;
+    border-radius: var(--radius-full);
+    font-size: 0.84rem;
+    color: var(--text-primary);
+    transition: all var(--transition-fast);
+}
+
+.social-icon-badge:hover {
+    border-color: var(--border-hover);
+    color: var(--accent-primary);
+    transform: translateY(-2px);
+}
+
+.response-pledge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    padding-top: 14px;
+    border-top: 1px solid var(--border-card);
+}
+
+.pledge-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-emerald);
+    box-shadow: 0 0 8px var(--accent-emerald);
+    animation: pulseGlow 2s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* Contact Inquiry Form */
+.contact-inquiry-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+.form-label {
+    font-size: 0.84rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.required-star {
+    color: #ef4444;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    background: rgba(15, 18, 29, 0.7);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+}
+
+body.light-theme .form-input,
+body.light-theme .form-select,
+body.light-theme .form-textarea {
+    background: #ffffff;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.form-select {
+    cursor: pointer;
+}
+
+.form-select option {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.form-input.is-invalid,
+.form-textarea.is-invalid {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+}
+
+.field-error-msg {
+    font-size: 0.76rem;
+    color: #ef4444;
+    display: none;
+    margin-top: 2px;
+}
+
+.field-error-msg.visible {
+    display: block;
+}
+
+.btn-submit-inquiry {
+    width: 100%;
+    padding: 14px 24px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-top: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 /* ==========================================================================
@@ -1521,6 +1880,237 @@ img {
     border-top: 1px solid var(--border-card);
     padding-top: 20px;
     flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   RESUME / CV MODAL
+   ========================================================================== */
+.resume-modal-card {
+    max-width: 860px;
+    max-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 0;
+}
+
+.resume-modal-header {
+    padding: 24px 30px;
+    border-bottom: 1px solid var(--border-card);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(15, 18, 29, 0.85);
+}
+
+body.light-theme .resume-modal-header {
+    background: rgba(248, 250, 252, 0.9);
+}
+
+.resume-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.resume-role {
+    font-size: 0.88rem;
+    color: var(--accent-secondary);
+    font-family: var(--font-mono);
+}
+
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 0.84rem;
+}
+
+.resume-modal-body {
+    padding: 26px 32px;
+    overflow-y: auto;
+    max-height: calc(88vh - 90px);
+}
+
+.resume-block {
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-card);
+}
+
+.resume-block:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.resume-section-title {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--accent-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.resume-section-title::after {
+    content: '';
+    flex-grow: 1;
+    height: 1px;
+    background: var(--border-card);
+    margin-left: 10px;
+}
+
+.resume-text {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+.resume-skills-categories {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.resume-skills-categories strong {
+    color: var(--text-primary);
+}
+
+.resume-item {
+    margin-bottom: 18px;
+}
+
+.resume-item:last-child {
+    margin-bottom: 0;
+}
+
+.resume-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+}
+
+.resume-item-title {
+    font-weight: 600;
+    font-size: 0.98rem;
+    color: var(--text-primary);
+}
+
+.resume-item-dates {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--accent-secondary);
+    white-space: nowrap;
+}
+
+.resume-item-subtitle {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.resume-bullets {
+    margin-left: 18px;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+}
+
+.resume-bullets li {
+    margin-bottom: 4px;
+}
+
+/* Print Styles for Clean Resume Printing / PDF Generation */
+@media print {
+    body * {
+        visibility: hidden !important;
+    }
+
+    #resumeModal,
+    #resumeModal * {
+        visibility: visible !important;
+    }
+
+    #resumeModal {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        background: #ffffff !important;
+        display: block !important;
+        opacity: 1 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    #resumeModal .modal-backdrop,
+    #resumeModal .close-modal-btn,
+    #resumeModal .resume-header-actions {
+        display: none !important;
+    }
+
+    .resume-modal-card {
+        border: none !important;
+        box-shadow: none !important;
+        max-width: 100% !important;
+        max-height: none !important;
+        background: #ffffff !important;
+        color: #111111 !important;
+    }
+
+    .resume-modal-header {
+        background: #ffffff !important;
+        border-bottom: 2px solid #333333 !important;
+        padding: 0 0 16px 0 !important;
+    }
+
+    .resume-name {
+        color: #000000 !important;
+        font-size: 1.8rem !important;
+    }
+
+    .resume-role {
+        color: #444444 !important;
+    }
+
+    .resume-modal-body {
+        max-height: none !important;
+        overflow: visible !important;
+        padding: 20px 0 !important;
+    }
+
+    .resume-section-title {
+        color: #000000 !important;
+        border-bottom: 1px solid #cccccc !important;
+    }
+
+    .resume-section-title::after {
+        display: none !important;
+    }
+
+    .resume-text,
+    .resume-bullets,
+    .resume-skills-categories {
+        color: #222222 !important;
+    }
+
+    .resume-item-title {
+        color: #000000 !important;
+    }
+
+    .resume-item-dates,
+    .resume-item-subtitle {
+        color: #555555 !important;
+    }
 }
 
 /* ==========================================================================
@@ -1837,8 +2427,34 @@ img {
         display: none;
     }
 
-    .terminal-trigger-btn {
+    .terminal-trigger-btn,
+    .resume-trigger-btn {
         padding: 6px 10px;
+    }
+
+    .contact-interactive-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .resume-skills-categories {
+        grid-template-columns: 1fr;
+    }
+
+    .resume-modal-body {
+        padding: 18px 20px;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-card {
+        padding: 35px 20px;
     }
 }
 
