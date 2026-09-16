@@ -1,201 +1,271 @@
-// --- Scroll-to-Top Button Functionality ---
-const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+/**
+ * ==========================================================================
+ * MOHAMED KAROUCH — PORTFOLIO CORE JAVASCRIPT
+ * ==========================================================================
+ */
 
-function handleScroll() {
-  scrollFunction();
-  activateNavLink();
-}
-window.addEventListener('scroll', handleScroll);
-
-function scrollFunction() {
-  if (scrollToTopBtn) {
-    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-      scrollToTopBtn.style.display = "block";
-    } else {
-      scrollToTopBtn.style.display = "none";
+document.addEventListener('DOMContentLoaded', () => {
+    // --- Dynamic Copyright Year ---
+    const yearEl = document.getElementById('currentYear');
+    if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
     }
-  }
-}
 
-if (scrollToTopBtn) {
-  scrollToTopBtn.addEventListener('click', topFunction);
-}
-
-function topFunction() {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// --- Theme Toggle Functionality ---
-const themeToggleBtn = document.getElementById('themeToggleBtn');
-const body = document.body;
-const LIGHT_THEME = 'light';
-const DARK_THEME = 'dark';
-const currentTheme = localStorage.getItem('theme');
-
-function setTheme(theme) {
-    if (theme === LIGHT_THEME) {
-        body.classList.add('light-theme');
-        if (themeToggleBtn) themeToggleBtn.textContent = '☀️';
-        localStorage.setItem('theme', LIGHT_THEME);
-    } else { // Assumes dark if not light
-        body.classList.remove('light-theme');
-        if (themeToggleBtn) themeToggleBtn.textContent = '🌙';
-        localStorage.setItem('theme', DARK_THEME);
+    // --- Initialize AOS (Animate On Scroll) ---
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 80,
+            easing: 'ease-out-cubic'
+        });
     }
-}
 
-// Set initial theme
-if (currentTheme === LIGHT_THEME) { // Explicitly check for light theme
-    setTheme(LIGHT_THEME);
-} else { // Default to dark theme if no theme stored or if it's 'dark' (or any other unexpected value)
-    setTheme(DARK_THEME);
-}
+    // ==========================================================================
+    // 1. THEME TOGGLE FUNCTIONALITY
+    // ==========================================================================
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeIcon = document.getElementById('themeIcon');
+    const body = document.body;
+    const STORAGE_KEY = 'mk_portfolio_theme';
 
-if (themeToggleBtn) {
-    themeToggleBtn.addEventListener('click', () => {
-        if (body.classList.contains('light-theme')) {
-            setTheme(DARK_THEME);
+    function applyTheme(theme) {
+        if (theme === 'light') {
+            body.classList.add('light-theme');
+            if (themeIcon) themeIcon.textContent = '☀️';
+            localStorage.setItem(STORAGE_KEY, 'light');
         } else {
-            setTheme(LIGHT_THEME);
+            body.classList.remove('light-theme');
+            if (themeIcon) themeIcon.textContent = '🌙';
+            localStorage.setItem(STORAGE_KEY, 'dark');
         }
-    });
-}
-
-// --- Initialize AOS (Animate On Scroll) ---
-AOS.init();
-
-// --- Mobile Navigation Toggle ---
-const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-const primaryNav = document.querySelector('header nav'); 
-
-if (mobileNavToggle && primaryNav) {
-    mobileNavToggle.addEventListener('click', () => {
-        const isVisible = primaryNav.classList.contains('nav-visible');
-        primaryNav.classList.toggle('nav-visible');
-        mobileNavToggle.setAttribute('aria-expanded', !isVisible);
-    });
-}
-
-// --- Scrollspy for Navigation ---
-const sections = document.querySelectorAll('main section[id]'); 
-const navLinks = document.querySelectorAll('header nav a');
-const headerHeight = document.querySelector('header') ? document.querySelector('header').offsetHeight : 0;
-
-function activateNavLink() {
-    let currentSectionId = '';
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (pageYOffset >= sectionTop - headerHeight - (sectionHeight / 3) ) {
-            currentSectionId = section.getAttribute('id');
+        if (typeof reInitParticleColors === 'function') {
+            reInitParticleColors();
         }
-    });
+    }
 
-    navLinks.forEach(link => {
-        link.classList.remove('active-link');
-        if (link.getAttribute('href') === `#${currentSectionId}`) {
-            link.classList.add('active-link');
-        }
-    });
-}
+    const savedTheme = localStorage.getItem(STORAGE_KEY);
+    if (savedTheme === 'light') {
+        applyTheme('light');
+    } else {
+        applyTheme('dark');
+    }
 
-window.addEventListener('load', activateNavLink);
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            const isLight = body.classList.contains('light-theme');
+            applyTheme(isLight ? 'dark' : 'light');
+            showToast(`Switched to ${isLight ? 'Dark' : 'Light'} Mode`);
+        });
+    }
 
-// --- GSAP Terminal Intro for Hero Tagline ---
-document.addEventListener("DOMContentLoaded", function() {
-    const heroTagline = document.getElementById('hero-tagline');
+    // ==========================================================================
+    // 2. MOBILE NAVIGATION & SCROLLSPY
+    // ==========================================================================
+    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+    const primaryNav = document.getElementById('primaryNavigation');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('main section[id]');
+    const header = document.getElementById('mainHeader');
 
-    if (heroTagline && typeof gsap !== 'undefined' && typeof gsap.plugins !== 'undefined' && gsap.plugins.TextPlugin) {
-        gsap.registerPlugin(gsap.plugins.TextPlugin);
-
-        const lines = [
-            { text: "Initiating sequence...", speed: 0.06, delay: 0.5, size: "1em" },
-            { text: "Loading core_modules/reality_engine.js", speed: 0.04, delay: 0.5, size: "1em" },
-            { text: "> Accessing creative_matrix...", speed: 0.05, delay: 0.8, size: "1em" },
-            { text: "Mohamed Karouch", speed: 0.08, delay: 0.5, clear: true, size: "1.5em", isName: true },
-            { text: "\"Turning ideas into digital reality with code.\"", speed: 0.07, delay: 0.2, size: "2.2em", isTagline: true }
-        ];
-
-        let masterTimeline = gsap.timeline({ delay: 0.5 });
-
-        lines.forEach((line) => {
-            if (line.clear) {
-                masterTimeline.to(heroTagline, { 
-                    duration: 0.1, 
-                    text: "", 
-                    ease: "none",
-                    onStart: () => heroTagline.style.fontSize = line.size
-                });
-            } else {
-                 masterTimeline.call(() => heroTagline.style.fontSize = line.size, null, `+=${line.delay/1000}`);
-            }
-            
-            masterTimeline.to(heroTagline, {
-                duration: line.text.length * line.speed,
-                text: {
-                    value: line.text,
-                    delimiter: "", 
-                    newClass: "gsap-cursor"
-                },
-                ease: "none",
-            }, line.clear ? undefined : `+=${line.delay/1000}`);
+    if (mobileNavToggle && primaryNav) {
+        mobileNavToggle.addEventListener('click', () => {
+            const isOpen = primaryNav.classList.contains('nav-visible');
+            primaryNav.classList.toggle('nav-visible');
+            mobileNavToggle.setAttribute('aria-expanded', !isOpen);
         });
 
-    } else if (heroTagline) {
-        heroTagline.innerHTML = "\"Turning ideas into digital reality with code.\"";
-        if (typeof gsap === 'undefined' || typeof gsap.plugins === 'undefined' || !gsap.plugins.TextPlugin) {
-            console.warn("GSAP TextPlugin not loaded. Displaying static tagline. Ensure TextPlugin.min.js is included after gsap.min.js.");
-        } else {
-            console.warn("Hero tagline element not found for GSAP animation.");
+        // Close nav when clicking on any link
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                primaryNav.classList.remove('nav-visible');
+                mobileNavToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+    }
+
+    // Scrollspy navigation active state
+    function updateActiveNavLink() {
+        const scrollPosition = window.scrollY + 120;
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active-link');
+                    if (link.getAttribute('href') === `#${sectionId}`) {
+                        link.classList.add('active-link');
+                    }
+                });
+            }
+        });
+    }
+
+    // Scroll-to-Top Button
+    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+    function handleScrollEvents() {
+        updateActiveNavLink();
+
+        if (scrollToTopBtn) {
+            if (window.scrollY > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
         }
     }
-});
 
-// --- Skills Filter Functionality ---
-document.addEventListener('DOMContentLoaded', () => {
-    const filterButtons = document.querySelectorAll('.skills-filter-controls .filter-btn');
-    const skillItems = document.querySelectorAll('#skills .skill-item');
+    window.addEventListener('scroll', handleScrollEvents, { passive: true });
 
-    if (filterButtons.length > 0 && skillItems.length > 0) {
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
+    if (scrollToTopBtn) {
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
 
-                const filterValue = button.getAttribute('data-filter');
+    // ==========================================================================
+    // 3. TOAST NOTIFICATION UTILITY
+    // ==========================================================================
+    const toastEl = document.getElementById('toastNotification');
+    let toastTimeout;
 
-                skillItems.forEach(item => {
-                    const itemCategory = item.getAttribute('data-category');
-                    
-                    if (filterValue === 'all' || itemCategory === filterValue) {
-                        item.classList.remove('hidden');
+    function showToast(message) {
+        if (!toastEl) return;
+        toastEl.textContent = message;
+        toastEl.classList.add('active');
+
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+            toastEl.classList.remove('active');
+        }, 3000);
+    }
+
+    // Quick Copy to Clipboard Buttons
+    const copyEmailBtn = document.getElementById('copyEmailBtn');
+    const copyPhoneBtn = document.getElementById('copyPhoneBtn');
+
+    function setupCopyButton(btn, label) {
+        if (!btn) return;
+        btn.addEventListener('click', () => {
+            const textToCopy = btn.getAttribute('data-copy');
+            if (!textToCopy) return;
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                showToast(`${label} copied to clipboard! 📋✨`);
+            }).catch(() => {
+                showToast(`Failed to copy to clipboard`);
+            });
+        });
+    }
+
+    setupCopyButton(copyEmailBtn, 'Email address');
+    setupCopyButton(copyPhoneBtn, 'Phone number');
+
+    // ==========================================================================
+    // 4. GSAP HERO TYPEWRITER
+    // ==========================================================================
+    const heroTagline = document.getElementById('hero-tagline');
+    if (heroTagline && typeof gsap !== 'undefined') {
+        const quotes = [
+            "\"Turning ideas into digital reality with code.\"",
+            "\"Building scalable web apps & modern digital solutions.\"",
+            "\"Specializing in WordPress, PHP, JavaScript, and Python.\""
+        ];
+
+        let quoteIndex = 0;
+        function cycleHeroQuotes() {
+            gsap.to(heroTagline, {
+                opacity: 0,
+                duration: 0.4,
+                onComplete: () => {
+                    quoteIndex = (quoteIndex + 1) % quotes.length;
+                    heroTagline.textContent = quotes[quoteIndex];
+                    gsap.to(heroTagline, { opacity: 1, duration: 0.5 });
+                }
+            });
+        }
+
+        // Cycle quote every 6 seconds
+        setInterval(cycleHeroQuotes, 6000);
+    }
+
+    // ==========================================================================
+    // 5. SKILLS FILTER FUNCTIONALITY
+    // ==========================================================================
+    const skillFilterBtns = document.querySelectorAll('.skills-filter-controls .filter-btn');
+    const skillCards = document.querySelectorAll('.skill-card');
+
+    if (skillFilterBtns.length && skillCards.length) {
+        skillFilterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                skillFilterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-filter');
+
+                skillCards.forEach(card => {
+                    const cardCategory = card.getAttribute('data-category');
+                    if (filter === 'all' || cardCategory === filter) {
+                        card.classList.remove('hidden');
                     } else {
-                        item.classList.add('hidden');
+                        card.classList.add('hidden');
                     }
                 });
             });
         });
     }
-});
 
-// --- Project Modal Functionality ---
-document.addEventListener('DOMContentLoaded', () => {
+    // ==========================================================================
+    // 6. PROJECTS FILTER FUNCTIONALITY
+    // ==========================================================================
+    const projectFilterBtns = document.querySelectorAll('.project-filter-controls .filter-btn');
     const projectCards = document.querySelectorAll('.project-card');
+
+    if (projectFilterBtns.length && projectCards.length) {
+        projectFilterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                projectFilterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-project-filter');
+
+                projectCards.forEach(card => {
+                    const cardCategory = card.getAttribute('data-project-category');
+                    if (filter === 'all' || cardCategory === filter) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    }
+
+    // ==========================================================================
+    // 7. PROJECT DETAILS MODAL
+    // ==========================================================================
     const modal = document.getElementById('projectModal');
-    const closeModalBtn = document.querySelector('.close-modal-btn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const modalBackdrop = modal ? modal.querySelector('.modal-backdrop') : null;
 
     const modalScreenshot = document.getElementById('modalScreenshot');
     const modalTitle = document.getElementById('modalTitle');
+    const modalCategoryTag = document.getElementById('modalCategoryTag');
     const modalDescription = document.getElementById('modalDescription');
     const modalProblems = document.getElementById('modalProblems');
     const modalGithubLink = document.getElementById('modalGithubLink');
     const modalDemoLink = document.getElementById('modalDemoLink');
 
-    function populateAndOpenModal(card) {
+    function openProjectModal(card) {
+        if (!modal) return;
+
         modalTitle.textContent = card.dataset.modalTitle || 'Project Details';
-        modalDescription.textContent = card.dataset.modalDescription || 'No description available.';
-        modalProblems.textContent = card.dataset.modalProblems || 'No specific problems detailed.';
-        
+        modalCategoryTag.textContent = card.dataset.modalTag || 'Featured Project';
+        modalDescription.textContent = card.dataset.modalDescription || 'No description provided.';
+        modalProblems.textContent = card.dataset.modalProblems || 'Comprehensive architecture engineered to solve key client requirements.';
+
         if (card.dataset.modalScreenshot) {
             modalScreenshot.src = card.dataset.modalScreenshot;
             modalScreenshot.style.display = 'block';
@@ -205,394 +275,375 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (card.dataset.modalGithub && card.dataset.modalGithub !== '#') {
             modalGithubLink.href = card.dataset.modalGithub;
-            modalGithubLink.style.display = 'inline-block';
+            modalGithubLink.style.display = 'inline-flex';
         } else {
             modalGithubLink.style.display = 'none';
         }
 
         if (card.dataset.modalDemo && card.dataset.modalDemo !== '#') {
             modalDemoLink.href = card.dataset.modalDemo;
-            modalDemoLink.style.display = 'inline-block';
+            modalDemoLink.style.display = 'inline-flex';
         } else {
             modalDemoLink.style.display = 'none';
         }
-        
+
         modal.classList.add('visible');
         document.body.style.overflow = 'hidden';
     }
 
-    if (projectCards.length > 0 && modal && closeModalBtn) {
-        projectCards.forEach(card => {
-            card.addEventListener('click', () => {
-                populateAndOpenModal(card);
-            });
-        });
-
-        function closeModal() {
-            modal.classList.remove('visible');
-            document.body.style.overflow = 'auto';
-        }
-
-        closeModalBtn.addEventListener('click', closeModal);
-
-        modal.addEventListener('click', (event) => {
-            if (event.target === modal) {
-                closeModal();
-            }
-        });
-
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && modal.classList.contains('visible')) {
-                closeModal();
-            }
-        });
-
-    } else {
-        if (projectCards.length === 0) console.warn('No project cards found for modal functionality.');
-        if (!modal) console.warn('Project modal element not found.');
-        if (!closeModalBtn) console.warn('Modal close button not found.');
+    function closeProjectModal() {
+        if (!modal) return;
+        modal.classList.remove('visible');
+        document.body.style.overflow = '';
     }
-});
 
-// --- Dev Console Functionality ---
-document.addEventListener('DOMContentLoaded', () => {
+    projectCards.forEach(card => {
+        card.addEventListener('click', (e) => {
+            openProjectModal(card);
+        });
+    });
+
+    if (closeModalBtn) closeModalBtn.addEventListener('click', closeProjectModal);
+    if (modalBackdrop) modalBackdrop.addEventListener('click', closeProjectModal);
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal && modal.classList.contains('visible')) {
+            closeProjectModal();
+        }
+    });
+
+    // ==========================================================================
+    // 8. DESIGN LAB INTERACTIVE EXPERIMENTS
+    // ==========================================================================
+    
+    // Experiment 1: 3D Tilt Card with Glare
+    const tiltContainer = document.getElementById('tiltCardContainer');
+    const tiltCard = document.getElementById('tiltCard');
+
+    if (tiltContainer && tiltCard) {
+        tiltContainer.addEventListener('mousemove', (e) => {
+            const rect = tiltCard.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = ((y - centerY) / centerY) * -15;
+            const rotateY = ((x - centerX) / centerX) * 15;
+
+            const glareX = (x / rect.width) * 100;
+            const glareY = (y / rect.height) * 100;
+
+            tiltCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+            tiltCard.style.setProperty('--glare-x', `${glareX}%`);
+            tiltCard.style.setProperty('--glare-y', `${glareY}%`);
+        });
+
+        tiltContainer.addEventListener('mouseleave', () => {
+            tiltCard.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        });
+    }
+
+    // Experiment 2: Cursor Spotlight Background
+    const reactiveSpotlight = document.getElementById('reactiveSpotlight');
+    const coordDisplay = document.getElementById('coordDisplay');
+
+    if (reactiveSpotlight) {
+        reactiveSpotlight.addEventListener('mousemove', (e) => {
+            const rect = reactiveSpotlight.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+            reactiveSpotlight.style.setProperty('--mouse-x', `${x.toFixed(1)}%`);
+            reactiveSpotlight.style.setProperty('--mouse-y', `${y.toFixed(1)}%`);
+
+            if (coordDisplay) {
+                coordDisplay.textContent = `X: ${x.toFixed(0)}% | Y: ${y.toFixed(0)}%`;
+            }
+        });
+    }
+
+    // Experiment 3: 3D Interactive Tech Cube
+    const cubeField = document.getElementById('geometricFieldContainer');
+    const techCube = document.getElementById('techCube');
+
+    if (cubeField && techCube) {
+        let currentRotX = -20;
+        let currentRotY = 30;
+
+        cubeField.addEventListener('mousemove', (e) => {
+            const rect = cubeField.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left - rect.width / 2;
+            const mouseY = e.clientY - rect.top - rect.height / 2;
+
+            currentRotY = 30 + (mouseX / (rect.width / 2)) * 50;
+            currentRotX = -20 - (mouseY / (rect.height / 2)) * 50;
+
+            techCube.style.transform = `rotateX(${currentRotX}deg) rotateY(${currentRotY}deg)`;
+        });
+
+        cubeField.addEventListener('mouseleave', () => {
+            currentRotX = -20;
+            currentRotY = 30;
+            techCube.style.transform = `rotateX(${currentRotX}deg) rotateY(${currentRotY}deg)`;
+        });
+    }
+
+    // ==========================================================================
+    // 9. DEV CONSOLE TERMINAL (EASTER EGG & TERMINAL TOOL)
+    // ==========================================================================
     const devConsole = document.getElementById('devConsole');
+    const openTerminalBtn = document.getElementById('openTerminalBtn');
+    const closeConsoleBtn = document.getElementById('closeConsoleBtn');
     const consoleOutput = document.getElementById('consoleOutput');
     const consoleInput = document.getElementById('consoleInput');
-    const closeConsoleBtn = document.getElementById('closeConsoleBtn');
 
-    let consoleVisible = false;
-
-    function toggleConsole() {
-        consoleVisible = !consoleVisible;
-        if (consoleVisible) {
-            devConsole.classList.add('visible');
-            consoleInput.focus(); // Focus on input when console opens
-        } else {
+    function toggleDevConsole() {
+        if (!devConsole) return;
+        const isVisible = devConsole.classList.contains('visible');
+        if (isVisible) {
             devConsole.classList.remove('visible');
+        } else {
+            devConsole.classList.add('visible');
+            if (consoleInput) consoleInput.focus();
         }
     }
 
-    function appendToConsole(text, type = 'info') {
+    if (openTerminalBtn) {
+        openTerminalBtn.addEventListener('click', toggleDevConsole);
+    }
+    if (closeConsoleBtn) {
+        closeConsoleBtn.addEventListener('click', toggleDevConsole);
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === '\\') {
+            e.preventDefault();
+            toggleDevConsole();
+        }
+    });
+
+    function appendConsoleMessage(text, type = 'info') {
+        if (!consoleOutput) return;
         const p = document.createElement('p');
         if (type === 'command') {
-            p.textContent = `> ${text}`;
+            p.textContent = `guest@mk-portfolio:~$ ${text}`;
+            p.style.color = '#10b981';
         } else if (type === 'error') {
-            p.style.color = '#ff4757'; // A reddish color for errors
-            p.textContent = `Error: ${text}`;
+            p.textContent = `[Error] ${text}`;
+            p.style.color = '#ef4444';
         } else if (type === 'success') {
-            p.style.color = '#2ed573'; // A greenish color for success
             p.textContent = text;
-        }
-        else {
+            p.style.color = '#34d399';
+        } else {
             p.textContent = text;
+            p.style.color = '#38bdf8';
         }
         consoleOutput.appendChild(p);
-        consoleOutput.scrollTop = consoleOutput.scrollHeight; // Auto-scroll to bottom
+        consoleOutput.scrollTop = consoleOutput.scrollHeight;
     }
 
-    function processCommand(command) {
-        appendToConsole(command, 'command');
-        const parts = command.toLowerCase().trim().split(' ');
+    function executeCommand(cmdLine) {
+        const trimmed = cmdLine.trim();
+        if (!trimmed) return;
+        appendConsoleMessage(trimmed, 'command');
+
+        const parts = trimmed.toLowerCase().split(' ');
         const cmd = parts[0];
-        // const args = parts.slice(1); // For commands with arguments
 
         switch (cmd) {
             case 'help':
-                appendToConsole("Available commands:");
-                appendToConsole("- help: Show this help message.");
-                appendToConsole("- clear: Clear the console output.");
-                appendToConsole("- date: Show current date and time.");
-                appendToConsole("- about_me: Display a short bio.");
-                appendToConsole("- contact_info: Show contact details.");
-                // Add more commands here
+                appendConsoleMessage("Available Terminal Commands:");
+                appendConsoleMessage("  help        - Display list of available commands");
+                appendConsoleMessage("  skills      - Inspect core technologies and skills");
+                appendConsoleMessage("  projects    - Summary of featured engineering projects");
+                appendConsoleMessage("  about       - Read developer background & bio");
+                appendConsoleMessage("  contact     - Display direct contact details");
+                appendConsoleMessage("  github      - View GitHub profile and repository");
+                appendConsoleMessage("  theme       - Toggle Light / Dark mode");
+                appendConsoleMessage("  date        - Current timestamp");
+                appendConsoleMessage("  matrix      - Activate cyber terminal simulation");
+                appendConsoleMessage("  hire        - Inquire for project availability");
+                appendConsoleMessage("  sudo        - Request root permissions");
+                appendConsoleMessage("  clear       - Clear terminal screen");
+                break;
+            case 'skills':
+                appendConsoleMessage("Core Stack: WordPress, PHP, JavaScript (ES6+), HTML5, CSS3, SQL, MySQL, Python, C#, R.");
+                appendConsoleMessage("Specializations: Responsive design, REST APIs, performance tuning, on-page SEO, automation.");
+                break;
+            case 'projects':
+                appendConsoleMessage("1. Freelance Web Development — Client websites built with WordPress, PHP & SEO.");
+                appendConsoleMessage("2. E-Commerce Platform — Custom online clothing store with MySQL database.");
+                appendConsoleMessage("3. Piper TTS Converter — Python desktop GUI & Flask API voice synthesizer.");
+                appendConsoleMessage("4. Web Scraper — Automated data extraction engine for literature analytics.");
+                appendConsoleMessage("5. ADII Customs Internship — Forecasting algorithms & fraud anomaly detection.");
+                break;
+            case 'about':
+                appendConsoleMessage("Mohamed Karouch — Solo Web Developer & Software Engineer based in Morocco.");
+                appendConsoleMessage("2+ years experience building for SMBs. Currently enrolled in the ALX Software Engineering program.");
+                break;
+            case 'contact':
+                appendConsoleMessage("Email:    karouchmohamed21@gmail.com");
+                appendConsoleMessage("Phone:    +212-618238201");
+                appendConsoleMessage("LinkedIn: linkedin.com/in/mohamed-karouch/");
+                appendConsoleMessage("GitHub:   github.com/MaximosMK");
+                break;
+            case 'github':
+                appendConsoleMessage("Redirecting to https://github.com/MaximosMK ...");
+                window.open('https://github.com/MaximosMK', '_blank');
+                break;
+            case 'theme':
+                const isLight = body.classList.contains('light-theme');
+                applyTheme(isLight ? 'dark' : 'light');
+                appendConsoleMessage(`Switched theme to ${isLight ? 'dark' : 'light'} mode.`, 'success');
                 break;
             case 'clear':
                 consoleOutput.innerHTML = '';
                 break;
             case 'date':
-                appendToConsole(new Date().toLocaleString());
+                appendConsoleMessage(`System time: ${new Date().toLocaleString()}`);
                 break;
-            case 'about_me':
-                appendToConsole("Mohamed Karouch: A passionate Web Developer turning ideas into digital reality with code. Specializing in creating performant, beautiful, and user-first web experiences.");
+            case 'hire':
+                appendConsoleMessage("Status: Currently OPEN for freelance projects and engineering roles!", 'success');
+                appendConsoleMessage("Send an email to karouchmohamed21@gmail.com to start collaborating.");
                 break;
-            case 'contact_info':
-                appendToConsole("Email: karouchmohamed21@gmail.com | LinkedIn: linkedin.com/in/mohamed-karouch");
-                break;
-            // Easter eggs or fun commands
-            case 'whoami':
-                appendToConsole("You are an explorer of this digital realm!");
+            case 'sudo':
+                appendConsoleMessage("Nice try! Guest users do not have root access on this portfolio server ;)", 'error');
                 break;
             case 'matrix':
-                appendToConsole("Wake up, Neo... The Matrix has you.");
+                appendConsoleMessage("Follow the white rabbit, Neo... Reality is merely an electrical impulse interpreted by your brain.", 'success');
                 break;
             default:
-                appendToConsole(`Command not found: ${cmd}. Type 'help' for available commands.`, 'error');
+                appendConsoleMessage(`Command not recognized: '${cmd}'. Type 'help' for supported commands.`, 'error');
+                break;
         }
     }
 
-    if (devConsole && consoleOutput && consoleInput && closeConsoleBtn) {
-        // Toggle console with Ctrl + \ (Backslash) or Cmd + \
-        document.addEventListener('keydown', (event) => {
-            if ((event.ctrlKey || event.metaKey) && event.key === '\\') {
-                event.preventDefault(); // Prevent default browser action for this combo
-                toggleConsole();
+    if (consoleInput) {
+        consoleInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                executeCommand(consoleInput.value);
+                consoleInput.value = '';
             }
         });
-
-        // Handle input submission
-        consoleInput.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter' && consoleInput.value.trim() !== '') {
-                processCommand(consoleInput.value.trim());
-                consoleInput.value = ''; // Clear input field
-            }
-        });
-
-        // Close button
-        closeConsoleBtn.addEventListener('click', toggleConsole);
-
-    } else {
-        console.warn('Dev Console elements not found. Console functionality will be disabled.');
-    }
-});
-
-// --- Design Lab: Cursor-Reactive Background ---
-document.addEventListener('DOMContentLoaded', () => {
-    const reactiveContainers = document.querySelectorAll('.reactive-bg-container');
-
-    reactiveContainers.forEach(container => {
-        container.addEventListener('mousemove', (e) => {
-            const rect = container.getBoundingClientRect();
-            const x = e.clientX - rect.left; // x position within the element.
-            const y = e.clientY - rect.top;  // y position within the element.
-
-            const xPercent = (x / rect.width) * 100;
-            const yPercent = (y / rect.height) * 100;
-
-            container.style.setProperty('--mouse-x', `${xPercent}%`);
-            container.style.setProperty('--mouse-y', `${yPercent}%`);
-        });
-    });
-});
-
-// --- Design Lab: 3D Interactive Cube ---
-document.addEventListener('DOMContentLoaded', () => {
-    const fieldContainer = document.getElementById('geometricFieldContainer');
-    const promptText = fieldContainer ? fieldContainer.querySelector('.geometric-field-prompt') : null;
-
-    if (!fieldContainer) {
-        console.warn("Geometric field container not found for 3D cube.");
-        return;
     }
 
-    const cubeSize = 150; // pixels
-    const halfSize = cubeSize / 2;
-
-    const INITIAL_ROTATE_X = -25; // degrees
-    const INITIAL_ROTATE_Y = -35; // degrees
-    const ROTATE_SENSITIVITY_DIVISOR = 2; // Smaller = more sensitive
-
-    const cubeWrapper = document.createElement('div');
-    cubeWrapper.classList.add('cube-wrapper');
-    cubeWrapper.style.width = `${cubeSize}px`;
-    cubeWrapper.style.height = `${cubeSize}px`;
-
-    const facesData = [
-        { name: 'F', transform: `rotateY(0deg) translateZ(${halfSize}px)`, color: 'rgba(187, 134, 252, 0.4)' }, // Front
-        { name: 'Bk', transform: `rotateY(180deg) translateZ(${halfSize}px)`, color: 'rgba(134, 252, 187, 0.4)' }, // Back
-        { name: 'R', transform: `rotateY(90deg) translateZ(${halfSize}px)`, color: 'rgba(252, 134, 187, 0.4)' },  // Right
-        { name: 'L', transform: `rotateY(-90deg) translateZ(${halfSize}px)`, color: 'rgba(134, 187, 252, 0.4)' }, // Left
-        { name: 'T', transform: `rotateX(90deg) translateZ(${halfSize}px)`, color: 'rgba(252, 187, 134, 0.4)' },  // Top
-        { name: 'Bt', transform: `rotateX(-90deg) translateZ(${halfSize}px)`, color: 'rgba(187, 252, 134, 0.4)' }  // Bottom
-    ];
-
-    facesData.forEach(data => {
-        const face = document.createElement('div');
-        face.classList.add('cube-face');
-        face.textContent = data.name;
-        face.style.transform = data.transform;
-        face.style.backgroundColor = data.color;
-        cubeWrapper.appendChild(face);
-    });
-
-    fieldContainer.innerHTML = ''; // Clear previous content (like the prompt)
-    fieldContainer.appendChild(cubeWrapper);
-
-    let currentRotateX = INITIAL_ROTATE_X;
-    let currentRotateY = INITIAL_ROTATE_Y;
-    cubeWrapper.style.transform = `rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg)`; // Apply initial rotation
-
-    fieldContainer.addEventListener('mousemove', (e) => {
-        const rect = fieldContainer.getBoundingClientRect();
-        const mouseX = e.clientX - rect.left - rect.width / 2;
-        const mouseY = e.clientY - rect.top - rect.height / 2;
-
-        // Calculate rotation based on mouse position relative to center, adjusted by sensitivity
-        // The 90 is a factor to determine the maximum rotation influence from mouse movement
-        currentRotateY = INITIAL_ROTATE_Y - (mouseX / (rect.width / 2)) * (90 / ROTATE_SENSITIVITY_DIVISOR);
-        currentRotateX = INITIAL_ROTATE_X + (mouseY / (rect.height / 2)) * (90 / ROTATE_SENSITIVITY_DIVISOR);
-
-        cubeWrapper.style.transform = `rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg)`;
-    });
-
-    fieldContainer.addEventListener('mouseleave', () => {
-        currentRotateX = INITIAL_ROTATE_X;
-        currentRotateY = INITIAL_ROTATE_Y;
-        cubeWrapper.style.transform = `rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg)`;
-    });
-
-    if (promptText) {
-        // promptText.style.display = 'none'; // Or remove it if you prefer
-    }
-});
-
-
-// --- Global Canvas Particle System ---
-document.addEventListener('DOMContentLoaded', () => {
+    // ==========================================================================
+    // 10. HIGH-PERFORMANCE PARTICLE CANVAS
+    // ==========================================================================
     const canvas = document.getElementById('globalParticleCanvas');
-    if (!canvas) {
-        console.warn('Global particle canvas not found.');
-        return;
-    }
-    const ctx = canvas.getContext('2d');
-    let particlesArray;
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let animationFrameId;
+        let isPageVisible = true;
 
-    // Configuration constants for the particle system
-    const PARTICLE_DENSITY_FACTOR = 9000; // Lower = more dense, Higher = less dense
-    const MAX_PARTICLES = 150;
-    const MIN_PARTICLES = 30;
-    const MIN_PARTICLE_SIZE = 0.5;
-    const MAX_PARTICLE_SIZE = 2.0;
-    const MIN_PARTICLE_SPEED = -0.15;
-    const MAX_PARTICLE_SPEED = 0.15;
-    const MIN_PARTICLE_ALPHA = 0.2;
-    const MAX_PARTICLE_ALPHA = 0.6;
+        const DPR = window.devicePixelRatio || 1;
+        let width = window.innerWidth;
+        let height = window.innerHeight;
 
-    // Set canvas dimensions
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', () => {
-        resizeCanvas();
-        initParticles(); // Re-initialize particles on resize for new density/positions
-    });
-
-    // Particle class
-    class Particle {
-        constructor(x, y, directionX, directionY, size, color) {
-            this.x = x;
-            this.y = y;
-            this.directionX = directionX;
-            this.directionY = directionY;
-            this.size = size;
-            this.color = color;
+        function resizeCanvas() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width * DPR;
+            canvas.height = height * DPR;
+            ctx.scale(DPR, DPR);
         }
 
-        draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-            ctx.fillStyle = this.color;
-            ctx.fill();
-        }
-
-        update() {
-            // Check collision with canvas edges
-            if (this.x + this.size > canvas.width || this.x - this.size < 0) {
-                this.directionX = -this.directionX;
-            }
-            if (this.y + this.size > canvas.height || this.y - this.size < 0) {
-                this.directionY = -this.directionY;
-            }
-            // Move particle
-            this.x += this.directionX;
-            this.y += this.directionY;
-            this.draw();
-        }
-    }
-
-    // Create particle array
-    function initParticles() {
-        particlesArray = [];
-        // Adjust number of particles based on screen size for performance
-        let numberOfParticles = (canvas.height * canvas.width) / PARTICLE_DENSITY_FACTOR;
-        if (numberOfParticles > MAX_PARTICLES) numberOfParticles = MAX_PARTICLES;
-        if (numberOfParticles < MIN_PARTICLES) numberOfParticles = MIN_PARTICLES;
-
-        for (let i = 0; i < numberOfParticles; i++) {
-            let size = (Math.random() * (MAX_PARTICLE_SIZE - MIN_PARTICLE_SIZE)) + MIN_PARTICLE_SIZE;
-            let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
-            let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-            let speedRange = MAX_PARTICLE_SPEED - MIN_PARTICLE_SPEED;
-            let directionX = (Math.random() * speedRange) + MIN_PARTICLE_SPEED;
-            let directionY = (Math.random() * speedRange) + MIN_PARTICLE_SPEED;
-            
-            let colorValue = getComputedStyle(document.documentElement).getPropertyValue('--text-color').trim() || '#e0e0e0';
-            let alpha = (Math.random() * (MAX_PARTICLE_ALPHA - MIN_PARTICLE_ALPHA)) + MIN_PARTICLE_ALPHA;
-            
-            let finalColor;
-            if (colorValue.startsWith('#')) { 
-                let r = parseInt(colorValue.slice(1, 3), 16);
-                let g = parseInt(colorValue.slice(3, 5), 16);
-                let b = parseInt(colorValue.slice(5, 7), 16);
-                finalColor = `rgba(${r},${g},${b},${alpha})`;
-            } else if (colorValue.startsWith('rgb(')) { 
-                 finalColor = colorValue.replace('rgb(', 'rgba(').replace(')', `,${alpha})`);
-            } else { 
-                finalColor = `rgba(224, 224, 224, ${alpha})`; 
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.4;
+                this.vy = (Math.random() - 0.5) * 0.4;
+                this.radius = Math.random() * 1.5 + 0.5;
             }
 
-            particlesArray.push(new Particle(x, y, directionX, directionY, size, finalColor));
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+
+            draw(color) {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = color;
+                ctx.fill();
+            }
         }
-    }
 
-    // Animation loop
-    function animateParticles() {
-        requestAnimationFrame(animateParticles);
-        ctx.clearRect(0, 0, innerWidth, innerHeight);
+        let particleColor = 'rgba(139, 92, 246, 0.4)';
+        let lineColor = 'rgba(139, 92, 246, 0.08)';
 
-        for (let i = 0; i < particlesArray.length; i++) {
-            particlesArray[i].update();
+        window.reInitParticleColors = function() {
+            const isLight = document.body.classList.contains('light-theme');
+            particleColor = isLight ? 'rgba(99, 102, 241, 0.35)' : 'rgba(139, 92, 246, 0.45)';
+            lineColor = isLight ? 'rgba(99, 102, 241, 0.08)' : 'rgba(139, 92, 246, 0.08)';
+        };
+        reInitParticleColors();
+
+        function initParticles() {
+            particles = [];
+            // Target ~45 particles for smooth 60fps rendering without battery drain
+            const count = Math.min(50, Math.floor((width * height) / 25000));
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
         }
-        // connectParticles(); // Optional: function to draw lines between particles
-    }
 
-    // Optional: Function to connect particles with lines
-    /*
-    function connectParticles(){
-        let opacityValue = 1;
-        const CONNECT_DISTANCE_FACTOR_W = 10; // Lower = larger connection area
-        const CONNECT_DISTANCE_FACTOR_H = 10;
-        const OPACITY_DISTANCE_DIVISOR = 15000; // Higher = lines fade slower
-        for (let a = 0; a < particlesArray.length; a++) {
-            for (let b = a; b < particlesArray.length; b++) {
-                let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x))
-                             + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
-                if (distance < (canvas.width/CONNECT_DISTANCE_FACTOR_W) * (canvas.height/CONNECT_DISTANCE_FACTOR_H)) {
-                    opacityValue = 1 - (distance/OPACITY_DISTANCE_DIVISOR);
-                    let lineColorValue = getComputedStyle(document.documentElement).getPropertyValue('--primary-accent-color').trim() || '#bb86fc';
-                    let finalLineColor;
-                     if (lineColorValue.startsWith('#')) { 
-                        let r = parseInt(lineColorValue.slice(1, 3), 16);
-                        let g = parseInt(lineColorValue.slice(3, 5), 16);
-                        let b = parseInt(lineColorValue.slice(5, 7), 16);
-                        finalLineColor = `rgba(${r},${g},${b},${opacityValue})`;
-                    } else { // Fallback for rgb or other formats, less precise for this example
-                        finalLineColor = `rgba(187,134,252,${opacityValue})`;
+        function renderParticles() {
+            if (!isPageVisible) return;
+            ctx.clearRect(0, 0, width, height);
+
+            // Draw connecting lines
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = lineColor;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
                     }
-                    ctx.strokeStyle = finalLineColor;
-                    ctx.lineWidth = 0.3; // Thinner lines
-                    ctx.beginPath();
-                    ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-                    ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
-                    ctx.stroke();
                 }
             }
-        }
-    }
-    */
 
-    initParticles();
-    animateParticles();
+            // Draw particles
+            particles.forEach(p => {
+                p.update();
+                p.draw(particleColor);
+            });
+
+            animationFrameId = requestAnimationFrame(renderParticles);
+        }
+
+        resizeCanvas();
+        initParticles();
+        renderParticles();
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initParticles();
+        }, { passive: true });
+
+        // Pause animation when tab is inactive to save battery & CPU
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                isPageVisible = false;
+                cancelAnimationFrame(animationFrameId);
+            } else {
+                isPageVisible = true;
+                renderParticles();
+            }
+        });
+    }
 });

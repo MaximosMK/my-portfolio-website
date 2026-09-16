@@ -1,441 +1,856 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <!-- SEO Meta Tags -->
-        <title>Mohamed Karouch - Web Developer Portfolio</title>
-        <meta name="description" content="Personal portfolio of Mohamed Karouch, a freelance web developer based in Amizmiz, Morocco, specializing in WordPress, PHP, JavaScript, HTML, and CSS. Turning ideas into digital reality.">
-        <meta name="keywords" content="Mohamed Karouch, web developer, freelance, portfolio, Amizmiz, Morocco, WordPress, PHP, JavaScript, HTML, CSS, front-end developer">
-        <meta name="author" content="Mohamed Karouch">
-
-        <!-- Open Graph Meta Tags (for social media sharing) -->
-        <meta property="og:title" content="Mohamed Karouch - Web Developer Portfolio">
-        <meta property="og:description" content="Discover the work of Mohamed Karouch, a freelance web developer creating digital solutions.">
-        <meta property="og:type" content="website">
-        <meta property="og:url" content="https://karouchmohamed.netlify.app/">
-        <meta property="og:image" content="https://karouchmohamed.netlify.app/images/social-preview.jpg">
-
-
-        <!-- Favicon and App Icons -->
-        <link rel="apple-touch-icon" sizes="180x180" href="/logo/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="96x96" href="/logo/favicon-96x96.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/logo/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/logo/favicon-16x16.png">
-        <link rel="icon" type="image/svg+xml" href="/logo/favicon.svg">
-        <link rel="shortcut icon" href="/logo/favicon.ico">
-        <link rel="manifest" href="/logo/site.webmanifest">
-        <meta name="apple-mobile-web-app-title" content="Mohamed Karouch Portfolio">
-
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-        
-        <link rel="stylesheet" href="style.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!-- Primary SEO Meta Tags -->
+    <title>Mohamed Karouch — Web Developer & Software Engineer</title>
+    <meta name="title" content="Mohamed Karouch — Web Developer & Software Engineer">
+    <meta name="description" content="Portfolio of Mohamed Karouch, a passionate freelance web developer & ALX Software Engineer based in Morocco. Specializing in WordPress, PHP, JavaScript, Python, and modern responsive web solutions.">
+    <meta name="keywords" content="Mohamed Karouch, MaximosMK, web developer, software engineer, portfolio, Morocco, Marrakech, WordPress, PHP, JavaScript, Python, frontend, backend, full stack developer">
+    <meta name="author" content="Mohamed Karouch">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#090a10">
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://karouchmohamed.netlify.app/">
+    <meta property="og:title" content="Mohamed Karouch — Web Developer & Software Engineer">
+    <meta property="og:description" content="Turning ideas into digital reality. Explore projects, skills, and web solutions by Mohamed Karouch.">
+    <meta property="og:image" content="./images/social-preview.jpg">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://karouchmohamed.netlify.app/">
+    <meta name="twitter:title" content="Mohamed Karouch — Web Developer & Software Engineer">
+    <meta name="twitter:description" content="Explore custom web development, Python automation, and modern digital experiences by Mohamed Karouch.">
+    <meta name="twitter:image" content="./images/social-preview.jpg">
+
+    <!-- Favicons & App Icons (Fixed Relative Paths) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./logo/apple-touch-icon.png">
+    <link rel="icon" type="image/svg+xml" href="./logo/favicon.svg">
+    <link rel="icon" type="image/png" sizes="96x96" href="./logo/favicon-96x96.png">
+    <link rel="shortcut icon" href="./logo/favicon.ico">
+    <link rel="manifest" href="./logo/site.webmanifest">
+
+    <!-- Google Fonts & Libraries -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
 <body>
-    <canvas id="globalParticleCanvas"></canvas>
-    
-    <header>
-        <div class="container">
-            <button class="mobile-nav-toggle" aria-controls="primary-navigation" aria-expanded="false">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="sr-only">Menu</span>
-            </button>
-            <h1 href="https://karouchmohamed.netlify.app">Mohamed Karouch</h1>
-            <nav>
-                <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#timeline-journey">Journey</a></li>
-                    <li><a href="#education">Education</a></li>
-                    <li><a href="#design-lab">Design Lab</a></li>
-                    <li><a href="#contact">Contact</a></li>
+    <!-- Background Interactive Particle Canvas -->
+    <canvas id="globalParticleCanvas" aria-hidden="true"></canvas>
+
+    <!-- Global Floating Toast Notification -->
+    <div id="toastNotification" class="toast-notification" role="status" aria-live="polite"></div>
+
+    <!-- Header Navigation -->
+    <header id="mainHeader" class="glass-header">
+        <div class="container header-container">
+            <a href="#" class="brand-logo" aria-label="Mohamed Karouch Home">
+                <span class="logo-mark">&lt;MK /&gt;</span>
+                <span class="logo-text">Mohamed Karouch</span>
+            </a>
+
+            <nav id="primaryNavigation" aria-label="Main Navigation">
+                <ul class="nav-menu">
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#skills" class="nav-link">Skills</a></li>
+                    <li><a href="#projects" class="nav-link">Projects</a></li>
+                    <li><a href="#timeline-journey" class="nav-link">Journey</a></li>
+                    <li><a href="#education" class="nav-link">Education</a></li>
+                    <li><a href="#design-lab" class="nav-link">Design Lab</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
             </nav>
-            <button id="themeToggleBtn" aria-label="Toggle theme" class="desktop-theme-toggle">🌙</button>
+
+            <div class="header-actions">
+                <!-- Terminal Trigger Button -->
+                <button id="openTerminalBtn" class="action-btn terminal-trigger-btn" aria-label="Open Dev Terminal" title="Open Dev Console (Ctrl + \)">
+                    <span class="btn-icon">&gt;_</span>
+                    <span class="btn-text">Terminal</span>
+                </button>
+
+                <!-- Theme Switcher Button -->
+                <button id="themeToggleBtn" class="action-btn theme-toggle-btn" aria-label="Toggle dark/light theme" title="Switch Theme">
+                    <span class="theme-icon" id="themeIcon">🌙</span>
+                </button>
+
+                <!-- Mobile Navigation Hamburger -->
+                <button class="mobile-nav-toggle" aria-controls="primaryNavigation" aria-expanded="false" aria-label="Toggle mobile menu">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
         </div>
     </header>
 
-    <main>
-        <section id="hero">
-            <div class="container" data-aos="zoom-in" data-aos-duration="800">
-                <div class="floating-logo-container">
-                    <img src="/logo/favicon-96x96.png" alt="MK Logo" class="floating-logo">
-                </div>
-                <p class="job-title" data-aos="fade-down" data-aos-delay="200">Web Developer</p>
-                <h2 id="hero-tagline" class="hero-tagline-h2" data-aos="fade-down" data-aos-delay="400"></h2>
-                <div class="scroll-cue" data-aos="fade-up" data-aos-delay="2500"> 
-                    <span class="arrow-down"></span>
-                </div>
-            </div>
-        </section>
+    <main id="mainContent">
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="hero-glow-sphere glow-1" aria-hidden="true"></div>
+            <div class="hero-glow-sphere glow-2" aria-hidden="true"></div>
 
-        <section id="about" class="container" data-aos="fade-up">
-            <h2>About Me</h2>
-            <div class="about-me-content">
-                <div class="about-me-image" data-aos="fade-right" data-aos-delay="200">
-                    <img src="/images/profile-photo.jpg" alt="Mohamed Karouch">
-                </div>
-                <div class="about-me-text" data-aos="fade-left" data-aos-delay="400">
-                    <p>Solo Web Developer with 2 years of experience building and optimizing websites for small and medium-sized businesses. Proficient in <strong>WordPress</strong>, <strong>PHP</strong>, <strong>JavaScript</strong>, <strong>HTML</strong>, <strong>CSS</strong>, and <strong>SQL</strong>. Passionate about solving technical issues, improving performance, and implementing SEO strategies. I strive to build <strong>performant</strong>, <strong>beautiful</strong>, and <strong>user-first</strong> web experiences. Currently enrolled in the ALX Software Engineering Program.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="skills" class="container" data-aos="fade-up">
-            <h2>Skills</h2>
-            <div class="skills-filter-controls" data-aos="fade-down" data-aos-delay="50">
-                <button type="button" class="filter-btn active" data-filter="all">All</button>
-                <button type="button" class="filter-btn" data-filter="frontend">Frontend</button>
-                <button type="button" class="filter-btn" data-filter="backend">Backend</button>
-                <button type="button" class="filter-btn" data-filter="tools">Tools & Languages</button>
-            </div>
-
-            <div class="skills-category" data-aos="fade-right" data-aos-delay="100">
-                <h3>Web Development:</h3>
-                <ul>
-                    <li class="skill-item" data-category="frontend" data-aos="zoom-in" data-aos-delay="200" data-tooltip="Core of many freelance projects">
-                        <img src="/images/skills/Wordpress-Logo.svg" alt="WordPress Logo">
-                        <span>WordPress</span>
-                    </li>
-                    <li class="skill-item" data-category="frontend" data-aos="zoom-in" data-aos-delay="250" data-tooltip="Essential for all web projects">
-                        <img src="/images/skills/HTML5-logo.svg" alt="HTML5 Logo">
-                        <span>HTML</span>
-                    </li>
-                    <li class="skill-item" data-category="frontend" data-aos="zoom-in" data-aos-delay="300" data-tooltip="Styling modern web interfaces">
-                        <img src="/images/skills/CSS3-logo.svg" alt="CSS3 Logo">
-                        <span>CSS</span>
-                    </li>
-                    <li class="skill-item" data-category="frontend" data-aos="zoom-in" data-aos-delay="350" data-tooltip="Interactive UIs & ALX Program focus">
-                        <img src="/images/skills/javascript-logo-svgrepo-com.svg" alt="JavaScript Logo">
-                        <span>JavaScript</span>
-                    </li>
-                    <li class="skill-item" data-category="backend" data-aos="zoom-in" data-aos-delay="400" data-tooltip="Backend logic for e-commerce">
-                        <img src="/images/skills/new-php-logo.svg" alt="PHP Logo">
-                        <span>PHP</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="skills-category" data-aos="fade-left" data-aos-delay="150" >
-                <h3>Database:</h3>
-                <ul>
-                    <li class="skill-item" data-category="backend" data-aos="zoom-in" data-aos-delay="200" data-tooltip="Used in e-commerce & freelance">
-                        <img src="/images/skills/mysql-ar21.svg" alt="MySQL Logo">
-                        <span>MySQL</span>
-                    </li>
-                    <li class="skill-item" data-category="backend" data-aos="zoom-in" data-aos-delay="250" data-tooltip="Fundamental for data management">
-                        <img src="/images/skills/sql-database-generic-svgrepo-com.svg" alt="SQL Logo">
-                        <span>SQL</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="skills-category" data-aos="fade-right" data-aos-delay="200" >
-                <h3>Programming Languages:</h3>
-                <ul>
-                    <li class="skill-item" data-category="tools" data-aos="zoom-in" data-aos-delay="200" data-tooltip="TTS Program & Web Scraper">
-                        <img src="/images/skills/python-logo-only.svg" alt="Python Logo">
-                        <span>Python</span>
-                    </li>
-                    <li class="skill-item" data-category="tools" data-aos="zoom-in" data-aos-delay="250" data-tooltip="Academic projects">
-                        <img src="/images/skills/Logo_C_sharp.svg" alt="C# Logo">
-                        <span>C#</span>
-                    </li>
-                    <li class="skill-item" data-category="tools" data-aos="zoom-in" data-aos-delay="300" data-tooltip="Data analysis tasks">
-                        <img src="/images/skills/R_logo.svg" alt="R Logo">
-                        <span>R</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="skills-category" data-aos="fade-left" data-aos-delay="250" >
-                <h3>Tools:</h3>
-                <ul>
-                    <li class="skill-item" data-category="tools" data-aos="zoom-in" data-aos-delay="200" data-tooltip="Optimizing WordPress sites">Yoast SEO</li>
-                    <li class="skill-item" data-category="tools" data-aos="zoom-in" data-aos-delay="250" data-tooltip="Project documentation">Google Docs</li>
-                    <li class="skill-item" data-category="tools" data-aos="zoom-in" data-aos-delay="300" data-tooltip="Data management">Google Sheets</li>
-                </ul>
-            </div>
-            <div class="skills-category" data-aos="fade-right" data-aos-delay="300">
-                <h3>Soft Skills:</h3>
-                <ul>
-                    <li class="skill-item" data-category="soft-skills" data-aos="zoom-in" data-aos-delay="200" data-tooltip="Key in development & freelance">Problem-solving</li>
-                    <li class="skill-item" data-category="soft-skills" data-aos="zoom-in" data-aos-delay="250" data-tooltip="Collaborative project experience">Teamwork</li>
-                    <li class="skill-item" data-category="soft-skills" data-aos="zoom-in" data-aos-delay="300" data-tooltip="Adapting to new technologies">Flexibility</li>
-                    <li class="skill-item" data-category="soft-skills" data-aos="zoom-in" data-aos-delay="350" data-tooltip="Ensuring code quality">Attention to detail</li>
-                </ul>
-            </div>
-            <div class="skills-category" data-aos="fade-left" data-aos-delay="350">
-                <h3>Languages:</h3>
-                <ul>
-                    <li class="skill-item" data-category="human-languages" data-aos="zoom-in" data-aos-delay="200">Arabic (Native)</li>
-                    <li class="skill-item" data-category="human-languages" data-aos="zoom-in" data-aos-delay="250">French (Fluent)</li>
-                    <li class="skill-item" data-category="human-languages" data-aos="zoom-in" data-aos-delay="300">English (Fluent)</li>
-                </ul>
-            </div>
-        </section>
-
-        <section id="projects" class="container" data-aos="fade-up">
-            <h2>My Projects</h2>
-            <div class="project-grid">
-                <div class="project-card"
-                     data-aos="fade-up"
-                     data-aos-delay="100"
-                     data-modal-title="Freelance Web Development"
-                     data-modal-description="Developed responsive, SEO-optimized websites for various small and medium-sized businesses. Focused on delivering custom solutions tailored to client needs, including theme customization, plugin integration, and performance optimization. Provided ongoing support and maintenance, including security updates and content management."
-                     data-modal-problems="Clients needed modern, mobile-friendly online presences. Many required e-commerce capabilities or specific functionalities not available in off-the-shelf themes. Ensuring site speed and SEO best practices were common challenges."
-                     data-modal-screenshot="/images/projects/freelance-placeholder.jpg"
-                     data-modal-github=""
-                     data-modal-demo="">
-                    <h3>Freelance Web Developer (Oct 2023 – Present)</h3>
-                    <p>Responsive, SEO-optimized websites using WordPress, HTML, CSS, JS. Support & updates.</p>
-                    <div class="project-tech-stack">
-                        <span>WordPress</span><span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>PHP</span><span>SEO</span>
-                    </div>
+            <div class="container hero-container" data-aos="zoom-in" data-aos-duration="900">
+                <!-- Availability Status Badge -->
+                <div class="hero-status-pill" data-aos="fade-down" data-aos-delay="100">
+                    <span class="status-indicator"></span>
+                    <span class="status-text">Available for Freelance &amp; Full-time Roles</span>
                 </div>
 
-                <div class="project-card"
-                     data-aos="fade-up"
-                     data-aos-delay="200"
-                     data-modal-title="E-Commerce Website (School Project)"
-                     data-modal-description="A comprehensive school project to design and build an e-commerce platform for a fictional clothing brand. The project involved front-end design, back-end development for product management, user accounts, shopping cart functionality, and a simulated payment gateway."
-                     data-modal-problems="Integrating a secure (simulated) payment system. Managing product inventory and variations. Creating a user-friendly shopping experience from browsing to checkout. Ensuring data persistence for orders and user information."
-                     data-modal-screenshot="/images/projects/ecommerce-placeholder.jpg"
-                     data-modal-github="https://github.com/yourusername/ecommerce-project"
-                     data-modal-demo="">
-                    <h3>E-Commerce Website (May 2022)</h3>
-                    <p>School project for a clothing brand. HTML, CSS, PHP, payment integration, inventory.</p>
-                    <div class="project-tech-stack">
-                        <span>HTML5</span><span>CSS3</span><span>PHP</span><span>MySQL</span><span>JavaScript</span>
-                    </div>
+                <h1 class="hero-title" data-aos="fade-up" data-aos-delay="200">
+                    Hi, I'm <span class="gradient-text">Mohamed Karouch</span>
+                </h1>
+
+                <!-- Dynamic High-Impact Subtitle -->
+                <div class="hero-tagline-wrapper" data-aos="fade-up" data-aos-delay="300">
+                    <p class="hero-role-prefix">&gt; Web Developer &amp; Software Engineer</p>
+                    <h2 id="hero-tagline" class="hero-tagline-h2">
+                        "Turning ideas into digital reality with code."
+                    </h2>
                 </div>
 
-                <div class="project-card"
-                     data-aos="fade-up"
-                     data-aos-delay="300"
-                     data-modal-title="GUI TTS Program – Piper TTS Converter"
-                     data-modal-description="Designed and developed a user-friendly Text-to-Speech (TTS) application utilizing the Piper TTS engine. The program features a graphical user interface (GUI) for local use and a server-based API version for integration into other services. Key focus was on ease of use, fast voice generation, and multiple voice selection."
-                     data-modal-problems="Making advanced TTS technology accessible to non-technical users. Optimizing voice generation speed. Creating a robust API for developers. Packaging the application for easy distribution."
-                     data-modal-screenshot="/images/projects/piper-tts-placeholder.jpg"
-                     data-modal-github="https://github.com/yourusername/piper-tts-converter"
-                     data-modal-demo="">
-                    <h3>GUI TTS Program – Piper TTS Converter (2024)</h3>
-                    <p>Python-based TTS program using Piper. GUI and server API. User-friendly, fast voice generation.</p>
-                    <div class="project-tech-stack">
-                        <span>Python</span><span>Tkinter</span><span>Flask</span><span>Piper TTS</span>
-                    </div>
+                <p class="hero-description" data-aos="fade-up" data-aos-delay="400">
+                    Crafting performant, visually stunning, and responsive digital experiences for businesses worldwide. Specializing in WordPress, PHP, JavaScript, Python automation, and modern web architectures.
+                </p>
+
+                <!-- Hero Action Buttons & Socials -->
+                <div class="hero-actions-group" data-aos="fade-up" data-aos-delay="500">
+                    <a href="#projects" class="btn btn-primary">
+                        <span>Explore Projects</span>
+                        <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <span>Get In Touch</span>
+                    </a>
                 </div>
 
-                <div class="project-card"
-                     data-aos="fade-up"
-                     data-aos-delay="400"
-                     data-modal-title="Web Scraper for WTR-Lab.com"
-                     data-modal-description="Developed a Python-based web scraper to efficiently collect and structure publicly available data from wtr-lab.com. The script automates the process of navigating the website, extracting relevant information, and exporting it into a usable format (e.g., CSV, JSON) for further analysis."
-                     data-modal-problems="Handling dynamic website content (if any). Navigating website pagination. Ensuring ethical scraping practices (respecting robots.txt, rate limiting). Parsing HTML to extract specific data points accurately."
-                     data-modal-screenshot="/images/projects/webscraper-placeholder.jpg"
-                     data-modal-github="https://github.com/yourusername/wtr-lab-scraper"
-                     data-modal-demo="">
-                    <h3>Web Scraper for WTR-Lab.com (2024)</h3>
-                    <p>Python web scraper for wtr-lab.com. Automated data extraction and export for analysis.</p>
-                    <div class="project-tech-stack">
-                        <span>Python</span><span>Beautiful Soup</span><span>Requests</span>
-                    </div>
+                <div class="hero-social-links" data-aos="fade-up" data-aos-delay="600">
+                    <a href="https://github.com/MaximosMK" target="_blank" rel="noopener noreferrer" class="social-icon-badge" aria-label="GitHub Profile" title="GitHub: MaximosMK">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/mohamed-karouch/" target="_blank" rel="noopener noreferrer" class="social-icon-badge" aria-label="LinkedIn Profile" title="LinkedIn: Mohamed Karouch">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="mailto:karouchmohamed21@gmail.com" class="social-icon-badge" aria-label="Direct Email" title="Email Mohamed">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        <span>Email</span>
+                    </a>
                 </div>
-                <div class="project-item" data-aos="fade-up" data-aos-delay="500">
-                     <h3>ADII Internship – Customs & Indirect Taxes (Sept–Dec 2022)</h3>
-                     <p>Optimized algorithms for budget forecasting and fraud detection. Resolved database issues to improve accuracy in a smart system.</p>
+
+                <div class="scroll-cue" data-aos="fade-up" data-aos-delay="800">
+                    <a href="#about" aria-label="Scroll down to About section">
+                        <span class="arrow-down"></span>
+                    </a>
                 </div>
             </div>
         </section>
 
-        <section id="timeline-journey" class="container" data-aos="fade-up">
-            <h2>My Journey</h2>
-            <div class="timeline">
-                <div class="timeline-item" data-aos="fade-left">
-                    <div class="timeline-icon">
-                        📜
-                    </div>
-                    <div class="timeline-content">
-                        <h3>Diploma: Informatics Development Techniques</h3>
-                        <p><em>"Building a solid foundation in software development."</em> - Graduated from ISTA NTIC Syba, Marrakech, equipping me with core development skills and marking the official start of my tech career path.</p>
-                        <span class="timeline-date">2021 – 2022</span>
-                    </div>
+        <!-- About Me Section -->
+        <section id="about" class="section-container">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-subtitle">Profile &amp; Background</span>
+                    <h2 class="section-title">About Me</h2>
                 </div>
 
-                <div class="timeline-item" data-aos="fade-right">
-                    <div class="timeline-icon">
-                        💡
+                <div class="about-me-content">
+                    <div class="about-me-image-wrapper" data-aos="fade-right" data-aos-delay="100">
+                        <div class="image-frame-decor">
+                            <img src="./images/profile-photo.jpg" alt="Mohamed Karouch" class="about-portrait" loading="lazy">
+                            <div class="frame-backdrop-glow"></div>
+                        </div>
                     </div>
-                    <div class="timeline-content">
-                        <h3>First Lines of Code</h3>
-                        <p><em>"The journey of a thousand miles begins with a single step."</em> - My initial exploration into programming, igniting a lasting passion for creating with code. This personal discovery complemented my formal studies.</p>
-                        <span class="timeline-date">Approx. 2021</span>
-                    </div>
-                </div>
 
-                <div class="timeline-item" data-aos="fade-left">
-                    <div class="timeline-icon">
-                        🎓
-                    </div>
-                    <div class="timeline-content">
-                        <h3>ALX Software Engineering - Professional Foundations</h3>
-                        <p><em>"Laying the groundwork for a tech career."</em> - Completed the intensive 3-month Professional Foundations (35-40 hrs/week). This involved workshops on self-awareness, developing teamwork and management skills via an entrepreneurial project, and initial steps towards specialisation and portfolio building.</p>
-                        <span class="timeline-date">29 October 2024</span>
-                    </div>
-                </div>
+                    <div class="about-me-text" data-aos="fade-left" data-aos-delay="200">
+                        <p class="about-lead">
+                            I am a solo <strong>Web Developer &amp; Software Engineer</strong> based in Morocco, dedicated to crafting performant, accessible, and user-centric web applications.
+                        </p>
+                        <p>
+                            Over the past <strong>2+ years</strong>, I have worked with small and medium businesses to transform concepts into robust digital platforms. My core stack includes <strong>WordPress, PHP, JavaScript, modern HTML5/CSS3, and SQL</strong>, coupled with back-end automation in <strong>Python</strong>.
+                        </p>
+                        <p>
+                            I am also a proud learner in the intensive <strong>ALX Software Engineering Program</strong>, focusing on systems architecture, low-level algorithms, and collaborative software engineering methodologies.
+                        </p>
 
-                <div class="timeline-item" data-aos="fade-right">
-                    <div class="timeline-icon">
-                        💼
-                    </div>
-                    <div class="timeline-content">
-                        <h3>Freelance Web Developer</h3>
-                        <p><em>"Delivering value and solving real-world problems for clients."</em> - Building websites and providing web solutions for various businesses.</p>
-                        <span class="timeline-date">Oct 2023 – Present</span>
-                    </div>
-                </div>
-
-                <div class="timeline-item" data-aos="fade-left">
-                    <div class="timeline-icon">
-                        🏢
-                    </div>
-                    <div class="timeline-content">
-                        <h3>ADII Internship</h3>
-                        <p><em>"Gaining practical experience in a professional environment."</em> - Worked on budget forecasting and fraud detection algorithms.</p>
-                        <span class="timeline-date">Sept–Dec 2022</span>
-                    </div>
-                </div>
-
-                <div class="timeline-item" data-aos="fade-right">
-                    <div class="timeline-icon">
-                        🐍
-                    </div>
-                    <div class="timeline-content">
-                        <h3>Web Scraper Project</h3>
-                        <p><em>"Automating data collection to unlock insights."</em> - Developed a Python scraper for wtr-lab.com.</p>
-                        <span class="timeline-date">2024</span>
-                    </div>
-                </div>
-
-                <div class="timeline-item" data-aos="fade-left">
-                    <div class="timeline-icon">
-                        🔊
-                    </div>
-                    <div class="timeline-content">
-                        <h3>Piper TTS Converter</h3>
-                        <p><em>"Exploring the intersection of code and voice technology."</em> - Created a GUI and API for the Piper Text-to-Speech engine.</p>
-                        <span class="timeline-date">2024</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="education" class="container" data-aos="fade-up">
-            <h2>Education</h2>
-            <div class="education-item" data-aos="fade-left" data-aos-delay="100">
-                <h3>Diploma in Informatics Development Techniques</h3>
-                <p>ISTA NTIC Syba, Marrakech (2021–2022)</p>
-            </div>
-            <div class="education-item" data-aos="fade-left" data-aos-delay="200">
-                <h3>Baccalaureate in Experimental Sciences</h3>
-                <p>Lycée Qualifiant Al Farahidi (2018–2019)</p>
-            </div>
-            <div class="education-item" data-aos="fade-left" data-aos-delay="300">
-                <h3>ALX Software Engineering Program</h3>
-                <p>Professional Foundations Completed (Oct 2024)</p>
-            </div>
-        </section>
-
-        <section id="design-lab" class="container" data-aos="fade-up">
-            <h2>Design Lab 🔬</h2>
-            <p class="lab-intro">A little space where I experiment with UI elements, CSS effects, and animations. More cool stuff coming soon!</p>
-            <div class="lab-experiments-grid">
-                <div class="lab-experiment" data-aos="zoom-in-up">
-                    <h3 class="experiment-title">3D Card Flip</h3>
-                    <div class="flip-card-container">
-                        <div class="flip-card">
-                            <div class="flip-card-front">
-                                <p>Hover Over Me!</p>
+                        <!-- Key Metrics / Highlights Grid -->
+                        <div class="about-metrics-grid">
+                            <div class="metric-card">
+                                <span class="metric-number">2+</span>
+                                <span class="metric-label">Years Freelance Experience</span>
                             </div>
-                            <div class="flip-card-back">
-                                <p>Voilà! This is the back.</p>
+                            <div class="metric-card">
+                                <span class="metric-number">10+</span>
+                                <span class="metric-label">Technologies Mastered</span>
+                            </div>
+                            <div class="metric-card">
+                                <span class="metric-number">100%</span>
+                                <span class="metric-label">Responsive &amp; SEO-First</span>
+                            </div>
+                            <div class="metric-card">
+                                <span class="metric-number">ALX</span>
+                                <span class="metric-label">Software Engineering</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="lab-experiment" data-aos="zoom-in-up" data-aos-delay="100">
-                    <h3 class="experiment-title">Cursor-Reactive Background</h3>
-                    <div class="reactive-bg-container">
-                        <p>Move your mouse over this area!</p>
-                    </div>
-                </div>
-                <div class="lab-experiment" data-aos="zoom-in-up" data-aos-delay="200">
-                    <h3 class="experiment-title">3D Interactive Cube</h3>
-                    <div id="geometricFieldContainer" class="geometric-field-container">
-                        <!-- Cube will be dynamically added here by JavaScript -->
-                        <p class="geometric-field-prompt">Interact with the space...</p>
-                    </div>
-                </div>
-                <!-- Add more lab-experiment divs for other experiments -->
             </div>
         </section>
 
-        <section id="contact" class="container" data-aos="zoom-in">
-            <h2>Contact Me</h2>
-            <p class="contact-cta">Let’s build something meaningful together.</p>
-            <div class="contact-buttons">
-                <a href="mailto:karouchmohamed21@gmail.com" class="btn btn-contact">Email Me</a>
-                <a href="https://www.linkedin.com/in/mohamed-karouch/" target="_blank" rel="noopener noreferrer" class="btn btn-contact">LinkedIn</a>
+        <!-- Skills Section -->
+        <section id="skills" class="section-container">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-subtitle">Technical Competencies</span>
+                    <h2 class="section-title">Skills &amp; Technologies</h2>
+                </div>
+
+                <!-- Skills Filter Buttons -->
+                <div class="filter-controls skills-filter-controls" data-aos="fade-down" data-aos-delay="50">
+                    <button type="button" class="filter-btn active" data-filter="all">All Skills</button>
+                    <button type="button" class="filter-btn" data-filter="frontend">Frontend</button>
+                    <button type="button" class="filter-btn" data-filter="backend">Backend &amp; DB</button>
+                    <button type="button" class="filter-btn" data-filter="tools">Languages &amp; Tools</button>
+                    <button type="button" class="filter-btn" data-filter="soft">Soft Skills</button>
+                </div>
+
+                <div class="skills-grid" id="skillsGrid">
+                    <!-- Web Development Frontend -->
+                    <div class="skill-card" data-category="frontend" data-aos="zoom-in" data-aos-delay="100" data-tooltip="Custom CMS themes &amp; client solutions">
+                        <div class="skill-icon-wrap">
+                            <img src="./images/skills/Wordpress-Logo.svg" alt="WordPress Logo" loading="lazy">
+                        </div>
+                        <span class="skill-name">WordPress</span>
+                        <span class="skill-badge">CMS Core</span>
+                    </div>
+
+                    <div class="skill-card" data-category="frontend" data-aos="zoom-in" data-aos-delay="150" data-tooltip="Semantic, accessible web markup">
+                        <div class="skill-icon-wrap">
+                            <img src="./images/skills/HTML5-logo.svg" alt="HTML5 Logo" loading="lazy">
+                        </div>
+                        <span class="skill-name">HTML5</span>
+                        <span class="skill-badge">Semantic Web</span>
+                    </div>
+
+                    <div class="skill-card" data-category="frontend" data-aos="zoom-in" data-aos-delay="200" data-tooltip="Modern CSS3, animations, &amp; responsive layouts">
+                        <div class="skill-icon-wrap">
+                            <img src="./images/skills/CSS3-logo.svg" alt="CSS3 Logo" loading="lazy">
+                        </div>
+                        <span class="skill-name">CSS3 / Vanilla</span>
+                        <span class="skill-badge">Styling &amp; FX</span>
+                    </div>
+
+                    <div class="skill-card" data-category="frontend" data-aos="zoom-in" data-aos-delay="250" data-tooltip="Interactive UIs, DOM manipulation, ES6+">
+                        <div class="skill-icon-wrap">
+                            <img src="./images/skills/javascript-logo-svgrepo-com.svg" alt="JavaScript Logo" loading="lazy">
+                        </div>
+                        <span class="skill-name">JavaScript (ES6+)</span>
+                        <span class="skill-badge">Frontend Logic</span>
+                    </div>
+
+                    <!-- Backend & Databases -->
+                    <div class="skill-card" data-category="backend" data-aos="zoom-in" data-aos-delay="300" data-tooltip="Server-side logic, custom themes, &amp; API handling">
+                        <div class="skill-icon-wrap">
+                            <img src="./images/skills/new-php-logo.svg" alt="PHP Logo" loading="lazy">
+                        </div>
+                        <span class="skill-name">PHP</span>
+                        <span class="skill-badge">Server-Side</span>
+                    </div>
+
+                    <div class="skill-card" data-category="backend" data-aos="zoom-in" data-aos-delay="350" data-tooltip="Relational schema design &amp; query optimization">
+                        <div class="skill-icon-wrap">
+                            <img src="./images/skills/mysql-ar21.svg" alt="MySQL Logo" loading="lazy">
+                        </div>
+                        <span class="skill-name">MySQL</span>
+                        <span class="skill-badge">Database</span>
+                    </div>
+
+                    <div class="skill-card" data-category="backend" data-aos="zoom-in" data-aos-delay="400" data-tooltip="Relational database queries &amp; management">
+                        <div class="skill-icon-wrap">
+                            <img src="./images/skills/sql-database-generic-svgrepo-com.svg" alt="SQL Logo" loading="lazy">
+                        </div>
+                        <span class="skill-name">SQL</span>
+                        <span class="skill-badge">Queries</span>
+                    </div>
+
+                    <!-- Languages & Tools -->
+                    <div class="skill-card" data-category="tools" data-aos="zoom-in" data-aos-delay="450" data-tooltip="Web scraping, TTS GUI apps, scripting">
+                        <div class="skill-icon-wrap">
+                            <img src="./images/skills/python-logo-only.svg" alt="Python Logo" loading="lazy">
+                        </div>
+                        <span class="skill-name">Python</span>
+                        <span class="skill-badge">Automation &amp; App</span>
+                    </div>
+
+                    <div class="skill-card" data-category="tools" data-aos="zoom-in" data-aos-delay="500" data-tooltip="Academic object-oriented software projects">
+                        <div class="skill-icon-wrap">
+                            <img src="./images/skills/Logo_C_sharp.svg" alt="C# Logo" loading="lazy">
+                        </div>
+                        <span class="skill-name">C#</span>
+                        <span class="skill-badge">OOP</span>
+                    </div>
+
+                    <div class="skill-card" data-category="tools" data-aos="zoom-in" data-aos-delay="550" data-tooltip="Statistical computing &amp; data analysis">
+                        <div class="skill-icon-wrap">
+                            <img src="./images/skills/R_logo.svg" alt="R Logo" loading="lazy">
+                        </div>
+                        <span class="skill-name">R</span>
+                        <span class="skill-badge">Data Analysis</span>
+                    </div>
+
+                    <div class="skill-card" data-category="tools" data-aos="zoom-in" data-aos-delay="600" data-tooltip="Search engine optimization &amp; ranking strategies">
+                        <div class="skill-icon-wrap text-icon">SEO</div>
+                        <span class="skill-name">Yoast &amp; On-Page SEO</span>
+                        <span class="skill-badge">Optimization</span>
+                    </div>
+
+                    <div class="skill-card" data-category="tools" data-aos="zoom-in" data-aos-delay="650" data-tooltip="Version control, branching, collaboration">
+                        <div class="skill-icon-wrap text-icon">GIT</div>
+                        <span class="skill-name">Git &amp; GitHub</span>
+                        <span class="skill-badge">Version Control</span>
+                    </div>
+
+                    <!-- Soft Skills -->
+                    <div class="skill-card" data-category="soft" data-aos="zoom-in" data-aos-delay="700" data-tooltip="Debugging, analytical thinking, pragmatic fixes">
+                        <div class="skill-icon-wrap text-icon">🧩</div>
+                        <span class="skill-name">Problem Solving</span>
+                        <span class="skill-badge">Core Mindset</span>
+                    </div>
+
+                    <div class="skill-card" data-category="soft" data-aos="zoom-in" data-aos-delay="750" data-tooltip="Agile teamwork, code reviews, mutual growth">
+                        <div class="skill-icon-wrap text-icon">🤝</div>
+                        <span class="skill-name">Teamwork &amp; Collab</span>
+                        <span class="skill-badge">Communication</span>
+                    </div>
+
+                    <div class="skill-card" data-category="soft" data-aos="zoom-in" data-aos-delay="800" data-tooltip="Continuous learning &amp; technology adaptation">
+                        <div class="skill-icon-wrap text-icon">⚡</div>
+                        <span class="skill-name">Adaptability</span>
+                        <span class="skill-badge">Fast Learner</span>
+                    </div>
+                </div>
+
+                <!-- Languages spoken -->
+                <div class="spoken-languages-bar" data-aos="fade-up" data-aos-delay="200">
+                    <span class="spoken-label">Spoken Languages:</span>
+                    <span class="lang-pill">Arabic (Native)</span>
+                    <span class="lang-pill">English (Fluent)</span>
+                    <span class="lang-pill">French (Fluent)</span>
+                </div>
             </div>
-            <div class="contact-details">
-                <p>Or reach out directly:</p>
-                <p>Email: <a href="mailto:karouchmohamed21@gmail.com">karouchmohamed21@gmail.com</a> | Phone: <a href="tel:+212618238201">+212-618238201</a></p>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section-container">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-subtitle">Portfolio Showcase</span>
+                    <h2 class="section-title">Featured Projects</h2>
+                    <p class="section-lead">A collection of client websites, software applications, and engineering projects I've built.</p>
+                </div>
+
+                <!-- Project Category Filters -->
+                <div class="filter-controls project-filter-controls" data-aos="fade-down" data-aos-delay="50">
+                    <button type="button" class="filter-btn active" data-project-filter="all">All Projects</button>
+                    <button type="button" class="filter-btn" data-project-filter="web">Web &amp; WordPress</button>
+                    <button type="button" class="filter-btn" data-project-filter="python">Python &amp; Tools</button>
+                    <button type="button" class="filter-btn" data-project-filter="analytics">Analytics &amp; Data</button>
+                </div>
+
+                <div class="project-grid" id="projectGrid">
+                    <!-- Project 1: Freelance Web Development -->
+                    <article class="project-card"
+                         data-aos="fade-up"
+                         data-aos-delay="100"
+                         data-project-category="web"
+                         data-modal-title="Freelance Web Development &amp; Client Solutions"
+                         data-modal-tag="Client Services (Oct 2023 – Present)"
+                         data-modal-description="Engineered and optimized custom, fully responsive websites for small to medium-sized business clients. Delivered tailored WordPress themes, custom PHP functionality, responsive layouts, performance optimization, and comprehensive on-page SEO integration. Managed security hardening and long-term site reliability."
+                         data-modal-problems="Small businesses often grapple with slow, unoptimized commercial themes with poor mobile responsiveness and weak search ranking. I delivered clean, tailored code solutions that improved PageSpeed scores, enhanced mobile usability, and elevated client search visibility."
+                         data-modal-screenshot="./images/projects/freelance-showcase.jpg"
+                         data-modal-github="https://github.com/MaximosMK"
+                         data-modal-demo="">
+                        <div class="project-media">
+                            <img src="./images/projects/freelance-showcase.jpg" alt="Freelance Web Development Showcase" loading="lazy">
+                            <span class="project-category-tag">Client Project</span>
+                        </div>
+                        <div class="project-body">
+                            <h3 class="project-title">Freelance Web Development</h3>
+                            <p class="project-summary">
+                                Custom, responsive websites tailored for business clients using WordPress, custom PHP, and performance SEO.
+                            </p>
+                            <div class="project-tech-pills">
+                                <span>WordPress</span>
+                                <span>PHP</span>
+                                <span>JavaScript</span>
+                                <span>HTML5 / CSS3</span>
+                                <span>SEO</span>
+                            </div>
+                            <div class="project-footer">
+                                <span class="btn-text-link">View Case Study &rarr;</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project 2: E-Commerce Platform -->
+                    <article class="project-card"
+                         data-aos="fade-up"
+                         data-aos-delay="200"
+                         data-project-category="web"
+                         data-modal-title="E-Commerce Fashion &amp; Apparel Platform"
+                         data-modal-tag="Web Platform (May 2022)"
+                         data-modal-description="Designed and engineered a full-featured e-commerce platform for a fashion brand. Developed custom front-end product displays, a shopping cart management system, persistent user accounts, an administrative inventory control dashboard, and a simulated secure payment gateway."
+                         data-modal-problems="Key challenges included architecting normalized MySQL schemas for inventory variations (sizes, colors, stock counts), state management for live shopping carts, and ensuring zero data loss during user checkout."
+                         data-modal-screenshot="./images/projects/ecommerce-showcase.jpg"
+                         data-modal-github="https://github.com/MaximosMK"
+                         data-modal-demo="">
+                        <div class="project-media">
+                            <img src="./images/projects/ecommerce-showcase.jpg" alt="E-Commerce Platform Showcase" loading="lazy">
+                            <span class="project-category-tag">Full Stack Web</span>
+                        </div>
+                        <div class="project-body">
+                            <h3 class="project-title">E-Commerce Brand Platform</h3>
+                            <p class="project-summary">
+                                Dynamic e-commerce store with product catalog, cart session management, MySQL persistence, and checkout logic.
+                            </p>
+                            <div class="project-tech-pills">
+                                <span>PHP</span>
+                                <span>MySQL</span>
+                                <span>JavaScript</span>
+                                <span>CSS3</span>
+                                <span>Cart API</span>
+                            </div>
+                            <div class="project-footer">
+                                <span class="btn-text-link">View Case Study &rarr;</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project 3: Piper TTS Converter -->
+                    <article class="project-card"
+                         data-aos="fade-up"
+                         data-aos-delay="300"
+                         data-project-category="python"
+                         data-modal-title="GUI TTS Converter — Piper Engine Synthesizer"
+                         data-modal-tag="Python Application (2024)"
+                         data-modal-description="Architected a cross-platform desktop application and REST API leveraging the Piper Text-to-Speech engine. Features an intuitive graphical interface for real-time text input, multi-voice model switching, speed/pitch controls, waveform visualization, and audio exporting in high-quality formats."
+                         data-modal-problems="Local neural TTS models can be challenging for non-technical users to execute via terminal commands. This project wrapped complex CLI parameters into an elegant, reactive GUI with asynchronous audio rendering to avoid UI thread freezes."
+                         data-modal-screenshot="./images/projects/piper-tts-showcase.jpg"
+                         data-modal-github="https://github.com/MaximosMK"
+                         data-modal-demo="">
+                        <div class="project-media">
+                            <img src="./images/projects/piper-tts-showcase.jpg" alt="Piper TTS Converter Showcase" loading="lazy">
+                            <span class="project-category-tag">Desktop &amp; API</span>
+                        </div>
+                        <div class="project-body">
+                            <h3 class="project-title">Piper TTS Synthesizer &amp; GUI</h3>
+                            <p class="project-summary">
+                                Python desktop GUI and Flask API providing fast, high-quality local text-to-speech audio synthesis.
+                            </p>
+                            <div class="project-tech-pills">
+                                <span>Python</span>
+                                <span>Flask</span>
+                                <span>Tkinter</span>
+                                <span>Piper TTS</span>
+                                <span>Audio API</span>
+                            </div>
+                            <div class="project-footer">
+                                <span class="btn-text-link">View Case Study &rarr;</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project 4: Web Scraper for WTR-Lab -->
+                    <article class="project-card"
+                         data-aos="fade-up"
+                         data-aos-delay="400"
+                         data-project-category="python"
+                         data-modal-title="Automated Web Scraper &amp; Data Pipeline"
+                         data-modal-tag="Data Automation (2024)"
+                         data-modal-description="Developed a high-efficiency Python web scraping pipeline targeting structured literature data from wtr-lab.com. Automated multi-page pagination traversal, HTML parsing, sanitization, rate-limiting, and structured export to JSON and CSV formats for subsequent analysis."
+                         data-modal-problems="Overcoming dynamic pagination, handling rate limits responsibly without triggering IP bans, and parsing inconsistent HTML structures required robust error handling, exponential backoff, and strict validation."
+                         data-modal-screenshot="./images/projects/webscraper-showcase.jpg"
+                         data-modal-github="https://github.com/MaximosMK"
+                         data-modal-demo="">
+                        <div class="project-media">
+                            <img src="./images/projects/webscraper-showcase.jpg" alt="Web Scraper Showcase" loading="lazy">
+                            <span class="project-category-tag">Automation</span>
+                        </div>
+                        <div class="project-body">
+                            <h3 class="project-title">Web Scraper &amp; Data Extractor</h3>
+                            <p class="project-summary">
+                                Automated data extraction pipeline handling pagination, DOM parsing, and structured CSV/JSON exports.
+                            </p>
+                            <div class="project-tech-pills">
+                                <span>Python</span>
+                                <span>Beautiful Soup</span>
+                                <span>Requests</span>
+                                <span>Data Pipelines</span>
+                            </div>
+                            <div class="project-footer">
+                                <span class="btn-text-link">View Case Study &rarr;</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project 5: ADII Customs & Indirect Taxes -->
+                    <article class="project-card"
+                         data-aos="fade-up"
+                         data-aos-delay="500"
+                         data-project-category="analytics"
+                         data-modal-title="ADII Customs &amp; Indirect Taxes — Analytics &amp; Forecasting"
+                         data-modal-tag="Internship &amp; Engineering (Sept – Dec 2022)"
+                         data-modal-description="Collaborated with the Moroccan Customs and Indirect Taxation Administration (ADII) during an engineering internship. Contributed to optimizing computational algorithms for national budget forecasting and automated fraud anomaly detection in import/export data pipelines."
+                         data-modal-problems="Large datasets of customs transactions contained noisy records and query latency bottlenecks. Optimized complex relational database queries and refined algorithmic scoring metrics to improve prediction accuracy."
+                         data-modal-screenshot="./images/projects/adii-showcase.jpg"
+                         data-modal-github="https://github.com/MaximosMK"
+                         data-modal-demo="">
+                        <div class="project-media">
+                            <img src="./images/projects/adii-showcase.jpg" alt="ADII Customs Analytics Showcase" loading="lazy">
+                            <span class="project-category-tag">Analytics &amp; Gov</span>
+                        </div>
+                        <div class="project-body">
+                            <h3 class="project-title">ADII Customs Forecasting &amp; Fraud Detection</h3>
+                            <p class="project-summary">
+                                Algorithmic optimization for budget forecasting and smart fraud anomaly detection in customs databases.
+                            </p>
+                            <div class="project-tech-pills">
+                                <span>Database Tuning</span>
+                                <span>Algorithms</span>
+                                <span>Forecasting</span>
+                                <span>SQL</span>
+                                <span>Data Analytics</span>
+                            </div>
+                            <div class="project-footer">
+                                <span class="btn-text-link">View Case Study &rarr;</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline / Journey Section -->
+        <section id="timeline-journey" class="section-container">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-subtitle">Career Milestones</span>
+                    <h2 class="section-title">My Journey</h2>
+                    <p class="section-lead">Key steps, experiences, and academic achievements shaping my development career.</p>
+                </div>
+
+                <div class="timeline">
+                    <!-- Item 1: First Lines of Code -->
+                    <div class="timeline-item" data-aos="fade-right">
+                        <div class="timeline-icon">💡</div>
+                        <div class="timeline-content glass-card">
+                            <span class="timeline-date">2021</span>
+                            <h3>First Lines of Code</h3>
+                            <p class="timeline-quote">"The journey of a thousand miles begins with a single step."</p>
+                            <p>Began my self-guided coding journey, discovering the power of algorithms and building my very first interactive web scripts.</p>
+                            <span class="timeline-tag">Milestone</span>
+                        </div>
+                    </div>
+
+                    <!-- Item 2: Diploma ISTA NTIC -->
+                    <div class="timeline-item" data-aos="fade-left">
+                        <div class="timeline-icon">📜</div>
+                        <div class="timeline-content glass-card">
+                            <span class="timeline-date">2021 – 2022</span>
+                            <h3>Diploma: Informatics Development Techniques</h3>
+                            <p class="timeline-quote">"Building a rigorous foundation in software engineering."</p>
+                            <p>Graduated from ISTA NTIC Syba, Marrakech, mastering object-oriented programming, relational databases, web standards, and software life cycles.</p>
+                            <span class="timeline-tag">Education</span>
+                        </div>
+                    </div>
+
+                    <!-- Item 3: ADII Internship -->
+                    <div class="timeline-item" data-aos="fade-right">
+                        <div class="timeline-icon">🏢</div>
+                        <div class="timeline-content glass-card">
+                            <span class="timeline-date">Sept – Dec 2022</span>
+                            <h3>ADII Internship — Customs &amp; Indirect Taxes</h3>
+                            <p class="timeline-quote">"Applying algorithmic rigor to large-scale fiscal systems."</p>
+                            <p>Engineered predictive budget forecasting algorithms and assisted with database optimization for automated fraud detection in national taxation data.</p>
+                            <span class="timeline-tag">Professional Experience</span>
+                        </div>
+                    </div>
+
+                    <!-- Item 4: Freelance Web Developer -->
+                    <div class="timeline-item" data-aos="fade-left">
+                        <div class="timeline-icon">💼</div>
+                        <div class="timeline-content glass-card">
+                            <span class="timeline-date">Oct 2023 – Present</span>
+                            <h3>Freelance Web Developer</h3>
+                            <p class="timeline-quote">"Delivering measurable business value and high-converting web experiences."</p>
+                            <p>Building high-performance, SEO-optimized WordPress and custom PHP websites for businesses, managing end-to-end client design and deployment.</p>
+                            <span class="timeline-tag">Active Career</span>
+                        </div>
+                    </div>
+
+                    <!-- Item 5: Python Projects & Automation -->
+                    <div class="timeline-item" data-aos="fade-right">
+                        <div class="timeline-icon">🐍</div>
+                        <div class="timeline-content glass-card">
+                            <span class="timeline-date">2024</span>
+                            <h3>TTS Synthesizer &amp; Web Scraper Innovations</h3>
+                            <p class="timeline-quote">"Bridging machine learning, audio models, and data mining."</p>
+                            <p>Built Piper TTS Synthesizer GUI with asynchronous threading, followed by an automated data extraction engine for literature analytics.</p>
+                            <span class="timeline-tag">Open Source &amp; Tooling</span>
+                        </div>
+                    </div>
+
+                    <!-- Item 6: ALX SE Program -->
+                    <div class="timeline-item" data-aos="fade-left">
+                        <div class="timeline-icon">🎓</div>
+                        <div class="timeline-content glass-card">
+                            <span class="timeline-date">Oct 2024 – Present</span>
+                            <h3>ALX Software Engineering Program</h3>
+                            <p class="timeline-quote">"Accelerating mastery in low-level systems, DevOps, and collaborative engineering."</p>
+                            <p>Completed the intensive Professional Foundations phase (35–40 hrs/week) and currently pursuing advanced full-stack software specialization.</p>
+                            <span class="timeline-tag">Continuous Growth</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="section-container">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-subtitle">Academic Credentials</span>
+                    <h2 class="section-title">Education &amp; Training</h2>
+                </div>
+
+                <div class="education-grid">
+                    <div class="education-card glass-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="edu-icon-badge">🎓</div>
+                        <div class="edu-details">
+                            <span class="edu-year">2021 – 2022</span>
+                            <h3 class="edu-degree">Diploma in Informatics Development Techniques</h3>
+                            <p class="edu-institution">ISTA NTIC Syba, Marrakech</p>
+                            <p class="edu-desc">Comprehensive computer science curriculum covering algorithmic theory, web development, relational database engineering, and software analysis.</p>
+                        </div>
+                    </div>
+
+                    <div class="education-card glass-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="edu-icon-badge">🚀</div>
+                        <div class="edu-details">
+                            <span class="edu-year">2024 – Present</span>
+                            <h3 class="edu-degree">ALX Software Engineering Specialization</h3>
+                            <p class="edu-institution">ALX Africa / Holberton School Curriculum</p>
+                            <p class="edu-desc">Rigorous engineering immersion focusing on peer-to-peer programming, Unix systems, C, Python, algorithms, teamwork, and product delivery.</p>
+                        </div>
+                    </div>
+
+                    <div class="education-card glass-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="edu-icon-badge">📚</div>
+                        <div class="edu-details">
+                            <span class="edu-year">2018 – 2019</span>
+                            <h3 class="edu-degree">Baccalaureate in Experimental Sciences</h3>
+                            <p class="edu-institution">Lycée Qualifiant Al Farahidi</p>
+                            <p class="edu-desc">Foundational training in scientific inquiry, physics, mathematics, and analytical problem formulation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design Lab Section -->
+        <section id="design-lab" class="section-container">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-subtitle">Interactive Playground</span>
+                    <h2 class="section-title">Design Lab 🔬</h2>
+                    <p class="section-lead">A creative space where I experiment with custom CSS3 3D transforms, mouse-reactive math, and interactive components.</p>
+                </div>
+
+                <div class="lab-experiments-grid">
+                    <!-- Experiment 1: 3D Holographic Tilt Card -->
+                    <div class="lab-experiment glass-card" data-aos="zoom-in-up">
+                        <div class="experiment-header">
+                            <h3 class="experiment-title">3D Holographic Card</h3>
+                            <span class="experiment-badge">CSS 3D &amp; Glare</span>
+                        </div>
+                        <div class="tilt-card-container" id="tiltCardContainer">
+                            <div class="tilt-card" id="tiltCard">
+                                <div class="tilt-card-glare"></div>
+                                <div class="tilt-card-content">
+                                    <div class="tilt-chip">MK-CHIP</div>
+                                    <h4>Interactive 3D Tilt</h4>
+                                    <p>Move cursor over this card to observe real-time dynamic perspective and specular glare.</p>
+                                    <span class="tilt-footer">Hover &amp; Move</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Experiment 2: Cursor-Reactive Spotlight Background -->
+                    <div class="lab-experiment glass-card" data-aos="zoom-in-up" data-aos-delay="100">
+                        <div class="experiment-header">
+                            <h3 class="experiment-title">Cursor Spotlight Beam</h3>
+                            <span class="experiment-badge">Dynamic Variables</span>
+                        </div>
+                        <div class="reactive-bg-container" id="reactiveSpotlight">
+                            <div class="spotlight-content">
+                                <div class="radar-icon">🔦</div>
+                                <p class="spotlight-text">Move your mouse here</p>
+                                <span class="coord-display" id="coordDisplay">X: 50% | Y: 50%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Experiment 3: 3D Interactive Tech Cube -->
+                    <div class="lab-experiment glass-card" data-aos="zoom-in-up" data-aos-delay="200">
+                        <div class="experiment-header">
+                            <h3 class="experiment-title">Interactive 3D Tech Cube</h3>
+                            <span class="experiment-badge">3D Transforms</span>
+                        </div>
+                        <div id="geometricFieldContainer" class="geometric-field-container">
+                            <div class="cube-wrapper" id="techCube">
+                                <div class="cube-face face-front">&lt; / &gt;</div>
+                                <div class="cube-face face-back">JS</div>
+                                <div class="cube-face face-right">PHP</div>
+                                <div class="cube-face face-left">PY</div>
+                                <div class="cube-face face-top">CSS</div>
+                                <div class="cube-face face-bottom">SQL</div>
+                            </div>
+                            <span class="geometric-field-prompt">Drag or move mouse to rotate cube</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section-container">
+            <div class="container">
+                <div class="contact-card glass-card" data-aos="zoom-in">
+                    <span class="section-subtitle">Let's Connect</span>
+                    <h2 class="contact-headline">Ready to build something extraordinary?</h2>
+                    <p class="contact-subtext">
+                        Whether you have a freelance project, need a WordPress or full-stack web developer, or want to discuss software opportunities — my inbox is always open.
+                    </p>
+
+                    <!-- Quick Copy Contact Row -->
+                    <div class="quick-contact-row">
+                        <button type="button" class="copy-pill-btn" id="copyEmailBtn" data-copy="karouchmohamed21@gmail.com" title="Click to copy email">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            <span>karouchmohamed21@gmail.com</span>
+                            <span class="copy-action-text">(Click to copy)</span>
+                        </button>
+
+                        <button type="button" class="copy-pill-btn" id="copyPhoneBtn" data-copy="+212618238201" title="Click to copy phone">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                            <span>+212-618238201</span>
+                            <span class="copy-action-text">(Click to copy)</span>
+                        </button>
+                    </div>
+
+                    <div class="contact-cta-buttons">
+                        <a href="mailto:karouchmohamed21@gmail.com" class="btn btn-primary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                            <span>Send an Email</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/mohamed-karouch/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                            <span>Connect on LinkedIn</span>
+                        </a>
+                        <a href="https://github.com/MaximosMK" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            <span>Follow on GitHub</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
-    <!-- Project Modal Structure (Initially Hidden) -->
-    <div id="projectModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal-btn">&times;</span>
-            <img src="" alt="Project Screenshot" id="modalScreenshot" class="modal-screenshot">
-            <h3 id="modalTitle"></h3>
-            <h4>Description:</h4>
-            <p id="modalDescription"></p>
-            <h4>Problems Solved:</h4>
-            <p id="modalProblems"></p>
-            <div class="modal-links">
-                <a href="#" id="modalGithubLink" target="_blank" rel="noopener noreferrer">View on GitHub</a>
-                <a href="#" id="modalDemoLink" target="_blank" rel="noopener noreferrer">Live Demo</a>
+    <!-- Project Details Modal Dialog -->
+    <div id="projectModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content glass-card">
+            <button class="close-modal-btn" id="closeModalBtn" aria-label="Close modal">&times;</button>
+            <div class="modal-image-container">
+                <img src="" alt="Project Showcase Screenshot" id="modalScreenshot" class="modal-screenshot" loading="lazy">
+                <span id="modalCategoryTag" class="modal-category-tag">Project</span>
+            </div>
+            <div class="modal-inner-body">
+                <h3 id="modalTitle" class="modal-heading"></h3>
+                
+                <div class="modal-section">
+                    <h4 class="modal-subheading">Overview &amp; Architecture</h4>
+                    <p id="modalDescription" class="modal-text"></p>
+                </div>
+
+                <div class="modal-section">
+                    <h4 class="modal-subheading">Challenges &amp; Solutions</h4>
+                    <p id="modalProblems" class="modal-text"></p>
+                </div>
+
+                <div class="modal-actions-row">
+                    <a href="#" id="modalGithubLink" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        <span>GitHub Repository</span>
+                    </a>
+                    <a href="#" id="modalDemoLink" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                        <span>Live Preview</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Dev Console Popup (Initially Hidden) -->
-    <div id="devConsole" class="dev-console">
+    <!-- Dev Console Terminal Popup -->
+    <div id="devConsole" class="dev-console" role="region" aria-label="Interactive Developer Console">
         <div class="console-header">
-            <span>MK_Dev_Console_v1.0</span>
-            <button id="closeConsoleBtn" class="console-close-btn">&times;</button>
+            <div class="console-title-group">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+                <span class="console-title">MK_Dev_Terminal_v2.0 — (Press Ctrl + \ to close)</span>
+            </div>
+            <button id="closeConsoleBtn" class="console-close-btn" aria-label="Close Developer Console">&times;</button>
         </div>
         <div id="consoleOutput" class="console-output">
-            <p>Welcome to the Dev Console! Type 'help' for commands.</p>
+            <p class="console-welcome">Welcome to Mohamed's Dev Terminal v2.0! Type '<span class="code-hl">help</span>' to inspect commands.</p>
         </div>
-        <input type="text" id="consoleInput" class="console-input" placeholder="> Enter command...">
+        <div class="console-input-row">
+            <span class="console-prompt">guest@mk-portfolio:~$</span>
+            <input type="text" id="consoleInput" class="console-input" placeholder="Type a command (e.g. help, skills, projects)..." autocomplete="off" spellcheck="false">
+        </div>
     </div>
 
-    <footer>
-        <div class="container footer-content">
-            <p>&copy; 2024 Mohamed Karouch. All rights reserved.</p>
-            <p class="made-with">Made with <span class="heart-icon">❤️</span> and code.</p>
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo">&lt;MK /&gt;</span>
+                <p>Turning ideas into digital reality with code.</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; <span id="currentYear">2026</span> Mohamed Karouch. All rights reserved.</p>
+                <p class="footer-crafted">Crafted with precision, vanilla CSS, and JavaScript.</p>
+            </div>
         </div>
     </footer>
 
-    <button id="scrollToTopBtn" title="Go to top">↑</button>
+    <!-- Scroll to Top Floating Button -->
+    <button id="scrollToTopBtn" class="scroll-to-top-btn" title="Back to top" aria-label="Scroll back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </button>
+
+    <!-- Scripts -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
