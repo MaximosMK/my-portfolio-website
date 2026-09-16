@@ -480,8 +480,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 appendConsoleMessage("5. ADII Customs Internship — Forecasting algorithms & fraud anomaly detection.");
                 break;
             case 'about':
-                appendConsoleMessage("Mohamed Karouch — Solo Web Developer & Software Engineer based in Morocco.");
-                appendConsoleMessage("2+ years experience building for SMBs. Currently enrolled in the ALX Software Engineering program.");
+                appendConsoleMessage("Mohamed Karouch — Active Freelance Web Developer & Software Engineering student at 1337 Coding School (42 Network, Morocco).");
+                appendConsoleMessage("2+ years experience building web apps for SMBs while mastering low-level systems programming in C, algorithms, and Unix architecture.");
                 break;
             case 'contact':
                 appendConsoleMessage("Email:    karouchmohamed21@gmail.com");
