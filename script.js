@@ -818,4 +818,106 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // ==========================================================================
+    // 12. HIGH-IMPACT METRICS COUNTER ANIMATION
+    // ==========================================================================
+    const metricCounts = document.querySelectorAll('.metric-count');
+    const metricsStrip = document.querySelector('.metrics-strip');
+
+    if (metricCounts.length > 0 && metricsStrip) {
+        let hasAnimatedMetrics = false;
+
+        const animateCounter = (el) => {
+            const target = parseInt(el.getAttribute('data-target'), 10);
+            if (isNaN(target)) return;
+
+            const duration = 1800;
+            const startTime = performance.now();
+
+            const updateCount = (currentTime) => {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                // Ease-out cubic curve
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const currentVal = Math.floor(easeOut * target);
+
+                el.textContent = currentVal;
+
+                if (progress < 1) {
+                    requestAnimationFrame(updateCount);
+                } else {
+                    el.textContent = target;
+                }
+            };
+
+            requestAnimationFrame(updateCount);
+        };
+
+        const metricsObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !hasAnimatedMetrics) {
+                    hasAnimatedMetrics = true;
+                    metricCounts.forEach(el => animateCounter(el));
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.25
+        });
+
+        metricsObserver.observe(metricsStrip);
+    }
+
+    // ==========================================================================
+    // 13. HERO CODE WINDOW 3D PERSPECTIVE TILT
+    // ==========================================================================
+    const heroCodeWrapper = document.getElementById('heroCodeCardWrapper');
+    const heroCodeWindow = document.getElementById('heroCodeWindow');
+
+    if (heroCodeWrapper && heroCodeWindow) {
+        let isHovered = false;
+
+        heroCodeWrapper.addEventListener('mouseenter', () => {
+            isHovered = true;
+            heroCodeWindow.style.transition = 'transform 0.1s ease-out';
+        });
+
+        heroCodeWrapper.addEventListener('mousemove', (e) => {
+            if (!isHovered) return;
+            const rect = heroCodeWrapper.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+
+            // Maximum tilt: ~7 degrees
+            const rotateX = (-(y / (rect.height / 2)) * 7).toFixed(2);
+            const rotateY = ((x / (rect.width / 2)) * 7).toFixed(2);
+
+            heroCodeWindow.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+
+        heroCodeWrapper.addEventListener('mouseleave', () => {
+            isHovered = false;
+            heroCodeWindow.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+            heroCodeWindow.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        });
+    }
+
+    // ==========================================================================
+    // 14. LINEAR / RAYCAST DYNAMIC CURSOR BORDER-GLOW TRACKING
+    // ==========================================================================
+    const glowCards = document.querySelectorAll(
+        '.project-card, .service-card, .skill-card, .metrics-strip, .hero-code-window, .metric-card'
+    );
+
+    glowCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+        }, { passive: true });
+    });
 });
+
