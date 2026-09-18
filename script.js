@@ -69,18 +69,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const header = document.getElementById('mainHeader');
 
     if (mobileNavToggle && primaryNav) {
-        mobileNavToggle.addEventListener('click', () => {
+        function closeMobileNav() {
+            primaryNav.classList.remove('nav-visible');
+            mobileNavToggle.setAttribute('aria-expanded', 'false');
+            document.body.classList.remove('nav-open');
+        }
+
+        mobileNavToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
             const isOpen = primaryNav.classList.contains('nav-visible');
-            primaryNav.classList.toggle('nav-visible');
-            mobileNavToggle.setAttribute('aria-expanded', !isOpen);
+            if (isOpen) {
+                closeMobileNav();
+            } else {
+                primaryNav.classList.add('nav-visible');
+                mobileNavToggle.setAttribute('aria-expanded', 'true');
+                document.body.classList.add('nav-open');
+            }
         });
 
         // Close nav when clicking on any link
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
-                primaryNav.classList.remove('nav-visible');
-                mobileNavToggle.setAttribute('aria-expanded', 'false');
+                closeMobileNav();
             });
+        });
+
+        // Close nav when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            if (primaryNav.classList.contains('nav-visible') && 
+                !primaryNav.contains(e.target) && 
+                !mobileNavToggle.contains(e.target)) {
+                closeMobileNav();
+            }
         });
     }
 
@@ -299,12 +319,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         modal.classList.add('visible');
+        document.body.classList.add('modal-open');
         document.body.style.overflow = 'hidden';
     }
 
     function closeProjectModal() {
         if (!modal) return;
         modal.classList.remove('visible');
+        document.body.classList.remove('modal-open');
         document.body.style.overflow = '';
     }
 
@@ -328,12 +350,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function openResumeModal() {
         if (!resumeModal) return;
         resumeModal.classList.add('visible');
+        document.body.classList.add('modal-open');
         document.body.style.overflow = 'hidden';
     }
 
     function closeResumeModal() {
         if (!resumeModal) return;
         resumeModal.classList.remove('visible');
+        document.body.classList.remove('modal-open');
         document.body.style.overflow = '';
     }
 
@@ -870,12 +894,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 13. HERO CODE WINDOW 3D PERSPECTIVE TILT
+    // 13. HERO CODE WINDOW 3D PERSPECTIVE TILT (DESKTOP / POINTER ONLY)
     // ==========================================================================
+    const isTouchDevice = window.matchMedia('(hover: none) or (pointer: coarse)').matches;
     const heroCodeWrapper = document.getElementById('heroCodeCardWrapper');
     const heroCodeWindow = document.getElementById('heroCodeWindow');
 
-    if (heroCodeWrapper && heroCodeWindow) {
+    if (heroCodeWrapper && heroCodeWindow && !isTouchDevice) {
         let isHovered = false;
 
         heroCodeWrapper.addEventListener('mouseenter', () => {
@@ -904,20 +929,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 14. LINEAR / RAYCAST DYNAMIC CURSOR BORDER-GLOW TRACKING
+    // 14. LINEAR / RAYCAST DYNAMIC CURSOR BORDER-GLOW (DESKTOP ONLY)
     // ==========================================================================
-    const glowCards = document.querySelectorAll(
-        '.project-card, .service-card, .skill-card, .metrics-strip, .hero-code-window, .metric-card'
-    );
+    if (!isTouchDevice) {
+        const glowCards = document.querySelectorAll(
+            '.project-card, .service-card, .skill-card, .metrics-strip, .hero-code-window, .metric-card'
+        );
 
-    glowCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
-        }, { passive: true });
-    });
+        glowCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            }, { passive: true });
+        });
+    }
 });
 
