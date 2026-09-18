@@ -288,6 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalProblems = document.getElementById('modalProblems');
     const modalGithubLink = document.getElementById('modalGithubLink');
     const modalDemoLink = document.getElementById('modalDemoLink');
+    const modalMetricBadge = document.getElementById('modalMetricBadge');
 
     function openProjectModal(card) {
         if (!modal) return;
@@ -296,6 +297,13 @@ document.addEventListener('DOMContentLoaded', () => {
         modalCategoryTag.textContent = card.dataset.modalTag || 'Featured Project';
         modalDescription.textContent = card.dataset.modalDescription || 'No description provided.';
         modalProblems.textContent = card.dataset.modalProblems || 'Comprehensive architecture engineered to solve key client requirements.';
+
+        if (card.dataset.modalMetric && modalMetricBadge) {
+            modalMetricBadge.textContent = card.dataset.modalMetric;
+            modalMetricBadge.style.display = 'inline-flex';
+        } else if (modalMetricBadge) {
+            modalMetricBadge.style.display = 'none';
+        }
 
         if (card.dataset.modalScreenshot) {
             modalScreenshot.src = card.dataset.modalScreenshot;
@@ -1071,7 +1079,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
     if (!isTouchDevice) {
         const glowCards = document.querySelectorAll(
-            '.project-card, .service-card, .skill-card, .metrics-strip, .hero-code-window, .metric-card'
+            '.project-card, .service-card, .skill-card, .metrics-strip, .hero-code-window, .metric-card, .testimonial-card'
         );
 
         glowCards.forEach(card => {
@@ -1082,6 +1090,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.style.setProperty('--mouse-x', `${x}px`);
                 card.style.setProperty('--mouse-y', `${y}px`);
             }, { passive: true });
+        });
+    }
+
+    // ==========================================================================
+    // 15. PROGRESSIVE WEB APP (PWA) SERVICE WORKER REGISTRATION
+    // ==========================================================================
+    if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js')
+                .then(reg => {
+                    console.log('PWA ServiceWorker successfully registered with scope:', reg.scope);
+                })
+                .catch(err => {
+                    console.warn('PWA ServiceWorker registration failed:', err);
+                });
         });
     }
 });
