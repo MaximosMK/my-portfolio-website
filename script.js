@@ -563,7 +563,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 break;
             case 'contact':
                 appendConsoleMessage("Email:    karouchmohamed21@gmail.com");
-                appendConsoleMessage("Phone:    +212-618238201");
+                appendConsoleMessage("Phone:    +212 680-165532 (WhatsApp)");
                 appendConsoleMessage("LinkedIn: linkedin.com/in/mohamed-karouch/");
                 appendConsoleMessage("GitHub:   github.com/MaximosMK");
                 break;
@@ -608,23 +608,90 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 10. SERVICES AUTO-SELECTION & INQUIRY ROUTING
+    // 10. SERVICES AUTO-SELECTION, CHIPS & LIVE PROPOSITION BRIEF
     // ==========================================================================
-    const serviceActionBtns = document.querySelectorAll('.service-action-btn');
-    const serviceTypeSelect = document.getElementById('serviceType');
+    const serviceTypeInput = document.getElementById('serviceTypeInput');
+    const budgetRangeInput = document.getElementById('budgetRangeInput');
+    const timelineInput = document.getElementById('timelineInput');
 
+    const serviceChipsGroup = document.getElementById('serviceChipsGroup');
+    const budgetChipsGroup = document.getElementById('budgetChipsGroup');
+    const timelineChipsGroup = document.getElementById('timelineChipsGroup');
+
+    const briefTurnaroundBadge = document.getElementById('briefTurnaroundBadge');
+    const briefServiceTag = document.getElementById('briefServiceTag');
+    const briefBudgetTag = document.getElementById('briefBudgetTag');
+    const briefTimelineTag = document.getElementById('briefTimelineTag');
+
+    function updateLiveBrief() {
+        const activeServiceChip = serviceChipsGroup ? serviceChipsGroup.querySelector('.proposition-chip.active') : null;
+        const activeBudgetChip = budgetChipsGroup ? budgetChipsGroup.querySelector('.proposition-chip.active') : null;
+        const activeTimelineChip = timelineChipsGroup ? timelineChipsGroup.querySelector('.proposition-chip.active') : null;
+
+        const serviceVal = activeServiceChip ? activeServiceChip.getAttribute('data-value') : (serviceTypeInput ? serviceTypeInput.value : 'Custom Web Development');
+        const turnaroundVal = activeServiceChip ? activeServiceChip.getAttribute('data-turnaround') : '~1-2 Weeks';
+        const budgetVal = activeBudgetChip ? activeBudgetChip.getAttribute('data-value') : (budgetRangeInput ? budgetRangeInput.value : '$500 - $1,500');
+        const timelineVal = activeTimelineChip ? activeTimelineChip.getAttribute('data-value') : (timelineInput ? timelineInput.value : 'Standard (2-4 weeks)');
+
+        if (serviceTypeInput) serviceTypeInput.value = serviceVal;
+        if (budgetRangeInput) budgetRangeInput.value = budgetVal;
+        if (timelineInput) timelineInput.value = timelineVal;
+
+        if (briefTurnaroundBadge) briefTurnaroundBadge.textContent = turnaroundVal;
+        if (briefServiceTag) briefServiceTag.textContent = serviceVal;
+        if (briefBudgetTag) briefBudgetTag.textContent = `Budget: ${budgetVal}`;
+        if (briefTimelineTag) briefTimelineTag.textContent = `Timeline: ${timelineVal}`;
+    }
+
+    function setupChipGroup(groupEl, inputEl) {
+        if (!groupEl) return;
+        const chips = groupEl.querySelectorAll('.proposition-chip');
+        chips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                chips.forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                if (inputEl) inputEl.value = chip.getAttribute('data-value');
+                updateLiveBrief();
+            });
+        });
+    }
+
+    function setChipActive(groupEl, inputEl, matchValue) {
+        if (!groupEl || !matchValue) return;
+        const chips = groupEl.querySelectorAll('.proposition-chip');
+        let matched = false;
+        const normalizedMatch = matchValue.toLowerCase().trim();
+
+        chips.forEach(chip => {
+            const val = (chip.getAttribute('data-value') || '').toLowerCase().trim();
+            if (!matched && (val === normalizedMatch || val.includes(normalizedMatch) || normalizedMatch.includes(val))) {
+                chips.forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                if (inputEl) inputEl.value = chip.getAttribute('data-value');
+                matched = true;
+            }
+        });
+
+        updateLiveBrief();
+    }
+
+    setupChipGroup(serviceChipsGroup, serviceTypeInput);
+    setupChipGroup(budgetChipsGroup, budgetRangeInput);
+    setupChipGroup(timelineChipsGroup, timelineInput);
+    updateLiveBrief();
+
+    // Proposition Routing from Services Section Cards
+    const serviceActionBtns = document.querySelectorAll('.service-action-btn');
     serviceActionBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const targetService = btn.getAttribute('data-service-select');
-            if (serviceTypeSelect && targetService) {
-                for (let option of serviceTypeSelect.options) {
-                    if (option.value.toLowerCase().includes(targetService.toLowerCase()) || 
-                        targetService.toLowerCase().includes(option.value.toLowerCase())) {
-                        serviceTypeSelect.value = option.value;
-                        break;
-                    }
-                }
-            }
+            const targetBudget = btn.getAttribute('data-budget-select');
+            const targetTimeline = btn.getAttribute('data-timeline-select');
+
+            if (targetService) setChipActive(serviceChipsGroup, serviceTypeInput, targetService);
+            if (targetBudget) setChipActive(budgetChipsGroup, budgetRangeInput, targetBudget);
+            if (targetTimeline) setChipActive(timelineChipsGroup, timelineInput, targetTimeline);
+
             const contactSection = document.getElementById('contact');
             if (contactSection) {
                 contactSection.scrollIntoView({ behavior: 'smooth' });
@@ -633,95 +700,166 @@ document.addEventListener('DOMContentLoaded', () => {
             if (nameInput) {
                 setTimeout(() => nameInput.focus(), 600);
             }
+            showToast('Proposition loaded! Ready to tailor your brief ✨');
         });
     });
 
     // ==========================================================================
-    // 11. CONTACT INQUIRY FORM VALIDATION & DISPATCH
+    // 11. CONTACT INQUIRY FORM VALIDATION & MULTI-ACTION DISPATCH
     // ==========================================================================
     const contactForm = document.getElementById('contactInquiryForm');
     const senderName = document.getElementById('senderName');
     const senderEmail = document.getElementById('senderEmail');
-    const projectTimeline = document.getElementById('projectTimeline');
     const senderMessage = document.getElementById('senderMessage');
 
     const nameError = document.getElementById('nameError');
     const emailError = document.getElementById('emailError');
     const messageError = document.getElementById('messageError');
 
+    const whatsappInquiryBtn = document.getElementById('whatsappInquiryBtn');
+    const copyBriefBtn = document.getElementById('copyBriefBtn');
+
     function validateEmail(email) {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
 
-    if (contactForm) {
-        if (senderName) {
-            senderName.addEventListener('input', () => {
-                senderName.classList.remove('is-invalid');
-                if (nameError) nameError.classList.remove('visible');
-            });
-        }
-        if (senderEmail) {
-            senderEmail.addEventListener('input', () => {
-                senderEmail.classList.remove('is-invalid');
-                if (emailError) emailError.classList.remove('visible');
-            });
-        }
-        if (senderMessage) {
-            senderMessage.addEventListener('input', () => {
-                senderMessage.classList.remove('is-invalid');
-                if (messageError) messageError.classList.remove('visible');
-            });
-        }
+    function checkFormValidity(showErrors = true) {
+        let isValid = true;
+        const nameVal = senderName ? senderName.value.trim() : '';
+        const emailVal = senderEmail ? senderEmail.value.trim() : '';
+        const messageVal = senderMessage ? senderMessage.value.trim() : '';
 
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            let isValid = true;
-
-            if (!senderName || !senderName.value.trim()) {
+        if (!nameVal) {
+            if (showErrors) {
                 if (senderName) senderName.classList.add('is-invalid');
                 if (nameError) nameError.classList.add('visible');
-                isValid = false;
             }
+            isValid = false;
+        }
 
-            if (!senderEmail || !validateEmail(senderEmail.value.trim())) {
+        if (!emailVal || !validateEmail(emailVal)) {
+            if (showErrors) {
                 if (senderEmail) senderEmail.classList.add('is-invalid');
                 if (emailError) emailError.classList.add('visible');
-                isValid = false;
             }
+            isValid = false;
+        }
 
-            if (!senderMessage || !senderMessage.value.trim()) {
+        if (!messageVal) {
+            if (showErrors) {
                 if (senderMessage) senderMessage.classList.add('is-invalid');
                 if (messageError) messageError.classList.add('visible');
-                isValid = false;
             }
+            isValid = false;
+        }
 
-            if (!isValid) {
+        return {
+            isValid,
+            nameVal,
+            emailVal,
+            messageVal,
+            serviceVal: serviceTypeInput ? serviceTypeInput.value : 'Custom Web Development',
+            budgetVal: budgetRangeInput ? budgetRangeInput.value : '$500 - $1,500',
+            timelineVal: timelineInput ? timelineInput.value : 'Standard (2-4 weeks)'
+        };
+    }
+
+    if (senderName) {
+        senderName.addEventListener('input', () => {
+            senderName.classList.remove('is-invalid');
+            if (nameError) nameError.classList.remove('visible');
+        });
+    }
+    if (senderEmail) {
+        senderEmail.addEventListener('input', () => {
+            senderEmail.classList.remove('is-invalid');
+            if (emailError) emailError.classList.remove('visible');
+        });
+    }
+    if (senderMessage) {
+        senderMessage.addEventListener('input', () => {
+            senderMessage.classList.remove('is-invalid');
+            if (messageError) messageError.classList.remove('visible');
+        });
+    }
+
+    // Action 1: Email Dispatch (Form Submit)
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const data = checkFormValidity(true);
+
+            if (!data.isValid) {
                 showToast('Please correct highlighted fields before submitting.');
                 return;
             }
 
-            const nameVal = senderName.value.trim();
-            const emailVal = senderEmail.value.trim();
-            const serviceVal = serviceTypeSelect ? serviceTypeSelect.value : 'Web Development';
-            const timelineVal = projectTimeline ? projectTimeline.value : 'Flexible';
-            const messageVal = senderMessage.value.trim();
-
-            const subject = encodeURIComponent(`Project Inquiry: ${serviceVal} (${nameVal})`);
+            const subject = encodeURIComponent(`Project Inquiry: ${data.serviceVal} (${data.nameVal})`);
             const body = encodeURIComponent(
                 `Hi Mohamed,\n\n` +
-                `I would like to discuss a project with you:\n\n` +
-                `Name: ${nameVal}\n` +
-                `Email: ${emailVal}\n` +
-                `Service Needed: ${serviceVal}\n` +
-                `Estimated Timeline: ${timelineVal}\n\n` +
-                `Project Details:\n${messageVal}\n\n` +
-                `Best regards,\n${nameVal}`
+                `I would like to discuss a project proposition with you:\n\n` +
+                `Name: ${data.nameVal}\n` +
+                `Email: ${data.emailVal}\n` +
+                `Service Proposition: ${data.serviceVal}\n` +
+                `Estimated Budget: ${data.budgetVal}\n` +
+                `Estimated Timeline: ${data.timelineVal}\n\n` +
+                `Project Details:\n${data.messageVal}\n\n` +
+                `Best regards,\n${data.nameVal}`
             );
 
-            showToast('Opening your email client to dispatch the inquiry... 🚀');
+            showToast('Opening email client with your proposition... 🚀');
             window.location.href = `mailto:karouchmohamed21@gmail.com?subject=${subject}&body=${body}`;
+        });
+    }
 
-            contactForm.reset();
+    // Action 2: WhatsApp Chat Dispatch
+    if (whatsappInquiryBtn) {
+        whatsappInquiryBtn.addEventListener('click', () => {
+            const data = checkFormValidity(false);
+            const clientName = data.nameVal ? data.nameVal : 'a client';
+            const emailPart = data.emailVal ? ` (${data.emailVal})` : '';
+
+            let waText = `Hi Mohamed! I'm ${clientName}${emailPart}.\n\n`;
+            waText += `I'd like to discuss a project proposition:\n`;
+            waText += `📌 Service: ${data.serviceVal}\n`;
+            waText += `💰 Budget: ${data.budgetVal}\n`;
+            waText += `⏳ Timeline: ${data.timelineVal}\n`;
+
+            if (data.messageVal) {
+                waText += `\nBrief Notes:\n${data.messageVal}`;
+            }
+
+            const waUrl = `https://wa.me/212680165532?text=${encodeURIComponent(waText)}`;
+            showToast('Launching WhatsApp chat with Mohamed... 💬');
+            window.open(waUrl, '_blank', 'noopener,noreferrer');
+        });
+    }
+
+    // Action 3: Copy Formatted Brief to Clipboard
+    if (copyBriefBtn) {
+        copyBriefBtn.addEventListener('click', () => {
+            const data = checkFormValidity(false);
+            const briefContent =
+                `📋 PROJECT PROPOSITION BRIEF\n` +
+                `------------------------------------\n` +
+                `• Service: ${data.serviceVal}\n` +
+                `• Budget Range: ${data.budgetVal}\n` +
+                `• Estimated Timeline: ${data.timelineVal}\n` +
+                `• Client Name: ${data.nameVal || 'Not specified'}\n` +
+                `• Contact Email: ${data.emailVal || 'Not specified'}\n` +
+                `• Project Notes: ${data.messageVal || 'Consultation / Kick-off discussion'}\n` +
+                `------------------------------------\n` +
+                `Target Developer: Mohamed Karouch (karouchmohamed21@gmail.com | +212 680-165532)`;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(briefContent).then(() => {
+                    showToast('Proposition brief copied to clipboard! 📋✨');
+                }).catch(() => {
+                    showToast('Could not copy brief to clipboard.');
+                });
+            } else {
+                showToast('Clipboard access unavailable.');
+            }
         });
     }
 

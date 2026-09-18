@@ -1315,6 +1315,14 @@ body.light-theme .tok-str { color: #059669; }
     opacity: 1;
 }
 
+.service-card-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
 .service-icon-box {
     width: 54px;
     height: 54px;
@@ -1325,13 +1333,29 @@ body.light-theme .tok-str { color: #059669; }
     align-items: center;
     justify-content: center;
     font-size: 1.6rem;
-    margin-bottom: 20px;
+    margin-bottom: 0;
     transition: transform var(--transition-fast);
 }
 
 .service-card:hover .service-icon-box {
     transform: scale(1.08) rotate(3deg);
     background: rgba(139, 92, 246, 0.18);
+}
+
+.proposition-turnaround-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--accent-emerald);
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.28);
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+    letter-spacing: 0.02em;
 }
 
 .service-title {
@@ -2041,6 +2065,71 @@ body.light-theme .contact-info-panel {
     transform: translateY(-2px);
 }
 
+.whatsapp-direct-pill {
+    text-decoration: none;
+    border-color: rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp-direct-pill:hover {
+    border-color: #25d366;
+    color: #25d366;
+    box-shadow: 0 0 16px rgba(37, 211, 102, 0.25);
+}
+
+.whatsapp-direct-pill svg {
+    color: #25d366;
+    flex-shrink: 0;
+}
+
+.whatsapp-action-badge {
+    background: rgba(37, 211, 102, 0.15) !important;
+    color: #25d366 !important;
+}
+
+/* Client Guarantees Card */
+.client-guarantees-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 18px;
+}
+
+body.light-theme .client-guarantees-card {
+    background: rgba(255, 255, 255, 0.5);
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+.guarantee-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.guarantee-icon {
+    font-size: 1.2rem;
+    line-height: 1.2;
+    flex-shrink: 0;
+}
+
+.guarantee-text strong {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: block;
+    line-height: 1.3;
+}
+
+.guarantee-text p {
+    font-size: 0.76rem;
+    color: var(--text-secondary);
+    margin: 2px 0 0 0;
+    line-height: 1.4;
+}
+
 .response-pledge {
     display: flex;
     align-items: center;
@@ -2134,7 +2223,7 @@ body.light-theme .form-textarea {
 
 .form-textarea {
     resize: vertical;
-    min-height: 100px;
+    min-height: 95px;
 }
 
 .form-input.is-invalid,
@@ -2154,16 +2243,201 @@ body.light-theme .form-textarea {
     display: block;
 }
 
-.btn-submit-inquiry {
-    width: 100%;
-    padding: 14px 24px;
-    font-size: 0.95rem;
-    font-weight: 600;
+/* Interactive Proposition Chips */
+.chip-selector-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
     margin-top: 4px;
+}
+
+.proposition-chip {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-card);
+    color: var(--text-secondary);
+    padding: 8px 14px;
+    border-radius: var(--radius-full);
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 6px;
+    transition: all var(--transition-fast);
+    outline: none;
+    user-select: none;
+    min-height: 38px;
+}
+
+body.light-theme .proposition-chip {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.09);
+}
+
+.proposition-chip:hover {
+    border-color: var(--accent-primary);
+    color: var(--text-primary);
+    background: rgba(139, 92, 246, 0.08);
+    transform: translateY(-1px);
+}
+
+.proposition-chip.active {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.28) 0%, rgba(6, 182, 212, 0.22) 100%);
+    border-color: var(--accent-primary);
+    color: #ffffff;
+    font-weight: 600;
+    box-shadow: 0 0 14px rgba(139, 92, 246, 0.35);
+}
+
+body.light-theme .proposition-chip.active {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(6, 182, 212, 0.12) 100%);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+}
+
+/* Live Proposition Brief Card */
+.live-brief-card {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(6, 182, 212, 0.04) 100%);
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    border-radius: var(--radius-md);
+    padding: 13px 16px;
+    margin-bottom: 16px;
+    transition: border-color var(--transition-fast);
+}
+
+body.light-theme .live-brief-card {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(6, 182, 212, 0.03) 100%);
+    border-color: rgba(139, 92, 246, 0.2);
+}
+
+.live-brief-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 9px;
+}
+
+.live-brief-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-primary);
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.brief-pulse-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent-emerald);
+    box-shadow: 0 0 6px var(--accent-emerald);
+    animation: pulseGlow 1.8s infinite ease-in-out;
+}
+
+.live-brief-badge {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--accent-emerald);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: var(--radius-full);
+    padding: 2px 8px;
+}
+
+.live-brief-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.brief-tag {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-card);
+    color: var(--text-primary);
+    padding: 4px 9px;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s ease;
+}
+
+body.light-theme .brief-tag {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+/* Multi-Action Dispatch Cluster */
+.form-actions-cluster {
+    display: grid;
+    grid-template-columns: 1.35fr 1.35fr 1fr;
     gap: 10px;
+    margin-top: 6px;
+}
+
+.form-actions-cluster .btn {
+    width: 100%;
+}
+
+.btn-submit-inquiry {
+    padding: 13px 18px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-whatsapp {
+    background: #25d366;
+    color: #ffffff;
+    border: 1px solid rgba(37, 211, 102, 0.8);
+    font-weight: 600;
+    font-size: 0.88rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: var(--radius-md);
+    padding: 13px 14px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.btn-whatsapp:hover {
+    background: #20ba5a;
+    box-shadow: 0 0 16px rgba(37, 211, 102, 0.4);
+    transform: translateY(-2px);
+    color: #ffffff;
+}
+
+.btn-copy-brief {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 13px 12px;
+    font-size: 0.84rem;
+    border-radius: var(--radius-md);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-card);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+}
+
+.btn-copy-brief:hover {
+    border-color: var(--border-hover);
+    color: var(--accent-primary);
+    transform: translateY(-2px);
 }
 
 /* ==========================================================================
@@ -3049,7 +3323,12 @@ body.light-theme .resume-modal-header {
     }
 
     .service-card {
-        padding: 26px 20px;
+        padding: 24px 18px;
+    }
+
+    .service-card-top-bar {
+        flex-wrap: wrap;
+        gap: 8px;
     }
 
     /* Contact Section & Form */
@@ -3085,8 +3364,23 @@ body.light-theme .resume-modal-header {
         padding: 13px 14px;
     }
 
-    .btn-submit-inquiry {
-        height: 50px;
+    .proposition-chip {
+        min-height: 42px;
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+
+    .form-actions-cluster {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .btn-submit-inquiry,
+    .btn-whatsapp,
+    .btn-copy-brief {
+        height: 48px;
+        min-height: 48px;
+        width: 100%;
     }
 
     /* Modals Mobile Adaptation */
