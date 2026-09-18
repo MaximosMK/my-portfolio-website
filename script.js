@@ -195,6 +195,108 @@ document.addEventListener('DOMContentLoaded', () => {
     setupCopyButton(copyPhoneBtn, 'Phone number');
 
     // ==========================================================================
+    // 3B. TACTILE SOUND EFFECTS (WEB AUDIO API SYNTHESIZER)
+    // ==========================================================================
+    const soundToggleBtn = document.getElementById('soundToggleBtn');
+    const soundIcon = document.getElementById('soundIcon');
+    const SOUND_STORAGE_KEY = 'mk_portfolio_sound';
+
+    const SoundFX = (() => {
+        let ctx = null;
+        let isMuted = localStorage.getItem(SOUND_STORAGE_KEY) !== 'enabled';
+
+        function getContext() {
+            if (!ctx) {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (AudioCtx) {
+                    ctx = new AudioCtx();
+                }
+            }
+            if (ctx && ctx.state === 'suspended') {
+                ctx.resume();
+            }
+            return ctx;
+        }
+
+        function playTone(freq, type, duration, gainVal = 0.04) {
+            if (isMuted) return;
+            try {
+                const c = getContext();
+                if (!c) return;
+                const osc = c.createOscillator();
+                const gain = c.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, c.currentTime);
+                gain.gain.setValueAtTime(gainVal, c.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(c.destination);
+                osc.start();
+                osc.stop(c.currentTime + duration);
+            } catch (e) {}
+        }
+
+        return {
+            isMuted: () => isMuted,
+            toggle: () => {
+                isMuted = !isMuted;
+                localStorage.setItem(SOUND_STORAGE_KEY, isMuted ? 'disabled' : 'enabled');
+                if (!isMuted) {
+                    getContext();
+                    SoundFX.playPop();
+                }
+                return !isMuted;
+            },
+            playClick: () => playTone(600, 'sine', 0.04, 0.035),
+            playToggle: () => playTone(850, 'triangle', 0.05, 0.03),
+            playPop: () => playTone(520, 'sine', 0.08, 0.05),
+            playSuccess: () => {
+                if (isMuted) return;
+                try {
+                    const c = getContext();
+                    if (!c) return;
+                    [523.25, 659.25, 783.99].forEach((f, idx) => {
+                        setTimeout(() => {
+                            const osc = c.createOscillator();
+                            const gain = c.createGain();
+                            osc.type = 'sine';
+                            osc.frequency.setValueAtTime(f, c.currentTime);
+                            gain.gain.setValueAtTime(0.035, c.currentTime);
+                            gain.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + 0.12);
+                            osc.connect(gain);
+                            gain.connect(c.destination);
+                            osc.start();
+                            osc.stop(c.currentTime + 0.12);
+                        }, idx * 60);
+                    });
+                } catch (e) {}
+            }
+        };
+    })();
+
+    function updateSoundUI() {
+        if (!soundToggleBtn || !soundIcon) return;
+        const enabled = !SoundFX.isMuted();
+        soundIcon.textContent = enabled ? '🔊' : '🔇';
+        if (enabled) {
+            soundToggleBtn.classList.add('sound-active');
+            soundToggleBtn.title = 'Sound FX: Enabled (Click to Mute)';
+        } else {
+            soundToggleBtn.classList.remove('sound-active');
+            soundToggleBtn.title = 'Sound FX: Muted (Click to Enable)';
+        }
+    }
+
+    if (soundToggleBtn) {
+        updateSoundUI();
+        soundToggleBtn.addEventListener('click', () => {
+            const enabled = SoundFX.toggle();
+            updateSoundUI();
+            showToast(enabled ? 'Tactile Sound Effects Enabled 🔊' : 'Sound Effects Muted 🔇');
+        });
+    }
+
+    // ==========================================================================
     // 4. GSAP HERO TYPEWRITER
     // ==========================================================================
     const heroTagline = document.getElementById('hero-tagline');
@@ -275,7 +377,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 7. PROJECT DETAILS MODAL
+    // ==========================================================================
+    // 7. PROJECT DETAILS MODAL (WITH CODE SHOWCASE & DELIVERABLES TABS)
     // ==========================================================================
     const modal = document.getElementById('projectModal');
     const closeModalBtn = document.getElementById('closeModalBtn');
@@ -290,13 +393,306 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalDemoLink = document.getElementById('modalDemoLink');
     const modalMetricBadge = document.getElementById('modalMetricBadge');
 
+    const modalTabBtns = modal ? modal.querySelectorAll('.modal-tab-btn') : [];
+    const modalTabPanes = modal ? modal.querySelectorAll('.modal-tab-pane') : [];
+    const modalCodeLang = document.getElementById('modalCodeLang');
+    const modalCodeSnippet = document.getElementById('modalCodeSnippet');
+    const modalDeliverablesList = document.getElementById('modalDeliverablesList');
+
+    const PROJECT_CODE_SNIPPETS = {
+        'freelance-web': {
+            lang: 'PHP / WordPress',
+            code: `<?php
+/**
+ * Custom REST Route & Post Type for High-Performance Client Web App
+ * Engineered for sub-100ms headless and template query speeds.
+ */
+add_action('rest_api_init', function () {
+    register_rest_route('mk-portfolio/v1', '/services', [
+        'methods'  => WP_REST_Server::READABLE,
+        'callback' => 'mk_get_services_payload',
+        'permission_callback' => '__return_true'
+    ]);
+});
+
+function mk_get_services_payload(WP_REST_Request $request) {
+    $cache_key = 'mk_cached_services_data';
+    $cached = wp_cache_get($cache_key, 'mk_group');
+    if ($cached !== false) {
+        return rest_ensure_response($cached);
+    }
+
+    $query = new WP_Query([
+        'post_type'      => 'service_tier',
+        'posts_per_page' => -1,
+        'post_status'    => 'publish',
+        'no_found_rows'  => true
+    ]);
+
+    $data = array_map(function($post) {
+        return [
+            'id'       => $post->ID,
+            'title'    => get_the_title($post->ID),
+            'overview' => get_post_meta($post->ID, '_service_overview', true),
+            'stack'    => wp_get_post_terms($post->ID, 'tech_stack', ['fields' => 'names'])
+        ];
+    }, $query->posts);
+
+    wp_cache_set($cache_key, $data, 'mk_group', 3600);
+    return rest_ensure_response($data);
+}`
+        },
+        'ecommerce': {
+            lang: 'JavaScript / Node.js',
+            code: `// Secure Cart & Order Checkout Session Handler
+import { db } from '../config/database.js';
+
+export async function processOrderCheckout(cartItems, customerDetails) {
+    const client = await db.getClient();
+    try {
+        await client.query('BEGIN'); // Atomic transaction
+
+        // 1. Verify live stock and compute server-side pricing
+        let subtotal = 0;
+        for (const item of cartItems) {
+            const res = await client.query(
+                'SELECT price, inventory_qty FROM products WHERE id = $1 FOR UPDATE',
+                [item.id]
+            );
+            if (!res.rows.length || res.rows[0].inventory_qty < item.qty) {
+                throw new Error(\`Insufficient stock for item #\${item.id}\`);
+            }
+            subtotal += parseFloat(res.rows[0].price) * item.qty;
+        }
+
+        // 2. Insert order record with calculated checksum
+        const orderRes = await client.query(
+            \`INSERT INTO orders (customer_email, total_amount, status, created_at)
+             VALUES ($1, $2, 'processing', NOW()) RETURNING id\`,
+            [customerDetails.email, subtotal]
+        );
+
+        // 3. Decrement reserved inventory
+        for (const item of cartItems) {
+            await client.query(
+                'UPDATE products SET inventory_qty = inventory_qty - $1 WHERE id = $2',
+                [item.qty, item.id]
+            );
+        }
+
+        await client.query('COMMIT');
+        return { success: true, orderId: orderRes.rows[0].id, total: subtotal };
+    } catch (err) {
+        await client.query('ROLLBACK');
+        throw err;
+    } finally {
+        client.release();
+    }
+}`
+        },
+        'piper-tts': {
+            lang: 'Python / ONNX',
+            code: `import wave
+from pathlib import Path
+from piper import PiperVoice
+
+class TTSAudioEngine:
+    """High-speed localized text-to-speech converter using Piper ONNX models."""
+    
+    def __init__(self, model_path: str, config_path: str):
+        self.model_path = Path(model_path)
+        self.config_path = Path(config_path)
+        self.voice = PiperVoice.load(str(self.model_path), str(self.config_path))
+        print(f"[TTS] Loaded localized model at {self.voice.sample_rate}Hz")
+
+    def synthesize_to_wav(self, text: str, output_path: str, speaker_id: int = 0):
+        Path(output_path).parent.mkdir(parents=True, exist_ok=True)
+        with wave.open(output_path, "wb") as wav_file:
+            wav_file.setnchannels(1)
+            wav_file.setsampwidth(2)  # 16-bit PCM
+            wav_file.setframerate(self.voice.sample_rate)
+            
+            # Stream low-latency audio chunks directly
+            for audio_bytes in self.voice.synthesize_stream_raw(text, speaker_id=speaker_id):
+                wav_file.writeframes(audio_bytes)
+                
+        return {"status": "success", "file": output_path, "sample_rate": self.voice.sample_rate}`
+        },
+        'webscraper': {
+            lang: 'Python / AsyncIO',
+            code: `import asyncio
+import aiohttp
+from bs4 import BeautifulSoup
+from typing import List, Dict
+
+class WTRLabScraper:
+    """Async multi-worker web scraping pipeline with exponential backoff."""
+
+    def __init__(self, base_url: str, concurrency_limit: int = 5):
+        self.base_url = base_url
+        self.semaphore = asyncio.Semaphore(concurrency_limit)
+        self.headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+
+    async def fetch_page(self, session: aiohttp.ClientSession, url: str) -> str:
+        async with self.semaphore:
+            for attempt in range(3):
+                try:
+                    async with session.get(url, headers=self.headers, timeout=12) as response:
+                        if response.status == 200:
+                            return await response.text()
+                except Exception:
+                    await asyncio.sleep(2 ** attempt)
+            return ""
+
+    def parse_records(self, html: str) -> List[Dict]:
+        soup = BeautifulSoup(html, "html.parser")
+        entries = []
+        for card in soup.select(".record-row"):
+            title = card.select_one(".title-col")
+            meta = card.select_one(".meta-badge")
+            if title:
+                entries.append({
+                    "title": title.get_text(strip=True),
+                    "status": meta.get_text(strip=True) if meta else "N/A"
+                })
+        return entries`
+        },
+        'adii-customs': {
+            lang: 'Python / Pandas',
+            code: `import pandas as pd
+import numpy as np
+
+def analyze_customs_tariffs(file_path: str) -> pd.DataFrame:
+    """
+    Automated data cleansing and tax tariff classification pipeline
+    for ADII Customs & Indirect Taxes regulatory datasets.
+    """
+    # Load raw customs declarations
+    df = pd.read_excel(file_path, sheet_name="Declarations_2024")
+    
+    # 1. Clean tariff code syntax and filter valid chapters
+    df['hs_code'] = df['CODE_SH'].astype(str).str.replace(r'[^0-9]', '', regex=True)
+    df = df[df['hs_code'].str.len() >= 6].copy()
+    
+    # 2. Vectorized calculation of duty rates & VAT liability
+    df['calculated_duty'] = np.where(
+        df['IMPORT_ORIGIN'] == 'EU',
+        df['VALEUR_DECLAREE'] * df['TAUX_PREFERENTIEL'],
+        df['VALEUR_DECLAREE'] * df['TAUX_GENERAL']
+    )
+    df['total_tax_liability'] = df['calculated_duty'] + (df['VALEUR_DECLAREE'] * 0.20)
+    
+    # 3. Aggregate fiscal volume by economic sector
+    summary = df.groupby('SECTEUR_ACTIVITE').agg({
+        'hs_code': 'count',
+        'VALEUR_DECLAREE': 'sum',
+        'total_tax_liability': 'sum'
+    }).rename(columns={'hs_code': 'dossier_count'})
+    
+    return summary`
+        }
+    };
+
+    const PROJECT_DELIVERABLES = {
+        'freelance-web': [
+            'Bespoke mobile-first responsive frontend built with semantic HTML5, CSS3, and modern JavaScript',
+            'Custom WordPress theme & REST API endpoints optimized for PageSpeed 95+ scores',
+            'Interactive client contact workflow and automated lead routing',
+            'Full SEO metadata schema markup, OpenGraph cards, and Core Web Vitals optimization',
+            'Milestone-driven delivery with cross-browser testing across Safari, Chrome, and Firefox'
+        ],
+        'ecommerce': [
+            'Full-featured product catalog with faceted category filtering and search',
+            'Responsive shopping cart with atomic stock validation and session persistence',
+            'Multi-step checkout flow with form validation and feedback notifications',
+            'Secure transactional database schema with rollback guarantees',
+            'Mobile payment UI layout optimized for fast conversion'
+        ],
+        'piper-tts': [
+            'Neural text-to-speech conversion pipeline leveraging lightweight Piper ONNX models',
+            'Sub-second voice synthesis with zero cloud API latency or ongoing costs',
+            'Custom voice model configuration and multi-speaker pitch adjustment',
+            'Batch export and automated WAV audio stream generation',
+            'Intuitive CLI & GUI wrapper for local desktop operation'
+        ],
+        'webscraper': [
+            'Asynchronous multi-worker data extraction engine using aiohttp & BeautifulSoup',
+            'Automated rate-limiting and exponential backoff retry algorithms to avoid blocking',
+            'Clean data normalization and JSON / CSV export pipeline',
+            'Headless browser automation for dynamic JavaScript-rendered pages',
+            'Continuous execution logging and error diagnostics dashboard'
+        ],
+        'adii-customs': [
+            'Automated data ingestion and sanitization for complex customs import/export ledgers',
+            'Vectorized tariff calculation rules adhering to Moroccan ADII regulatory schedules',
+            'Executive summary dashboards detailing revenue, duties, and sector distributions',
+            'High-speed Excel and CSV reporting output saving hours of manual calculation',
+            'Data integrity validation ensuring zero rounding drift in fiscal figures'
+        ]
+    };
+
+    // Tab switching event bindings
+    modalTabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabTarget = btn.dataset.modalTab;
+            modalTabBtns.forEach(b => {
+                const isActive = b === btn;
+                b.classList.toggle('active', isActive);
+                b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
+            modalTabPanes.forEach(pane => {
+                pane.classList.toggle('active', pane.id === `modalTab${tabTarget.charAt(0).toUpperCase() + tabTarget.slice(1)}`);
+            });
+            SoundFX.playClick();
+        });
+    });
+
     function openProjectModal(card) {
         if (!modal) return;
+
+        const projectId = card.dataset.projectId || '';
 
         modalTitle.textContent = card.dataset.modalTitle || 'Project Details';
         modalCategoryTag.textContent = card.dataset.modalTag || 'Featured Project';
         modalDescription.textContent = card.dataset.modalDescription || 'No description provided.';
         modalProblems.textContent = card.dataset.modalProblems || 'Comprehensive architecture engineered to solve key client requirements.';
+
+        // Populate Code Showcase
+        const snippetData = PROJECT_CODE_SNIPPETS[projectId];
+        if (modalCodeLang && modalCodeSnippet) {
+            if (snippetData) {
+                modalCodeLang.textContent = snippetData.lang;
+                modalCodeSnippet.textContent = snippetData.code;
+            } else {
+                modalCodeLang.textContent = 'Code';
+                modalCodeSnippet.textContent = '// Full source code available via client repository / portfolio demo';
+            }
+        }
+
+        // Populate Key Deliverables Checklist
+        if (modalDeliverablesList) {
+            const deliverables = PROJECT_DELIVERABLES[projectId] || [
+                'Complete responsive frontend engineering and performance tuning',
+                'Modular maintainable backend integrations and database schemas',
+                'Comprehensive client documentation and deployment handover'
+            ];
+            modalDeliverablesList.innerHTML = deliverables.map(item => `
+                <li class="modal-deliverable-item">
+                    <span class="modal-deliverable-icon">✓</span>
+                    <span>${item}</span>
+                </li>
+            `).join('');
+        }
+
+        // Reset tabs to Overview by default
+        modalTabBtns.forEach(btn => {
+            const isOverview = btn.dataset.modalTab === 'overview';
+            btn.classList.toggle('active', isOverview);
+            btn.setAttribute('aria-selected', isOverview ? 'true' : 'false');
+        });
+        modalTabPanes.forEach(pane => {
+            pane.classList.toggle('active', pane.id === 'modalTabOverview');
+        });
 
         if (card.dataset.modalMetric && modalMetricBadge) {
             modalMetricBadge.textContent = card.dataset.modalMetric;
@@ -329,6 +725,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.classList.add('visible');
         document.body.classList.add('modal-open');
         document.body.style.overflow = 'hidden';
+        SoundFX.playPop();
     }
 
     function closeProjectModal() {
@@ -336,10 +733,11 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.classList.remove('visible');
         document.body.classList.remove('modal-open');
         document.body.style.overflow = '';
+        SoundFX.playClick();
     }
 
     projectCards.forEach(card => {
-        card.addEventListener('click', (e) => {
+        card.addEventListener('click', () => {
             openProjectModal(card);
         });
     });
@@ -496,7 +894,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.addEventListener('keydown', (e) => {
-        if ((e.ctrlKey || e.metaKey) && (e.key === '\\' || e.key === 'k' || e.key === 'K')) {
+        if ((e.ctrlKey || e.metaKey) && e.key === '\\') {
             e.preventDefault();
             toggleDevConsole();
         }
@@ -1079,7 +1477,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
     if (!isTouchDevice) {
         const glowCards = document.querySelectorAll(
-            '.project-card, .service-card, .skill-card, .metrics-strip, .hero-code-window, .metric-card, .testimonial-card'
+            '.project-card, .service-card, .skill-card, .metrics-strip, .hero-code-window, .metric-card, .testimonial-card, .scope-calculator-card'
         );
 
         glowCards.forEach(card => {
@@ -1094,7 +1492,550 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 15. PROGRESSIVE WEB APP (PWA) SERVICE WORKER REGISTRATION
+    // 15. INTERACTIVE PROJECT SCOPE & BUDGET CALCULATOR
+    // ==========================================================================
+    const scopeCalcCard = document.getElementById('scopeCalculator');
+    const calcChecks = document.querySelectorAll('.calc-deliverable-check');
+    const calcPriceDisplay = document.getElementById('calcPriceDisplay');
+    const calcTurnaroundDisplay = document.getElementById('calcTurnaroundDisplay');
+    const calcLoadContactBtn = document.getElementById('calcLoadContactBtn');
+    const calcWhatsappBtn = document.getElementById('calcWhatsappBtn');
+
+    function recalculateScope() {
+        let totalPrice = 0;
+        let totalDays = 0;
+        let selectedCount = 0;
+
+        calcChecks.forEach(chk => {
+            const card = chk.closest('.calc-checkbox-card');
+            if (chk.checked) {
+                if (card) card.classList.add('active');
+                totalPrice += parseInt(chk.dataset.price, 10) || 0;
+                totalDays += parseInt(chk.dataset.days, 10) || 0;
+                selectedCount++;
+            } else {
+                if (card) card.classList.remove('active');
+            }
+        });
+
+        if (calcPriceDisplay) {
+            calcPriceDisplay.textContent = `$${totalPrice.toLocaleString()}`;
+        }
+
+        if (calcTurnaroundDisplay) {
+            if (selectedCount === 0) {
+                calcTurnaroundDisplay.textContent = '0 Days';
+            } else {
+                const minDays = Math.max(3, totalDays - 2);
+                const maxDays = totalDays + 2;
+                calcTurnaroundDisplay.textContent = `${minDays}–${maxDays} Days`;
+            }
+        }
+    }
+
+    if (calcChecks.length > 0) {
+        calcChecks.forEach(chk => {
+            chk.addEventListener('change', () => {
+                recalculateScope();
+                SoundFX.playToggle();
+            });
+        });
+        recalculateScope();
+    }
+
+    if (calcLoadContactBtn) {
+        calcLoadContactBtn.addEventListener('click', () => {
+            const selectedItems = [];
+            let totalPrice = 0;
+            let totalDays = 0;
+
+            calcChecks.forEach(chk => {
+                if (chk.checked) {
+                    const name = chk.dataset.name || chk.closest('.calc-checkbox-card')?.querySelector('strong')?.textContent.trim() || 'Deliverable';
+                    const price = parseInt(chk.dataset.price, 10) || 0;
+                    const days = parseInt(chk.dataset.days, 10) || 0;
+                    totalPrice += price;
+                    totalDays += days;
+                    selectedItems.push(`• ${name} (+$${price}, ~${days}d)`);
+                }
+            });
+
+            if (selectedItems.length === 0) {
+                showToast('Please select at least one deliverable to load.');
+                return;
+            }
+
+            const minDays = Math.max(3, totalDays - 2);
+            const maxDays = totalDays + 2;
+            const formattedScope = `Project Scope & Requirements (Built via Estimator):\n` +
+                `${selectedItems.join('\n')}\n\n` +
+                `Estimated Investment: $${totalPrice.toLocaleString()}\n` +
+                `Estimated Turnaround: ${minDays}–${maxDays} Days\n\n` +
+                `Additional Notes / Questions:`;
+
+            const senderMessage = document.getElementById('senderMessage');
+            if (senderMessage) {
+                senderMessage.value = formattedScope;
+                senderMessage.dispatchEvent(new Event('input'));
+            }
+
+            // Sync budget range chip in contact form
+            const budgetChips = document.querySelectorAll('#budgetChipsGroup .proposition-chip');
+            budgetChips.forEach(chip => {
+                const val = chip.dataset.value;
+                let match = false;
+                if (totalPrice < 500 && val === '< $500') match = true;
+                else if (totalPrice >= 500 && totalPrice <= 1500 && val === '$500 - $1,500') match = true;
+                else if (totalPrice > 1500 && totalPrice <= 3000 && val === '$1,500 - $3,000') match = true;
+                else if (totalPrice > 3000 && val === '$3,000+') match = true;
+
+                if (match) {
+                    budgetChips.forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+                    const budgetInput = document.getElementById('budgetRangeInput');
+                    if (budgetInput) budgetInput.value = val;
+                    const briefBudgetTag = document.getElementById('briefBudgetTag');
+                    if (briefBudgetTag) briefBudgetTag.textContent = `Budget: ${val}`;
+                }
+            });
+
+            const contactSection = document.getElementById('contact');
+            if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+                setTimeout(() => {
+                    if (senderMessage) senderMessage.focus();
+                }, 600);
+            }
+
+            SoundFX.playSuccess();
+            showToast('Scope loaded into Project Brief! 🚀');
+        });
+    }
+
+    if (calcWhatsappBtn) {
+        calcWhatsappBtn.addEventListener('click', () => {
+            const selectedItems = [];
+            let totalPrice = 0;
+            let totalDays = 0;
+
+            calcChecks.forEach(chk => {
+                if (chk.checked) {
+                    const name = chk.dataset.name || chk.closest('.calc-checkbox-card')?.querySelector('strong')?.textContent.trim() || 'Deliverable';
+                    const price = parseInt(chk.dataset.price, 10) || 0;
+                    const days = parseInt(chk.dataset.days, 10) || 0;
+                    totalPrice += price;
+                    totalDays += days;
+                    selectedItems.push(`- ${name}`);
+                }
+            });
+
+            if (selectedItems.length === 0) {
+                showToast('Please select at least one deliverable for WhatsApp.');
+                return;
+            }
+
+            const minDays = Math.max(3, totalDays - 2);
+            const maxDays = totalDays + 2;
+            const msg = `Hi Mohamed! I built a custom project scope via your portfolio estimator:\n\n` +
+                `${selectedItems.join('\n')}\n\n` +
+                `Estimated Budget: $${totalPrice.toLocaleString()}\n` +
+                `Estimated Turnaround: ${minDays}–${maxDays} Days\n\n` +
+                `I'd love to discuss kicking off this project!`;
+
+            const waUrl = `https://wa.me/212680165532?text=${encodeURIComponent(msg)}`;
+            window.open(waUrl, '_blank', 'noopener,noreferrer');
+            SoundFX.playSuccess();
+            showToast('Launching WhatsApp with your project scope... 💬');
+        });
+    }
+
+    // ==========================================================================
+    // 16. RAYCAST / LINEAR STYLE COMMAND PALETTE (Ctrl + K / Cmd + K)
+    // ==========================================================================
+    const paletteModal = document.getElementById('commandPaletteModal');
+    const paletteBackdrop = document.getElementById('paletteBackdrop');
+    const paletteSearchInput = document.getElementById('paletteSearchInput');
+    const paletteResultsList = document.getElementById('paletteResultsList');
+    const openPaletteBtn = document.getElementById('openPaletteBtn');
+
+    const COMMAND_ACTIONS = [
+        // Navigation Section
+        {
+            id: 'nav-projects',
+            group: 'Navigation',
+            icon: '📁',
+            label: 'Go to Featured Projects',
+            desc: 'Explore web applications, tools & client case studies',
+            badge: 'Section',
+            keywords: 'projects work portfolio showcase code web python',
+            action: () => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })
+        },
+        {
+            id: 'nav-services',
+            group: 'Navigation',
+            icon: '⚡',
+            label: 'Go to Services & Skills',
+            desc: 'Full-stack engineering, WordPress, SEO & automation',
+            badge: 'Section',
+            keywords: 'services skills tech stack abilities offerings wordpress php',
+            action: () => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })
+        },
+        {
+            id: 'nav-about',
+            group: 'Navigation',
+            icon: '👤',
+            label: 'Go to About Mohamed',
+            desc: 'Background, journey, developer philosophy & 1337 studies',
+            badge: 'Section',
+            keywords: 'about bio profile background mohamed karouch 1337',
+            action: () => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })
+        },
+        {
+            id: 'nav-testimonials',
+            group: 'Navigation',
+            icon: '⭐',
+            label: 'Go to Client Testimonials',
+            desc: 'Read verified reviews and recommendations from clients',
+            badge: 'Section',
+            keywords: 'testimonials reviews feedback clients ratings trust',
+            action: () => document.getElementById('testimonials')?.scrollIntoView({ behavior: 'smooth' })
+        },
+        {
+            id: 'nav-contact',
+            group: 'Navigation',
+            icon: '📬',
+            label: 'Go to Contact & Proposition Form',
+            desc: 'Direct inquiry, project brief formulation, email or WhatsApp',
+            badge: 'Section',
+            keywords: 'contact message hire quote email brief proposition talk',
+            action: () => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+        },
+
+        // Tools & Estimators
+        {
+            id: 'tool-calculator',
+            group: 'Tools & Estimators',
+            icon: '🧮',
+            label: 'Build Project Scope & Budget (Estimator)',
+            desc: 'Interactive checklist for instant investment & turnaround estimate',
+            badge: 'Tool',
+            keywords: 'calculator scope budget estimate pricing quote estimator deliverables',
+            action: () => document.getElementById('scopeCalculator')?.scrollIntoView({ behavior: 'smooth' })
+        },
+        {
+            id: 'tool-resume',
+            group: 'Tools & Estimators',
+            icon: '📄',
+            label: 'Open Resume & Credentials (PDF / Print)',
+            desc: 'View comprehensive CV, experience & competencies modal',
+            badge: 'Modal',
+            keywords: 'resume cv curriculum vitae credentials experience education print',
+            action: () => openResumeModal()
+        },
+        {
+            id: 'tool-terminal',
+            group: 'Tools & Estimators',
+            icon: '💻',
+            label: 'Open Developer Terminal Console',
+            desc: 'Interactive command shell with help, skills, cat, and clear',
+            badge: 'Ctrl+\\',
+            keywords: 'terminal console cli shell bash command prompt dev',
+            action: () => toggleDevConsole()
+        },
+
+        // Fast Communication
+        {
+            id: 'comm-whatsapp',
+            group: 'Direct Communication',
+            icon: '💬',
+            label: 'Chat Directly on WhatsApp (+212 680-165532)',
+            desc: 'Instant direct chat for fast response and proposals',
+            badge: 'Direct',
+            keywords: 'whatsapp chat call message phone 212680165532',
+            action: () => {
+                window.open('https://wa.me/212680165532?text=Hi%20Mohamed,%20I%20visited%20your%20portfolio%20and%20would%20love%20to%20connect!', '_blank', 'noopener,noreferrer');
+            }
+        },
+        {
+            id: 'comm-copy-email',
+            group: 'Direct Communication',
+            icon: '📋',
+            label: 'Copy Email Address',
+            desc: 'karouchmohamed21@gmail.com',
+            badge: 'Copy',
+            keywords: 'email copy clipboard address karouchmohamed21 mail',
+            action: () => {
+                navigator.clipboard.writeText('karouchmohamed21@gmail.com').then(() => {
+                    showToast('Email copied to clipboard: karouchmohamed21@gmail.com 📋');
+                });
+            }
+        },
+
+        // User Preferences
+        {
+            id: 'pref-theme',
+            group: 'Preferences',
+            icon: '🌓',
+            label: 'Toggle Dark / Light Theme',
+            desc: 'Switch between dark mode and high-contrast light mode',
+            badge: 'Toggle',
+            keywords: 'theme dark light mode toggle contrast style',
+            action: () => {
+                const isLight = document.body.classList.contains('light-theme');
+                applyTheme(isLight ? 'dark' : 'light');
+                showToast(`Switched to ${isLight ? 'Dark' : 'Light'} Mode`);
+            }
+        },
+        {
+            id: 'pref-sound',
+            group: 'Preferences',
+            icon: '🔊',
+            label: 'Toggle Tactile Sound Effects',
+            desc: 'Enable or mute Web Audio API micro-interactions',
+            badge: 'Toggle',
+            keywords: 'sound audio mute effects volume clicks beep tactile',
+            action: () => {
+                const enabled = SoundFX.toggle();
+                updateSoundUI();
+                showToast(enabled ? 'Sound Effects Enabled 🔊' : 'Sound Effects Muted 🔇');
+            }
+        },
+
+        // Case Studies
+        {
+            id: 'proj-web',
+            group: 'Featured Case Studies',
+            icon: '💻',
+            label: 'Case Study: Freelance Web Development',
+            desc: 'PHP, WordPress, JavaScript, and custom REST API endpoints',
+            badge: 'Case Study',
+            keywords: 'freelance web development wordpress php responsive html css',
+            action: () => {
+                const card = document.querySelector('[data-project-id="freelance-web"]');
+                if (card) openProjectModal(card);
+            }
+        },
+        {
+            id: 'proj-ecom',
+            group: 'Featured Case Studies',
+            icon: '🛒',
+            label: 'Case Study: Full-Stack E-Commerce Platform',
+            desc: 'Responsive product catalog, transactional cart & checkout',
+            badge: 'Case Study',
+            keywords: 'ecommerce store cart shop products checkout node',
+            action: () => {
+                const card = document.querySelector('[data-project-id="ecommerce"]');
+                if (card) openProjectModal(card);
+            }
+        },
+        {
+            id: 'proj-piper',
+            group: 'Featured Case Studies',
+            icon: '🎙️',
+            label: 'Case Study: Piper TTS Audio Converter',
+            desc: 'Localized neural text-to-speech engine using Piper ONNX models',
+            badge: 'Case Study',
+            keywords: 'piper tts speech text python onnx audio voice synthesis',
+            action: () => {
+                const card = document.querySelector('[data-project-id="piper-tts"]');
+                if (card) openProjectModal(card);
+            }
+        },
+        {
+            id: 'proj-scraper',
+            group: 'Featured Case Studies',
+            icon: '🕷️',
+            label: 'Case Study: Web Scraper for WTR-Lab',
+            desc: 'Async data extraction with rate limiting & structured JSON export',
+            badge: 'Case Study',
+            keywords: 'scraper scraping python wtr-lab extraction data crawler beautifulsoup',
+            action: () => {
+                const card = document.querySelector('[data-project-id="webscraper"]');
+                if (card) openProjectModal(card);
+            }
+        },
+        {
+            id: 'proj-adii',
+            group: 'Featured Case Studies',
+            icon: '📊',
+            label: 'Case Study: ADII Customs & Tax Analytics',
+            desc: 'Regulatory customs data ingestion & automated fiscal reporting',
+            badge: 'Case Study',
+            keywords: 'adii customs tax tariffs analytics pandas python excel data',
+            action: () => {
+                const card = document.querySelector('[data-project-id="adii-customs"]');
+                if (card) openProjectModal(card);
+            }
+        }
+    ];
+
+    let currentFilteredActions = [...COMMAND_ACTIONS];
+    let selectedPaletteIndex = 0;
+
+    function renderCommandPalette(actions) {
+        if (!paletteResultsList) return;
+        currentFilteredActions = actions;
+        selectedPaletteIndex = 0;
+
+        if (actions.length === 0) {
+            paletteResultsList.innerHTML = `<div class="palette-empty">No matching commands or actions found for "${paletteSearchInput.value}".</div>`;
+            return;
+        }
+
+        // Group by group name
+        const groups = {};
+        actions.forEach((act, idx) => {
+            if (!groups[act.group]) groups[act.group] = [];
+            groups[act.group].push({ ...act, flatIndex: idx });
+        });
+
+        let html = '';
+        Object.entries(groups).forEach(([groupName, items]) => {
+            html += `<div class="palette-group-title">${groupName}</div>`;
+            items.forEach(item => {
+                const isSelected = item.flatIndex === selectedPaletteIndex;
+                html += `
+                    <div class="palette-item ${isSelected ? 'selected' : ''}" 
+                         role="option" 
+                         data-action-index="${item.flatIndex}"
+                         aria-selected="${isSelected ? 'true' : 'false'}">
+                        <div class="palette-item-left">
+                            <span class="palette-item-icon">${item.icon}</span>
+                            <div class="palette-item-info">
+                                <span class="palette-item-label">${item.label}</span>
+                                <span class="palette-item-desc">${item.desc}</span>
+                            </div>
+                        </div>
+                        <span class="palette-item-badge">${item.badge}</span>
+                    </div>
+                `;
+            });
+        });
+
+        paletteResultsList.innerHTML = html;
+
+        // Add click events to items
+        const renderedItems = paletteResultsList.querySelectorAll('.palette-item');
+        renderedItems.forEach(itemEl => {
+            itemEl.addEventListener('click', () => {
+                const idx = parseInt(itemEl.dataset.actionIndex, 10);
+                executePaletteAction(idx);
+            });
+            itemEl.addEventListener('mouseenter', () => {
+                const idx = parseInt(itemEl.dataset.actionIndex, 10);
+                updatePaletteSelection(idx);
+            });
+        });
+    }
+
+    function updatePaletteSelection(newIndex) {
+        if (currentFilteredActions.length === 0) return;
+        selectedPaletteIndex = (newIndex + currentFilteredActions.length) % currentFilteredActions.length;
+        const renderedItems = paletteResultsList.querySelectorAll('.palette-item');
+        renderedItems.forEach(item => {
+            const idx = parseInt(item.dataset.actionIndex, 10);
+            const isSelected = idx === selectedPaletteIndex;
+            item.classList.toggle('selected', isSelected);
+            item.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+            if (isSelected) {
+                item.scrollIntoView({ block: 'nearest' });
+            }
+        });
+    }
+
+    function executePaletteAction(index) {
+        const actionObj = currentFilteredActions[index];
+        if (!actionObj) return;
+        closeCommandPalette();
+        SoundFX.playSuccess();
+        setTimeout(() => {
+            actionObj.action();
+        }, 150);
+    }
+
+    function openCommandPalette() {
+        if (!paletteModal) return;
+        paletteModal.classList.add('visible');
+        document.body.classList.add('modal-open');
+        if (paletteSearchInput) {
+            paletteSearchInput.value = '';
+            renderCommandPalette(COMMAND_ACTIONS);
+            setTimeout(() => paletteSearchInput.focus(), 50);
+        }
+        SoundFX.playPop();
+    }
+
+    function closeCommandPalette() {
+        if (!paletteModal || !paletteModal.classList.contains('visible')) return;
+        paletteModal.classList.remove('visible');
+        document.body.classList.remove('modal-open');
+        SoundFX.playClick();
+    }
+
+    function toggleCommandPalette() {
+        if (paletteModal && paletteModal.classList.contains('visible')) {
+            closeCommandPalette();
+        } else {
+            openCommandPalette();
+        }
+    }
+
+    if (openPaletteBtn) {
+        openPaletteBtn.addEventListener('click', openCommandPalette);
+    }
+    if (paletteBackdrop) {
+        paletteBackdrop.addEventListener('click', closeCommandPalette);
+    }
+
+    if (paletteSearchInput) {
+        paletteSearchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            if (!query) {
+                renderCommandPalette(COMMAND_ACTIONS);
+                return;
+            }
+            const filtered = COMMAND_ACTIONS.filter(item => 
+                item.label.toLowerCase().includes(query) ||
+                item.desc.toLowerCase().includes(query) ||
+                item.keywords.toLowerCase().includes(query) ||
+                item.group.toLowerCase().includes(query)
+            );
+            renderCommandPalette(filtered);
+        });
+
+        paletteSearchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                updatePaletteSelection(selectedPaletteIndex + 1);
+                SoundFX.playClick();
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                updatePaletteSelection(selectedPaletteIndex - 1);
+                SoundFX.playClick();
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                executePaletteAction(selectedPaletteIndex);
+            } else if (e.key === 'Escape') {
+                e.preventDefault();
+                closeCommandPalette();
+            }
+        });
+    }
+
+    // Global Keydown Handler for Command Palette (Ctrl/Cmd + K) and Escape
+    document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
+            e.preventDefault();
+            toggleCommandPalette();
+        } else if (e.key === 'Escape') {
+            if (paletteModal && paletteModal.classList.contains('visible')) {
+                closeCommandPalette();
+            }
+        }
+    });
+
+    // ==========================================================================
+    // 17. PROGRESSIVE WEB APP (PWA) SERVICE WORKER REGISTRATION
     // ==========================================================================
     if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
         window.addEventListener('load', () => {
