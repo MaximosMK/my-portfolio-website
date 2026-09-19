@@ -516,6 +516,93 @@ img {
     transform: translateY(-7px) rotate(-45deg);
 }
 
+/* Mobile Navigation Quick Tools Panel */
+.mobile-nav-quick-actions {
+    display: none;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-card);
+}
+
+.mobile-quick-title {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+}
+
+.mobile-quick-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.mobile-quick-btn {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    min-height: 44px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-quick-btn:hover,
+.mobile-quick-btn:active {
+    background: rgba(139, 92, 246, 0.15);
+    border-color: var(--accent-primary);
+    transform: translateY(-1px);
+}
+
+.mobile-quick-btn.whatsapp-quick {
+    border-color: rgba(37, 211, 102, 0.4);
+    color: #25d366;
+}
+
+/* Modal Bottom Sheet Drag Handle */
+.modal-drag-handle {
+    display: none;
+}
+
+/* Palette Close Button */
+.palette-close-btn {
+    display: none;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--border-card);
+    color: var(--text-primary);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    line-height: 1;
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.palette-close-btn:hover,
+.palette-close-btn:active {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    border-color: #ef4444;
+}
+
 /* ==========================================================================
    HERO SECTION (SPLIT-GRID OVERHAUL)
    ========================================================================== */
@@ -4150,45 +4237,167 @@ body.light-theme .palette-item.selected {
         width: 100%;
     }
 
-    /* Modals Mobile Adaptation */
+    /* Modals Mobile Bottom Sheet Adaptation */
     .modal {
-        padding: 16px 12px;
+        padding: 0;
         align-items: flex-end;
+        justify-content: center;
     }
 
     .modal-content {
+        width: 100%;
+        max-width: 100%;
         max-height: 90vh;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
-        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        border-radius: 20px 20px 0 0;
+        padding-bottom: max(16px, env(safe-area-inset-bottom, 16px));
+    }
+
+    .modal-drag-handle {
+        display: block;
+        width: 44px;
+        height: 5px;
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 3px;
+        margin: 12px auto 6px;
+    }
+
+    .modal-image-container {
+        max-height: 200px;
     }
 
     .modal-inner-body {
-        padding: 20px 16px;
+        padding: 16px 14px;
+    }
+
+    .modal-heading {
+        font-size: 1.35rem;
+        margin-bottom: 12px;
+        line-height: 1.3;
+    }
+
+    .modal-subheading {
+        font-size: 0.88rem;
+    }
+
+    .modal-text {
+        font-size: 0.88rem;
+        line-height: 1.6;
     }
 
     .close-modal-btn {
-        top: 12px;
-        right: 14px;
-        width: 44px;
-        height: 44px;
+        top: 10px;
+        right: 12px;
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+        font-size: 1.3rem;
+        z-index: 30;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
     }
 
+    /* Modal Tabs Mobile Responsive */
+    .modal-tabs-header {
+        gap: 6px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        flex-wrap: nowrap;
+        margin-bottom: 16px;
+        padding-bottom: 6px;
+    }
+
+    .modal-tabs-header::-webkit-scrollbar {
+        display: none;
+    }
+
+    .modal-tab-btn {
+        flex-shrink: 0;
+        font-size: 0.8rem;
+        padding: 8px 12px;
+        min-height: 40px;
+        border-radius: var(--radius-sm);
+        white-space: nowrap;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .modal-code-window {
+        margin-bottom: 12px;
+        border-radius: var(--radius-sm);
+    }
+
+    .modal-code-header {
+        padding: 8px 12px;
+    }
+
+    .modal-code-pre {
+        padding: 12px 14px;
+        max-height: 220px;
+        font-size: 0.74rem;
+        line-height: 1.55;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .modal-deliverables-checklist {
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+
+    .modal-deliverable-item {
+        padding: 10px 12px;
+        font-size: 0.84rem;
+        gap: 8px;
+        line-height: 1.45;
+    }
+
+    .modal-actions-row {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        margin-top: 18px;
+        padding-top: 14px;
+    }
+
+    .modal-actions-row .btn {
+        width: 100%;
+        height: 46px;
+        justify-content: center;
+        font-size: 0.9rem;
+    }
+
+    /* Resume Modal Mobile Responsive */
     .resume-modal-card {
+        width: 100%;
+        max-width: 100%;
         max-height: 92vh;
-        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        border-radius: 20px 20px 0 0;
+        padding-bottom: max(16px, env(safe-area-inset-bottom, 16px));
     }
 
     .resume-modal-header {
-        padding: 18px 16px;
+        padding: 16px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .resume-name {
+        font-size: 1.25rem;
+    }
+
+    .resume-role {
+        font-size: 0.8rem;
     }
 
     .resume-modal-body {
-        padding: 16px;
+        padding: 16px 14px;
     }
 
     .resume-skills-categories {
         grid-template-columns: 1fr;
+        gap: 10px;
     }
 
     /* Footer Responsive */
@@ -4206,71 +4415,283 @@ body.light-theme .palette-item.selected {
         display: none;
     }
 
-    .terminal-trigger-btn,
-    .resume-trigger-btn,
-    .palette-trigger-btn {
-        padding: 6px 10px;
-        min-width: 40px;
+    .header-container {
+        padding: 0 16px;
+        height: 64px;
+    }
+
+    .header-actions {
+        gap: 6px;
+    }
+
+    .action-btn {
+        width: 38px;
         height: 38px;
+        min-width: 38px;
+        padding: 0;
         justify-content: center;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .palette-trigger-btn {
+        font-size: 0.88rem;
+    }
+
+    .mobile-nav-quick-actions {
+        display: block;
     }
 
     /* Calculator Mobile Responsive */
     .scope-calculator-card {
-        padding: 24px 18px;
-        margin-top: 36px;
+        padding: 22px 16px;
+        margin-top: 32px;
+        border-radius: var(--radius-md);
+    }
+
+    .scope-calculator-heading {
+        font-size: 1.25rem;
+        line-height: 1.3;
+    }
+
+    .scope-calculator-sub {
+        font-size: 0.85rem;
+        line-height: 1.5;
     }
 
     .calculator-items-grid {
         grid-template-columns: 1fr;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .calc-checkbox-card {
+        padding: 12px 14px;
+        min-height: 52px;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+
+    .calc-item-details strong {
+        font-size: 0.86rem;
+    }
+
+    .calc-item-details span {
+        font-size: 0.74rem;
+    }
+
+    .calc-item-meta {
+        font-size: 0.78rem;
+        flex-shrink: 0;
+    }
+
+    .calc-results-panel {
+        padding: 18px 14px;
+        gap: 14px;
     }
 
     .calc-results-metrics {
         grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .calc-metric-box {
+        padding: 12px 14px;
+    }
+
+    .calc-metric-value {
+        font-size: 1.6rem;
     }
 
     .calc-actions-row {
         flex-direction: column;
+        gap: 10px;
+        width: 100%;
     }
 
     .calc-actions-row .btn {
         width: 100%;
         min-width: 100%;
+        height: 48px;
+        font-size: 0.9rem;
     }
 
     /* Command Palette Mobile Responsive */
     .command-palette-modal {
-        padding-top: 6vh;
+        padding: 10px 8px;
+        align-items: flex-start;
+        padding-top: max(10px, env(safe-area-inset-top, 10px));
     }
 
     .palette-container {
-        max-width: 95vw;
-        margin: 0 10px;
+        max-width: 100%;
+        width: 100%;
+        margin: 0;
+        border-radius: var(--radius-md);
+        max-height: calc(96vh - 20px);
+    }
+
+    .palette-search-wrapper {
+        padding: 12px 14px;
+        gap: 10px;
+    }
+
+    .palette-search-input {
+        font-size: 16px !important;
+    }
+
+    .palette-close-btn {
+        display: flex;
+    }
+
+    .palette-esc-badge {
+        display: none;
+    }
+
+    .palette-results-list {
+        max-height: calc(80vh - 110px);
+        padding: 8px 6px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .palette-item {
+        padding: 12px 10px;
+        min-height: 48px;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .palette-item:active {
+        background: rgba(139, 92, 246, 0.25);
+    }
+
+    .palette-item-left {
+        min-width: 0;
+        flex: 1;
+        gap: 10px;
+    }
+
+    .palette-item-icon {
+        font-size: 1.15rem;
+        flex-shrink: 0;
+    }
+
+    .palette-item-info {
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    .palette-item-label {
+        font-size: 0.88rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .palette-item-desc {
+        font-size: 0.74rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .palette-footer-hints {
         display: none; /* Keep screen clean on touch keyboards */
     }
 
-    /* Modal Tabs Mobile Responsive */
-    .modal-tabs-header {
-        gap: 4px;
+    /* Dev Console Drawer Mobile */
+    .dev-console {
+        height: 52vh;
+        max-height: 55vh;
+        min-height: 260px;
     }
 
-    .modal-tab-btn {
-        padding: 6px 10px;
-        font-size: 0.8rem;
+    .console-input-row input {
+        font-size: 16px !important;
+    }
+
+    .console-close-btn {
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 480px) {
+    .terminal-trigger-btn {
+        display: none; /* Hide dev terminal button from top bar; accessible in mobile nav drawer and Command Palette */
+    }
+
     .brand-logo .logo-text {
-        display: none; /* Keep header compact on iPhone SE & narrow phones */
+        display: none; /* Keep header compact on phones */
+    }
+
+    .calc-checkbox-card {
+        flex-wrap: wrap;
+        align-items: flex-start;
+        padding: 12px;
+    }
+
+    .calc-item-details {
+        flex: 1 1 calc(100% - 36px);
+    }
+
+    .calc-item-meta {
+        margin-left: 32px;
+        margin-top: 4px;
+        font-size: 0.76rem;
+    }
+
+    .palette-item-badge {
+        display: none; /* Clean up palette row on narrow devices */
     }
 
     .metrics-strip {
         grid-template-columns: 1fr;
-        gap: 18px;
+        gap: 16px;
+        padding: 18px 14px;
+    }
+
+    .contact-card {
+        padding: 24px 14px;
+    }
+
+    .proposition-chip {
+        font-size: 0.78rem;
+        padding: 8px 10px;
+    }
+}
+
+@media (max-width: 360px) {
+    .header-container {
+        padding: 0 10px;
+    }
+
+    .header-actions {
+        gap: 4px;
+    }
+
+    .action-btn {
+        width: 34px;
+        height: 34px;
+        min-width: 34px;
+        font-size: 0.85rem;
+    }
+
+    .mobile-nav-toggle {
+        width: 38px;
+        height: 38px;
+    }
+
+    .hero-title {
+        font-size: 1.85rem;
+    }
+
+    .calc-actions-row .btn {
+        font-size: 0.84rem;
+        padding: 10px 12px;
     }
 }
 

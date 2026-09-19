@@ -102,6 +102,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 closeMobileNav();
             }
         });
+
+        // Mobile Nav Drawer Quick Actions
+        const mobileQuickPaletteBtn = document.getElementById('mobileQuickPaletteBtn');
+        const mobileQuickScopeBtn = document.getElementById('mobileQuickScopeBtn');
+        const mobileQuickResumeBtn = document.getElementById('mobileQuickResumeBtn');
+
+        if (mobileQuickPaletteBtn) {
+            mobileQuickPaletteBtn.addEventListener('click', () => {
+                closeMobileNav();
+                if (typeof openCommandPalette === 'function') openCommandPalette();
+            });
+        }
+        if (mobileQuickScopeBtn) {
+            mobileQuickScopeBtn.addEventListener('click', () => {
+                closeMobileNav();
+                document.getElementById('scopeCalculator')?.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+        if (mobileQuickResumeBtn) {
+            mobileQuickResumeBtn.addEventListener('click', () => {
+                closeMobileNav();
+                if (typeof openResumeModal === 'function') openResumeModal();
+            });
+        }
     }
 
     // Scrollspy navigation active state
@@ -295,6 +319,17 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast(enabled ? 'Tactile Sound Effects Enabled 🔊' : 'Sound Effects Muted 🔇');
         });
     }
+
+    // Touch unlock for mobile browsers (iOS Safari / Android Chrome)
+    const unlockAudioOnTouch = () => {
+        if (!SoundFX.isMuted()) {
+            SoundFX.playClick();
+        }
+        document.removeEventListener('touchstart', unlockAudioOnTouch);
+        document.removeEventListener('click', unlockAudioOnTouch);
+    };
+    document.addEventListener('touchstart', unlockAudioOnTouch, { passive: true, once: true });
+    document.addEventListener('click', unlockAudioOnTouch, { passive: true, once: true });
 
     // ==========================================================================
     // 4. GSAP HERO TYPEWRITER
@@ -1985,6 +2020,10 @@ def analyze_customs_tariffs(file_path: str) -> pd.DataFrame:
     }
     if (paletteBackdrop) {
         paletteBackdrop.addEventListener('click', closeCommandPalette);
+    }
+    const paletteCloseBtn = document.getElementById('paletteCloseBtn');
+    if (paletteCloseBtn) {
+        paletteCloseBtn.addEventListener('click', closeCommandPalette);
     }
 
     if (paletteSearchInput) {
