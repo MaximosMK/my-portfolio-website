@@ -21,7 +21,7 @@
 }
 
 body.light-theme .hero-glow-sphere {
-    opacity: 0.05;
+    display: none !important;
 }
 
 .glow-1 {
