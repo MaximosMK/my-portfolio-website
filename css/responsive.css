@@ -140,6 +140,31 @@
         padding-left: 20px;
     }
 
+    .nav-dropdown-item {
+        width: 100%;
+    }
+
+    .nav-dropdown-btn {
+        display: none;
+    }
+
+    .nav-dropdown-menu {
+        position: static;
+        transform: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        backdrop-filter: none;
+        padding: 0;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
     /* Hero Section Responsive */
     .hero-section {
         padding: 45px 0 65px;
@@ -535,7 +560,16 @@
     }
 
     .header-actions {
-        gap: 6px;
+        gap: 8px;
+    }
+
+    .terminal-trigger-btn,
+    .sound-toggle-btn {
+        display: none !important;
+    }
+
+    .resume-trigger-btn .btn-text {
+        display: none;
     }
 
     .action-btn {

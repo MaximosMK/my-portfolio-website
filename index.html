@@ -105,25 +105,34 @@
             </a>
             <nav id="primaryNavigation" aria-label="Main Navigation">
                 <ul class="nav-menu">
-                    <li><a href="#about" class="nav-link">About</a></li>                    <li><a href="#skills" class="nav-link">Skills</a></li>                    <li><a href="#services" class="nav-link">Services</a></li>                    <li><a href="#projects" class="nav-link">Projects</a></li>                    <li><a href="#timeline-journey" class="nav-link">Journey</a></li>                    <li><a href="#education" class="nav-link">Education</a></li>                    <li><a href="#design-lab" class="nav-link">Design Lab</a></li>                    <li><a href="#testimonials" class="nav-link">Reviews</a></li>                    <li><a href="#faq" class="nav-link">FAQ</a></li>                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#skills" class="nav-link">Skills</a></li>
+                    <li><a href="#projects" class="nav-link">Projects</a></li>
+                    <li><a href="#services" class="nav-link">Services</a></li>
+                    <li><a href="#timeline-journey" class="nav-link">Journey</a></li>
+                    <li class="nav-dropdown-item">
+                        <button type="button" class="nav-link nav-dropdown-btn" aria-expanded="false" aria-haspopup="true"><span>More</span> <svg class="dropdown-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                        <ul class="nav-dropdown-menu"><li><a href="#education" class="nav-link">Education</a></li><li><a href="#design-lab" class="nav-link">Design Lab</a></li><li><a href="#testimonials" class="nav-link">Reviews</a></li><li><a href="#faq" class="nav-link">FAQ</a></li></ul>
+                    </li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
                 <!-- Mobile Quick Actions Panel -->
                 <div class="mobile-nav-quick-actions" aria-label="Quick Mobile Tools">
                     <span class="mobile-quick-title">Quick Tools</span>
-                    <div class="mobile-quick-grid"><button type="button" class="mobile-quick-btn" id="mobileQuickPaletteBtn"><span class="quick-icon">⌘K</span> <span class="quick-text">Search</span></button> <button type="button" class="mobile-quick-btn" id="mobileQuickScopeBtn"><span class="quick-icon">🧮</span> <span class="quick-text">Estimator</span></button> <button type="button" class="mobile-quick-btn" id="mobileQuickResumeBtn"><span class="quick-icon">📄</span> <span class="quick-text">Resume</span></button> <a href="https://wa.me/212680165532?text=Hi%20Mohamed,%20I%20found%20your%20portfolio%20and%20would%20love%20to%20chat!" target="_blank" rel="noopener noreferrer" class="mobile-quick-btn whatsapp-quick"> <span class="quick-icon">💬</span> <span class="quick-text">WhatsApp</span> </a></div>
+                    <div class="mobile-quick-grid"><button type="button" class="mobile-quick-btn" id="mobileQuickPaletteBtn"><span class="quick-icon">⌘K</span> <span class="quick-text">Search</span></button><button type="button" class="mobile-quick-btn" id="mobileQuickScopeBtn"><span class="quick-icon">🧮</span> <span class="quick-text">Estimator</span></button><button type="button" class="mobile-quick-btn" id="mobileQuickResumeBtn"><span class="quick-icon">📄</span> <span class="quick-text">Resume</span></button><button type="button" class="mobile-quick-btn" id="mobileQuickTerminalBtn"><span class="quick-icon">&gt;_</span> <span class="quick-text">Terminal</span></button><button type="button" class="mobile-quick-btn" id="mobileQuickSoundBtn"><span class="quick-icon" id="mobileSoundIcon">🔇</span> <span class="quick-text">Sound FX</span></button><a href="https://wa.me/212680165532?text=Hi%20Mohamed,%20I%20found%20your%20portfolio%20and%20would%20love%20to%20chat!" target="_blank" rel="noopener noreferrer" class="mobile-quick-btn whatsapp-quick"><span class="quick-icon">💬</span> <span class="quick-text">WhatsApp</span></a></div>
                 </div>
             </nav>
             <div class="header-actions">
                 <!-- Command Palette Trigger Button -->
-                <button id="openPaletteBtn" class="action-btn palette-trigger-btn" aria-label="Open Command Palette" title="Command Palette (Ctrl + K or ⌘K)"><span class="btn-icon">⌘K</span> <span class="btn-text">Search</span></button>
+                <button id="openPaletteBtn" class="action-btn palette-trigger-btn" aria-label="Open Command Palette" title="Command Palette (Ctrl + K or ⌘K)"><span class="btn-icon">⌘K</span></button>
                 <!-- Sound Effects Toggle Button -->
-                <button id="soundToggleBtn" class="action-btn sound-toggle-btn" aria-label="Toggle Sound Effects" title="Sound FX: Off (Click to Enable)"> <span class="btn-icon" id="soundIcon">🔇</span> </button>
+                <button id="soundToggleBtn" class="action-btn sound-toggle-btn" aria-label="Toggle Sound Effects" title="Sound FX: Off (Click to Enable)"><span class="btn-icon" id="soundIcon">🔇</span></button>
                 <!-- Resume Viewer Trigger Button -->
                 <button id="openResumeBtn" class="action-btn resume-trigger-btn" aria-label="View Resume &amp; Credentials" title="View Resume"><span class="btn-icon">📄</span> <span class="btn-text">Resume</span></button>
                 <!-- Terminal Trigger Button -->
-                <button id="openTerminalBtn" class="action-btn terminal-trigger-btn" aria-label="Open Dev Terminal" title="Open Dev Console"><span class="btn-icon">&gt;_</span> <span class="btn-text">Terminal</span></button>
+                <button id="openTerminalBtn" class="action-btn terminal-trigger-btn" aria-label="Open Dev Terminal" title="Open Dev Console"><span class="btn-icon">&gt;_</span></button>
                 <!-- Theme Switcher Button -->
-                <button id="themeToggleBtn" class="action-btn theme-toggle-btn" aria-label="Toggle dark/light theme" title="Switch Theme"> <span class="theme-icon" id="themeIcon">🌙</span> </button>
+                <button id="themeToggleBtn" class="action-btn theme-toggle-btn" aria-label="Toggle dark/light theme" title="Switch Theme"><span class="theme-icon" id="themeIcon">🌙</span></button>
                 <!-- Mobile Navigation Hamburger -->
                 <button class="mobile-nav-toggle" aria-controls="primaryNavigation" aria-expanded="false" aria-label="Toggle mobile menu">
                     <span class="icon-bar"></span>
@@ -949,18 +958,8 @@
                 <div class="footer-col footer-col-system">
                     <h3 class="footer-heading">System &amp; SEO</h3>
                     <ul class="footer-nav-list">
-    <li>
-    <a href="sitemap.xml" target="_blank" class="sitemap-link">
-    <span>🗺️ XML Sitemap</span>
-    <span class="badge-mini">Index</span>
-    </a>
-    </li>
-    <li>
-    <a href="maintenance.html" class="status-link">
-    <span>🛠️ System Status / Maintenance</span>
-    <span class="badge-mini live-badge">Live</span>
-    </a>
-    </li>
+    <li><a href="sitemap.xml" target="_blank" class="sitemap-link"><span>🗺️ XML Sitemap</span> <span class="badge-mini">Index</span></a></li>
+    <li><a href="maintenance.html" class="status-link"><span>🛠️ System Status / Maintenance</span> <span class="badge-mini live-badge">Live</span></a></li>
     <li><a href="robots.txt" target="_blank"><span>🤖 Robots.txt Directives</span></a></li>
     <li><a href="https://wa.me/212680165532?text=Hi%20Mohamed,%20I'd%20like%20to%20place%20a%20project%20order!" target="_blank" rel="noopener noreferrer" class="whatsapp-direct-link"><span>💬 WhatsApp Direct Order</span></a></li>
     <li><a href="mailto:karouchmohamed21@gmail.com?subject=Project%20Order%20Inquiry"><span>✉️ Direct Email Order</span></a></li>

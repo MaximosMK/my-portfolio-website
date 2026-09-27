@@ -120,15 +120,18 @@
     })();
 
     function updateSoundUI() {
-        if (!soundToggleBtn || !soundIcon) return;
         const enabled = !SoundFX.isMuted();
-        soundIcon.textContent = enabled ? '🔊' : '🔇';
-        if (enabled) {
-            soundToggleBtn.classList.add('sound-active');
-            soundToggleBtn.title = 'Sound FX: Enabled (Click to Mute)';
-        } else {
-            soundToggleBtn.classList.remove('sound-active');
-            soundToggleBtn.title = 'Sound FX: Muted (Click to Enable)';
+        if (soundIcon) soundIcon.textContent = enabled ? '🔊' : '🔇';
+        const mobileSoundIcon = document.getElementById('mobileSoundIcon');
+        if (mobileSoundIcon) mobileSoundIcon.textContent = enabled ? '🔊' : '🔇';
+        if (soundToggleBtn) {
+            if (enabled) {
+                soundToggleBtn.classList.add('sound-active');
+                soundToggleBtn.title = 'Sound FX: Enabled (Click to Mute)';
+            } else {
+                soundToggleBtn.classList.remove('sound-active');
+                soundToggleBtn.title = 'Sound FX: Muted (Click to Enable)';
+            }
         }
     }
 

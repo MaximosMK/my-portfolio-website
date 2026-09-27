@@ -67,6 +67,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (typeof openResumeModal === 'function') openResumeModal();
             });
         }
+        const mobileQuickTerminalBtn = document.getElementById('mobileQuickTerminalBtn');
+        if (mobileQuickTerminalBtn) {
+            mobileQuickTerminalBtn.addEventListener('click', () => {
+                closeMobileNav();
+                if (typeof toggleDevConsole === 'function') toggleDevConsole();
+            });
+        }
+        const mobileQuickSoundBtn = document.getElementById('mobileQuickSoundBtn');
+        if (mobileQuickSoundBtn) {
+            mobileQuickSoundBtn.addEventListener('click', () => {
+                const sBtn = document.getElementById('soundToggleBtn');
+                if (sBtn) sBtn.click();
+            });
+        }
     }
 
     // Scrollspy navigation active state
