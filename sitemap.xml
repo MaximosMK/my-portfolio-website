@@ -1,12 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd
+        http://www.google.com/schemas/sitemap-image/1.1
+        http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd">
+
+    <!-- Primary Portfolio Landing Page -->
     <url>
         <loc>https://karouchmohamed.netlify.app/</loc>
-        <lastmod>2026-09-16</lastmod>
+        <lastmod>2026-09-27</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
+
+        <!-- Portfolio Image Indexing for Google Images -->
+        <image:image>
+            <image:loc>https://karouchmohamed.netlify.app/images/profile-photo.jpg</image:loc>
+            <image:title>Mohamed Karouch — Web Developer and Software Engineer</image:title>
+            <image:caption>Professional portrait of Mohamed Karouch, freelance web developer and 1337 Coding School student</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://karouchmohamed.netlify.app/images/projects/freelance-showcase.jpg</image:loc>
+            <image:title>Freelance Web Development and Client Solutions</image:title>
+            <image:caption>Tailored WordPress, PHP, and responsive web solutions engineered by Mohamed Karouch</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://karouchmohamed.netlify.app/images/projects/ecommerce-showcase.jpg</image:loc>
+            <image:title>E-Commerce Fashion and Apparel Platform</image:title>
+            <image:caption>Custom PHP and MySQL e-commerce architecture with cart and checkout integration</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://karouchmohamed.netlify.app/images/projects/piper-tts-showcase.jpg</image:loc>
+            <image:title>Piper Neural Text-to-Speech Desktop Synthesizer</image:title>
+            <image:caption>Python GUI and REST API text-to-speech audio converter with neural models</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://karouchmohamed.netlify.app/images/projects/webscraper-showcase.jpg</image:loc>
+            <image:title>Automated Web Scraper and ETL Data Pipeline</image:title>
+            <image:caption>High-speed Python BeautifulSoup and Requests extraction pipeline</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://karouchmohamed.netlify.app/images/projects/adii-showcase.jpg</image:loc>
+            <image:title>Moroccan Customs ADII Analytics and Forecasting</image:title>
+            <image:caption>Algorithmic forecasting and database query tuning for customs fraud detection</image:caption>
+        </image:image>
     </url>
+
+    <!-- Maintenance and Status Page -->
+    <url>
+        <loc>https://karouchmohamed.netlify.app/maintenance.html</loc>
+        <lastmod>2026-09-27</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.3</priority>
+    </url>
+
 </urlset>

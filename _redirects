@@ -1,0 +1,14 @@
+# Netlify Redirects File - Mohamed Karouch Portfolio
+# https://docs.netlify.com/routing/redirects/
+
+# ==============================================================================
+# MAINTENANCE MODE TOGGLE
+# To turn ON Maintenance Mode across the site:
+# Uncomment the line below (remove the '# ') and push to GitHub.
+# Netlify will immediately serve /maintenance.html with HTTP 503 Service Unavailable.
+# ==============================================================================
+# /*    /maintenance.html   503!
+
+# Clean URLs & direct route aliases
+/maintenance    /maintenance.html   200
+/sitemap        /sitemap.xml        200

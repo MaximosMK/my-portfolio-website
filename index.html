@@ -25,9 +25,12 @@
     <meta property="og:title" content="Mohamed Karouch — Web Developer &amp; Software Engineer">
     <meta property="og:description" content="Turning ideas into digital reality with code. Explore custom web solutions, Python automation, and projects by Mohamed Karouch.">
     <meta property="og:image" content="https://karouchmohamed.netlify.app/images/social-preview.jpg">
+    <meta property="og:image:secure_url" content="https://karouchmohamed.netlify.app/images/social-preview.jpg">
+    <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Mohamed Karouch - Web Developer &amp; Software Engineer Portfolio Preview">
+    <meta property="og:updated_time" content="2026-09-27T15:40:00+01:00">
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -36,6 +39,10 @@
     <meta name="twitter:description" content="Turning ideas into digital reality with code. Explore custom web solutions, Python automation, and projects by Mohamed Karouch.">
     <meta name="twitter:image" content="https://karouchmohamed.netlify.app/images/social-preview.jpg">
     <meta name="twitter:image:alt" content="Mohamed Karouch - Web Developer &amp; Software Engineer Portfolio Preview">
+    <meta name="twitter:creator" content="@MaximosMK">
+
+    <!-- Sitemap & Crawler Directives -->
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 
     <!-- Favicons & App Icons (Fixed Relative Paths) -->
     <link rel="apple-touch-icon" sizes="180x180" href="./logo/apple-touch-icon.png">
@@ -52,7 +59,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 
     <!-- JSON-LD Structured Data (Schema.org) for Rich Search Snippets -->
     <script type="application/ld+json">
@@ -68,6 +75,8 @@
           "url": "https://karouchmohamed.netlify.app/",
           "image": "https://karouchmohamed.netlify.app/images/profile-photo.jpg",
           "jobTitle": ["Web Developer", "Software Engineer", "Freelance Developer"],
+          "telephone": "+212680165532",
+          "email": "karouchmohamed21@gmail.com",
           "worksFor": {
             "@type": "Organization",
             "name": "Freelance Web Development"
@@ -96,6 +105,7 @@
             "addressLocality": "Marrakech / Amizmiz",
             "addressCountry": "Morocco"
           },
+          "knowsLanguage": ["Arabic", "English", "French"],
           "sameAs": [
             "https://github.com/MaximosMK",
             "https://www.linkedin.com/in/mohamed-karouch/"
@@ -112,7 +122,45 @@
             "MySQL",
             "Search Engine Optimization (SEO)",
             "Systems Programming in C"
-          ]
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Freelance Web Engineering Services",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Custom Web Development",
+                  "description": "High-performance, bespoke web applications engineered with semantic HTML5, CSS3, and JavaScript."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "WordPress & E-Commerce",
+                  "description": "Custom WordPress themes, WooCommerce stores, and secure payment integrations."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Technical SEO & Speed Optimization",
+                  "description": "Google PageSpeed 90+ tuning, structured Schema markup, and Core Web Vitals optimization."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Python Automation & Web Scraping",
+                  "description": "Data mining, automated pagination pipelines, and custom Python desktop applications."
+                }
+              }
+            ]
+          }
         },
         {
           "@type": "WebSite",
@@ -123,6 +171,35 @@
           "publisher": {
             "@id": "https://karouchmohamed.netlify.app/#person"
           }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://karouchmohamed.netlify.app/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Services & Solutions",
+              "item": "https://karouchmohamed.netlify.app/#services"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Featured Projects",
+              "item": "https://karouchmohamed.netlify.app/#projects"
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "name": "Contact & Orders",
+              "item": "https://karouchmohamed.netlify.app/#contact"
+            }
+          ]
         }
       ]
     }
@@ -261,9 +338,13 @@
                                 <span>Explore Projects</span>
                                 <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                             </a>
+                            <a href="https://wa.me/212680165532?text=Hi%20Mohamed,%20I'm%20viewing%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project%20order!" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp hero-whatsapp-btn" title="Quick WhatsApp Order / Chat">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm5.79 14.07c-.24.68-1.39 1.31-1.92 1.39-.5.08-1.14.12-3.69-.93-2.73-1.12-4.48-3.9-4.62-4.08-.14-.19-1.11-1.48-1.11-2.82 0-1.34.7-2 1-2.28.24-.23.53-.29.71-.29.17 0 .35 0 .5.01.16.01.37-.06.58.44.22.52.75 1.82.81 1.96.07.14.11.31.02.49-.09.18-.14.29-.28.45-.14.16-.29.35-.42.47-.14.14-.29.29-.12.58.17.29.74 1.22 1.6 1.98 1.1 1 2.03 1.31 2.32 1.45.29.14.46.12.63-.07.18-.2.75-.87.95-1.17.2-.3.4-.25.68-.15.28.1.1.78 3.86 1.88 4.09.1.22.17.37.2.44.02.07.02.41-.22 1.09z"/></svg>
+                                <span>WhatsApp Chat</span>
+                            </a>
                             <button type="button" class="btn btn-secondary" id="heroResumeBtn">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                                <span>View Resume</span>
+                                <span>Resume</span>
                             </button>
                             <a href="#contact" class="btn btn-secondary">
                                 <span>Get In Touch</span>
@@ -1346,95 +1427,120 @@
                             </div>
                         </div>
 
-                        <!-- Right Form Column: Interactive Project Proposition Suite -->
-                        <form id="contactInquiryForm" class="contact-inquiry-form" novalidate>
-                            <div class="form-row">
+                        <!-- Right Form Column: Interactive Project Proposition & Order Suite -->
+                        <div class="contact-form-container">
+                            <!-- Visual Order Taking Stepper -->
+                            <div class="order-procedure-stepper" aria-label="Project Order Procedure">
+                                <div class="stepper-step active">
+                                    <span class="step-circle">1</span>
+                                    <span class="step-label">Scope</span>
+                                </div>
+                                <div class="stepper-line" aria-hidden="true"></div>
+                                <div class="stepper-step active">
+                                    <span class="step-circle">2</span>
+                                    <span class="step-label">Budget</span>
+                                </div>
+                                <div class="stepper-line" aria-hidden="true"></div>
+                                <div class="stepper-step active">
+                                    <span class="step-circle">3</span>
+                                    <span class="step-label">Details</span>
+                                </div>
+                                <div class="stepper-line" aria-hidden="true"></div>
+                                <div class="stepper-step active highlight-step">
+                                    <span class="step-circle">4</span>
+                                    <span class="step-label">1-Click Order</span>
+                                </div>
+                            </div>
+
+                            <form id="contactInquiryForm" class="contact-inquiry-form" novalidate>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="senderName" class="form-label">Your Name <span class="required-star">*</span></label>
+                                        <input type="text" id="senderName" name="name" class="form-input" placeholder="e.g. Sarah Jenkins" required>
+                                        <span class="field-error-msg" id="nameError">Please enter your name.</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="senderEmail" class="form-label">Your Email <span class="required-star">*</span></label>
+                                        <input type="email" id="senderEmail" name="email" class="form-input" placeholder="e.g. sarah@example.com" required>
+                                        <span class="field-error-msg" id="emailError">Please enter a valid email address.</span>
+                                    </div>
+                                </div>
+
+                                <!-- Interactive Service / Proposition Chips -->
                                 <div class="form-group">
-                                    <label for="senderName" class="form-label">Your Name <span class="required-star">*</span></label>
-                                    <input type="text" id="senderName" name="name" class="form-input" placeholder="e.g. Sarah Jenkins" required>
-                                    <span class="field-error-msg" id="nameError">Please enter your name.</span>
+                                    <label class="form-label">Step 1: Select Project Scope / Proposition <span class="required-star">*</span></label>
+                                    <div class="chip-selector-group" id="serviceChipsGroup" role="radiogroup" aria-label="Project Scope">
+                                        <button type="button" class="proposition-chip active" data-value="Custom Web Development" data-turnaround="~1-2 Weeks">💻 Custom Web App</button>
+                                        <button type="button" class="proposition-chip" data-value="WordPress & E-Commerce" data-turnaround="~2-3 Weeks">🛒 WordPress &amp; Store</button>
+                                        <button type="button" class="proposition-chip" data-value="SEO & Performance Optimization" data-turnaround="~3-5 Days">🚀 SEO &amp; Speed</button>
+                                        <button type="button" class="proposition-chip" data-value="Python Automation" data-turnaround="~1-2 Weeks">⚙️ Python Automation</button>
+                                        <button type="button" class="proposition-chip" data-value="Consultation / Job Inquiry" data-turnaround="Immediate">💼 Job / Consultation</button>
+                                    </div>
+                                    <input type="hidden" id="serviceTypeInput" name="service" value="Custom Web Development">
                                 </div>
+
+                                <!-- Interactive Budget Range Chips -->
                                 <div class="form-group">
-                                    <label for="senderEmail" class="form-label">Your Email <span class="required-star">*</span></label>
-                                    <input type="email" id="senderEmail" name="email" class="form-input" placeholder="e.g. sarah@example.com" required>
-                                    <span class="field-error-msg" id="emailError">Please enter a valid email address.</span>
+                                    <label class="form-label">Step 2: Estimated Budget Range</label>
+                                    <div class="chip-selector-group" id="budgetChipsGroup" role="radiogroup" aria-label="Estimated Budget">
+                                        <button type="button" class="proposition-chip" data-value="< $500">&lt; $500</button>
+                                        <button type="button" class="proposition-chip active" data-value="$500 - $1,500">$500 – $1,500</button>
+                                        <button type="button" class="proposition-chip" data-value="$1,500 - $3,000">$1,500 – $3,000</button>
+                                        <button type="button" class="proposition-chip" data-value="$3,000+">$3,000+</button>
+                                        <button type="button" class="proposition-chip" data-value="Flexible">Flexible</button>
+                                    </div>
+                                    <input type="hidden" id="budgetRangeInput" name="budget" value="$500 - $1,500">
                                 </div>
-                            </div>
 
-                            <!-- Interactive Service / Proposition Chips -->
-                            <div class="form-group">
-                                <label class="form-label">Select Project Scope / Proposition <span class="required-star">*</span></label>
-                                <div class="chip-selector-group" id="serviceChipsGroup" role="radiogroup" aria-label="Project Scope">
-                                    <button type="button" class="proposition-chip active" data-value="Custom Web Development" data-turnaround="~1-2 Weeks">💻 Custom Web App</button>
-                                    <button type="button" class="proposition-chip" data-value="WordPress & E-Commerce" data-turnaround="~2-3 Weeks">🛒 WordPress &amp; Store</button>
-                                    <button type="button" class="proposition-chip" data-value="SEO & Performance Optimization" data-turnaround="~3-5 Days">🚀 SEO &amp; Speed</button>
-                                    <button type="button" class="proposition-chip" data-value="Python Automation" data-turnaround="~1-2 Weeks">⚙️ Python Automation</button>
-                                    <button type="button" class="proposition-chip" data-value="Consultation / Job Inquiry" data-turnaround="Immediate">💼 Job / Consultation</button>
+                                <!-- Interactive Timeline Chips -->
+                                <div class="form-group">
+                                    <label class="form-label">Estimated Timeline</label>
+                                    <div class="chip-selector-group" id="timelineChipsGroup" role="radiogroup" aria-label="Estimated Timeline">
+                                        <button type="button" class="proposition-chip" data-value="Rush (< 2 weeks)">⚡ Rush (&lt; 2 wks)</button>
+                                        <button type="button" class="proposition-chip active" data-value="Standard (2-4 weeks)">📅 Standard (2-4 wks)</button>
+                                        <button type="button" class="proposition-chip" data-value="Flexible">🌱 Flexible / Planning</button>
+                                    </div>
+                                    <input type="hidden" id="timelineInput" name="timeline" value="Standard (2-4 weeks)">
                                 </div>
-                                <input type="hidden" id="serviceTypeInput" name="service" value="Custom Web Development">
-                            </div>
 
-                            <!-- Interactive Budget Range Chips -->
-                            <div class="form-group">
-                                <label class="form-label">Estimated Budget Range</label>
-                                <div class="chip-selector-group" id="budgetChipsGroup" role="radiogroup" aria-label="Estimated Budget">
-                                    <button type="button" class="proposition-chip" data-value="< $500">&lt; $500</button>
-                                    <button type="button" class="proposition-chip active" data-value="$500 - $1,500">$500 – $1,500</button>
-                                    <button type="button" class="proposition-chip" data-value="$1,500 - $3,000">$1,500 – $3,000</button>
-                                    <button type="button" class="proposition-chip" data-value="$3,000+">$3,000+</button>
-                                    <button type="button" class="proposition-chip" data-value="Flexible">Flexible</button>
+                                <!-- Live Proposition Brief Card -->
+                                <div class="live-brief-card" id="liveBriefCard" aria-live="polite">
+                                    <div class="live-brief-header">
+                                        <span class="live-brief-label"><span class="brief-pulse-dot"></span> Live Proposition &amp; Order Summary</span>
+                                        <span class="live-brief-badge" id="briefTurnaroundBadge">~1-2 Weeks</span>
+                                    </div>
+                                    <div class="live-brief-summary" id="liveBriefSummary">
+                                        <span class="brief-tag" id="briefServiceTag">Custom Web Development</span>
+                                        <span class="brief-tag" id="briefBudgetTag">Budget: $500 – $1,500</span>
+                                        <span class="brief-tag" id="briefTimelineTag">Timeline: Standard (2-4 weeks)</span>
+                                    </div>
                                 </div>
-                                <input type="hidden" id="budgetRangeInput" name="budget" value="$500 - $1,500">
-                            </div>
 
-                            <!-- Interactive Timeline Chips -->
-                            <div class="form-group">
-                                <label class="form-label">Estimated Timeline</label>
-                                <div class="chip-selector-group" id="timelineChipsGroup" role="radiogroup" aria-label="Estimated Timeline">
-                                    <button type="button" class="proposition-chip" data-value="Rush (< 2 weeks)">⚡ Rush (&lt; 2 wks)</button>
-                                    <button type="button" class="proposition-chip active" data-value="Standard (2-4 weeks)">📅 Standard (2-4 wks)</button>
-                                    <button type="button" class="proposition-chip" data-value="Flexible">🌱 Flexible / Planning</button>
+                                <div class="form-group">
+                                    <label for="senderMessage" class="form-label">Step 3: Project Requirements &amp; Goals <span class="required-star">*</span></label>
+                                    <textarea id="senderMessage" name="message" class="form-textarea" rows="4" placeholder="Describe your project deliverables, requirements, or questions..." required></textarea>
+                                    <span class="field-error-msg" id="messageError">Please enter a brief message.</span>
                                 </div>
-                                <input type="hidden" id="timelineInput" name="timeline" value="Standard (2-4 weeks)">
-                            </div>
 
-                            <!-- Live Proposition Brief Card -->
-                            <div class="live-brief-card" id="liveBriefCard" aria-live="polite">
-                                <div class="live-brief-header">
-                                    <span class="live-brief-label"><span class="brief-pulse-dot"></span> Live Proposition Summary</span>
-                                    <span class="live-brief-badge" id="briefTurnaroundBadge">~1-2 Weeks</span>
+                                <!-- Multi-Action Dispatch Cluster -->
+                                <div class="form-actions-cluster">
+                                    <button type="button" class="btn btn-whatsapp btn-order-whatsapp" id="whatsappInquiryBtn" title="Instant Order via WhatsApp">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm5.79 14.07c-.24.68-1.39 1.31-1.92 1.39-.5.08-1.14.12-3.69-.93-2.73-1.12-4.48-3.9-4.62-4.08-.14-.19-1.11-1.48-1.11-2.82 0-1.34.7-2 1-2.28.24-.23.53-.29.71-.29.17 0 .35 0 .5.01.16.01.37-.06.58.44.22.52.75 1.82.81 1.96.07.14.11.31.02.49-.09.18-.14.29-.28.45-.14.16-.29.35-.42.47-.14.14-.29.29-.12.58.17.29.74 1.22 1.6 1.98 1.1 1 2.03 1.31 2.32 1.45.29.14.46.12.63-.07.18-.2.75-.87.95-1.17.2-.3.4-.25.68-.15.28.1.1.78 3.86 1.88 4.09.1.22.17.37.2.44.02.07.02.41-.22 1.09z"/></svg>
+                                        <span>Order via WhatsApp (Instant)</span>
+                                    </button>
+
+                                    <button type="submit" class="btn btn-primary btn-submit-inquiry" id="submitInquiryBtn" title="Send Proposition via Email">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                        <span>Order via Email</span>
+                                    </button>
+
+                                    <button type="button" class="btn btn-secondary btn-copy-brief" id="copyBriefBtn" title="Copy formatted proposal brief to clipboard">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                        <span>Copy Brief</span>
+                                    </button>
                                 </div>
-                                <div class="live-brief-summary" id="liveBriefSummary">
-                                    <span class="brief-tag" id="briefServiceTag">Custom Web Development</span>
-                                    <span class="brief-tag" id="briefBudgetTag">Budget: $500 – $1,500</span>
-                                    <span class="brief-tag" id="briefTimelineTag">Timeline: Standard (2-4 weeks)</span>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="senderMessage" class="form-label">Project Details <span class="required-star">*</span></label>
-                                <textarea id="senderMessage" name="message" class="form-textarea" rows="4" placeholder="Describe your project goals, deliverables, or questions..." required></textarea>
-                                <span class="field-error-msg" id="messageError">Please enter a brief message.</span>
-                            </div>
-
-                            <!-- Multi-Action Dispatch Cluster -->
-                            <div class="form-actions-cluster">
-                                <button type="submit" class="btn btn-primary btn-submit-inquiry" id="submitInquiryBtn">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                                    <span>Send via Email</span>
-                                </button>
-
-                                <button type="button" class="btn btn-whatsapp" id="whatsappInquiryBtn">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm5.79 14.07c-.24.68-1.39 1.31-1.92 1.39-.5.08-1.14.12-3.69-.93-2.73-1.12-4.48-3.9-4.62-4.08-.14-.19-1.11-1.48-1.11-2.82 0-1.34.7-2 1-2.28.24-.23.53-.29.71-.29.17 0 .35 0 .5.01.16.01.37-.06.58.44.22.52.75 1.82.81 1.96.07.14.11.31.02.49-.09.18-.14.29-.28.45-.14.16-.29.35-.42.47-.14.14-.29.29-.12.58.17.29.74 1.22 1.6 1.98 1.1 1 2.03 1.31 2.32 1.45.29.14.46.12.63-.07.18-.2.75-.87.95-1.17.2-.3.4-.25.68-.15.28.1.1.78 3.86 1.88 4.09.1.22.17.37.2.44.02.07.02.41-.22 1.09z"/></svg>
-                                    <span>Chat on WhatsApp</span>
-                                </button>
-
-                                <button type="button" class="btn btn-secondary btn-copy-brief" id="copyBriefBtn" title="Copy formatted proposal brief to clipboard">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                                    <span>Copy Brief</span>
-                                </button>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1668,19 +1774,119 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="main-footer">
+    <!-- Enhanced Footer with Visual Sitemap & Status Directory -->
+    <footer class="main-footer" id="mainFooter">
         <div class="container footer-container">
-            <div class="footer-brand">
-                <span class="footer-logo">&lt;MK /&gt;</span>
-                <p>Turning ideas into digital reality with code.</p>
+            <div class="footer-top-grid">
+                <!-- Col 1: Brand & Availability -->
+                <div class="footer-col footer-col-brand">
+                    <a href="#" class="brand-logo footer-brand-logo" aria-label="Mohamed Karouch Home">
+                        <span class="logo-mark">&lt;MK /&gt;</span>
+                        <span class="logo-text">Mohamed Karouch</span>
+                    </a>
+                    <p class="footer-tagline">Turning ideas into digital reality with code.</p>
+                    <p class="footer-desc">
+                        Active freelance web developer &amp; software engineering student at 1337 Coding School (42 Network, Morocco). Delivering high-performance, SEO-first web solutions worldwide.
+                    </p>
+                    <div class="footer-status-pill">
+                        <span class="status-indicator"></span>
+                        <span>Available for Freelance &amp; Engineering Roles</span>
+                    </div>
+                </div>
+
+                <!-- Col 2: Site Navigation Sitemap -->
+                <div class="footer-col footer-col-links">
+                    <h3 class="footer-heading">Navigation</h3>
+                    <ul class="footer-nav-list">
+                        <li><a href="#about">About Profile</a></li>
+                        <li><a href="#skills">Skills &amp; Technologies</a></li>
+                        <li><a href="#services">Services &amp; Solutions</a></li>
+                        <li><a href="#projects">Featured Projects</a></li>
+                        <li><a href="#timeline-journey">Career Journey</a></li>
+                        <li><a href="#education">Education &amp; 1337</a></li>
+                        <li><a href="#design-lab">Design Lab</a></li>
+                        <li><a href="#testimonials">Client Reviews</a></li>
+                        <li><a href="#contact">Contact &amp; Orders</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Interactive Suite Tools -->
+                <div class="footer-col footer-col-tools">
+                    <h3 class="footer-heading">Interactive Tools</h3>
+                    <ul class="footer-nav-list">
+                        <li><a href="#scopeCalculator">🧮 Project Scope Estimator</a></li>
+                        <li><a href="javascript:void(0)" id="footerPaletteTrigger">⌘K Command Palette</a></li>
+                        <li><a href="javascript:void(0)" id="footerTerminalTrigger">&gt;_ Dev Console Terminal</a></li>
+                        <li><a href="javascript:void(0)" id="footerResumeTrigger">📄 View Full Resume</a></li>
+                        <li><a href="https://github.com/MaximosMK" target="_blank" rel="noopener noreferrer">🐙 GitHub Profile</a></li>
+                        <li><a href="https://www.linkedin.com/in/mohamed-karouch/" target="_blank" rel="noopener noreferrer">💼 LinkedIn Network</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Sitemap & System Status -->
+                <div class="footer-col footer-col-system">
+                    <h3 class="footer-heading">System &amp; SEO</h3>
+                    <ul class="footer-nav-list">
+                        <li>
+                            <a href="sitemap.xml" target="_blank" class="sitemap-link">
+                                <span>🗺️ XML Sitemap</span>
+                                <span class="badge-mini">Index</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="maintenance.html" class="status-link">
+                                <span>🛠️ System Status / Maintenance</span>
+                                <span class="badge-mini live-badge">Live</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="robots.txt" target="_blank">
+                                <span>🤖 Robots.txt Directives</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://wa.me/212680165532?text=Hi%20Mohamed,%20I'd%20like%20to%20place%20a%20project%20order!" target="_blank" rel="noopener noreferrer" class="whatsapp-direct-link">
+                                <span>💬 WhatsApp Direct Order</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mailto:karouchmohamed21@gmail.com?subject=Project%20Order%20Inquiry">
+                                <span>✉️ Direct Email Order</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="footer-meta">
+
+            <!-- Footer Bottom Strip -->
+            <div class="footer-meta-bar">
                 <p>&copy; <span id="currentYear">2026</span> Mohamed Karouch. All rights reserved.</p>
                 <p class="footer-crafted">Crafted with precision, vanilla CSS, and JavaScript. SEO &amp; Performance Optimized.</p>
             </div>
         </div>
     </footer>
+
+    <!-- Mobile-Friendly Floating Quick Chat & Order Dock -->
+    <aside class="floating-quick-dock" id="floatingQuickDock" aria-label="Quick Communication and Project Orders">
+        <!-- WhatsApp Quick Chat & Order Button -->
+        <a href="https://wa.me/212680165532?text=Hi%20Mohamed,%20I'm%20viewing%20your%20portfolio%20and%20would%20like%20to%20order%20a%20project!" target="_blank" rel="noopener noreferrer" class="dock-btn dock-btn-whatsapp" aria-label="Direct WhatsApp Chat (Online)" title="Chat on WhatsApp (Online)">
+            <span class="dock-pulse-dot" aria-hidden="true"></span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm5.79 14.07c-.24.68-1.39 1.31-1.92 1.39-.5.08-1.14.12-3.69-.93-2.73-1.12-4.48-3.9-4.62-4.08-.14-.19-1.11-1.48-1.11-2.82 0-1.34.7-2 1-2.28.24-.23.53-.29.71-.29.17 0 .35 0 .5.01.16.01.37-.06.58.44.22.52.75 1.82.81 1.96.07.14.11.31.02.49-.09.18-.14.29-.28.45-.14.16-.29.35-.42.47-.14.14-.29.29-.12.58.17.29.74 1.22 1.6 1.98 1.1 1 2.03 1.31 2.32 1.45.29.14.46.12.63-.07.18-.2.75-.87.95-1.17.2-.3.4-.25.68-.15.28.1.1.78 3.86 1.88 4.09.1.22.17.37.2.44.02.07.02.41-.22 1.09z"/></svg>
+            <span class="dock-btn-label">WhatsApp Chat</span>
+        </a>
+
+        <!-- Email Direct Order Button -->
+        <a href="mailto:karouchmohamed21@gmail.com?subject=Project%20Inquiry%20%2F%20Order%20Proposition&body=Hi%20Mohamed,%0A%0AI'd%20like%20to%20discuss%20a%20project%20order." class="dock-btn dock-btn-email" aria-label="Direct Email Order" title="Send Email Order">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <span class="dock-btn-label">Email Order</span>
+        </a>
+
+        <!-- Instant Project Scope Estimator / Order Trigger -->
+        <a href="#scopeCalculator" class="dock-btn dock-btn-quote" aria-label="Instant Project Quote and Scope Estimator" title="Instant Project Quote">
+            <span class="dock-btn-icon">🧮</span>
+            <span class="dock-btn-label">Instant Quote</span>
+        </a>
+    </aside>
 
     <!-- Scroll to Top Floating Button -->
     <button id="scrollToTopBtn" class="scroll-to-top-btn" title="Back to top" aria-label="Scroll back to top">
@@ -1691,6 +1897,6 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

@@ -802,6 +802,8 @@ def analyze_customs_tariffs(file_path: str) -> pd.DataFrame:
         document.body.style.overflow = '';
     }
 
+    const footerResumeTrigger = document.getElementById('footerResumeTrigger');
+    if (footerResumeTrigger) footerResumeTrigger.addEventListener('click', openResumeModal);
     if (openResumeBtn) openResumeBtn.addEventListener('click', openResumeModal);
     if (heroResumeBtn) heroResumeBtn.addEventListener('click', openResumeModal);
     if (closeResumeBtn) closeResumeBtn.addEventListener('click', closeResumeModal);
@@ -812,16 +814,35 @@ def analyze_customs_tariffs(file_path: str) -> pd.DataFrame:
         });
     }
 
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            if (modal && modal.classList.contains('visible')) {
-                closeProjectModal();
+    // Modal Focus Trap Helper for Enterprise Accessibility
+    function trapFocusInModal(modalEl, closeCallback) {
+        if (!modalEl) return;
+        modalEl.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                const focusables = modalEl.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])');
+                if (focusables.length === 0) return;
+                const first = focusables[0];
+                const last = focusables[focusables.length - 1];
+
+                if (e.shiftKey) {
+                    if (document.activeElement === first) {
+                        last.focus();
+                        e.preventDefault();
+                    }
+                } else {
+                    if (document.activeElement === last) {
+                        first.focus();
+                        e.preventDefault();
+                    }
+                }
+            } else if (e.key === 'Escape') {
+                if (typeof closeCallback === 'function') closeCallback();
             }
-            if (resumeModal && resumeModal.classList.contains('visible')) {
-                closeResumeModal();
-            }
-        }
-    });
+        });
+    }
+
+    trapFocusInModal(modal, closeProjectModal);
+    trapFocusInModal(resumeModal, closeResumeModal);
 
     // ==========================================================================
     // 8. DESIGN LAB INTERACTIVE EXPERIMENTS
@@ -921,6 +942,10 @@ def analyze_customs_tariffs(file_path: str) -> pd.DataFrame:
         }
     }
 
+    const footerTerminalTrigger = document.getElementById('footerTerminalTrigger');
+    if (footerTerminalTrigger) {
+        footerTerminalTrigger.addEventListener('click', toggleDevConsole);
+    }
     if (openTerminalBtn) {
         openTerminalBtn.addEventListener('click', toggleDevConsole);
     }
@@ -1235,43 +1260,45 @@ def analyze_customs_tariffs(file_path: str) -> pd.DataFrame:
                 return;
             }
 
-            const subject = encodeURIComponent(`Project Inquiry: ${data.serviceVal} (${data.nameVal})`);
+            const subject = encodeURIComponent(`[Project Order] ${data.serviceVal} - ${data.nameVal}`);
             const body = encodeURIComponent(
                 `Hi Mohamed,\n\n` +
-                `I would like to discuss a project proposition with you:\n\n` +
-                `Name: ${data.nameVal}\n` +
-                `Email: ${data.emailVal}\n` +
-                `Service Proposition: ${data.serviceVal}\n` +
-                `Estimated Budget: ${data.budgetVal}\n` +
-                `Estimated Timeline: ${data.timelineVal}\n\n` +
-                `Project Details:\n${data.messageVal}\n\n` +
+                `I would like to place a new freelance project order / proposition:\n\n` +
+                `• Client Name: ${data.nameVal}\n` +
+                `• Contact Email: ${data.emailVal}\n` +
+                `• Service: ${data.serviceVal}\n` +
+                `• Estimated Budget: ${data.budgetVal}\n` +
+                `• Estimated Timeline: ${data.timelineVal}\n\n` +
+                `Project Deliverables & Requirements:\n${data.messageVal}\n\n` +
                 `Best regards,\n${data.nameVal}`
             );
 
-            showToast('Opening email client with your proposition... 🚀');
+            showToast('Opening email client with your project order... 🚀');
             window.location.href = `mailto:karouchmohamed21@gmail.com?subject=${subject}&body=${body}`;
         });
     }
 
-    // Action 2: WhatsApp Chat Dispatch
+    // Action 2: WhatsApp Chat & Order Dispatch
     if (whatsappInquiryBtn) {
         whatsappInquiryBtn.addEventListener('click', () => {
             const data = checkFormValidity(false);
             const clientName = data.nameVal ? data.nameVal : 'a client';
-            const emailPart = data.emailVal ? ` (${data.emailVal})` : '';
 
-            let waText = `Hi Mohamed! I'm ${clientName}${emailPart}.\n\n`;
-            waText += `I'd like to discuss a project proposition:\n`;
-            waText += `📌 Service: ${data.serviceVal}\n`;
-            waText += `💰 Budget: ${data.budgetVal}\n`;
-            waText += `⏳ Timeline: ${data.timelineVal}\n`;
+            let waText = `*🚀 NEW PROJECT PROPOSITION / ORDER*\n\n`;
+            waText += `*Client Name:* ${clientName}\n`;
+            if (data.emailVal) waText += `*Contact Email:* ${data.emailVal}\n`;
+            waText += `*Selected Service:* ${data.serviceVal}\n`;
+            waText += `*Estimated Budget:* ${data.budgetVal}\n`;
+            waText += `*Target Timeline:* ${data.timelineVal}\n`;
 
             if (data.messageVal) {
-                waText += `\nBrief Notes:\n${data.messageVal}`;
+                waText += `\n*Project Deliverables & Details:*\n${data.messageVal}\n`;
             }
+            waText += `\n_Dispatched via Mohamed Karouch Portfolio Order Suite_`;
 
             const waUrl = `https://wa.me/212680165532?text=${encodeURIComponent(waText)}`;
-            showToast('Launching WhatsApp chat with Mohamed... 💬');
+            showToast('Launching WhatsApp with your structured order... 💬');
+            SoundFX.playSuccess();
             window.open(waUrl, '_blank', 'noopener,noreferrer');
         });
     }
@@ -1281,26 +1308,38 @@ def analyze_customs_tariffs(file_path: str) -> pd.DataFrame:
         copyBriefBtn.addEventListener('click', () => {
             const data = checkFormValidity(false);
             const briefContent =
-                `📋 PROJECT PROPOSITION BRIEF\n` +
+                `📋 PROJECT PROPOSITION & ORDER BRIEF\n` +
                 `------------------------------------\n` +
                 `• Service: ${data.serviceVal}\n` +
                 `• Budget Range: ${data.budgetVal}\n` +
                 `• Estimated Timeline: ${data.timelineVal}\n` +
                 `• Client Name: ${data.nameVal || 'Not specified'}\n` +
                 `• Contact Email: ${data.emailVal || 'Not specified'}\n` +
-                `• Project Notes: ${data.messageVal || 'Consultation / Kick-off discussion'}\n` +
+                `• Project Deliverables: ${data.messageVal || 'Consultation / Kick-off discussion'}\n` +
                 `------------------------------------\n` +
                 `Target Developer: Mohamed Karouch (karouchmohamed21@gmail.com | +212 680-165532)`;
 
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(briefContent).then(() => {
-                    showToast('Proposition brief copied to clipboard! 📋✨');
+                    showToast('Proposition order brief copied to clipboard! 📋✨');
+                    SoundFX.playPop();
                 }).catch(() => {
                     showToast('Could not copy brief to clipboard.');
                 });
             } else {
                 showToast('Clipboard access unavailable.');
             }
+        });
+    }
+
+    // Floating Quick Dock Interaction & Sound FX
+    const floatingQuickDock = document.getElementById('floatingQuickDock');
+    if (floatingQuickDock) {
+        const dockBtns = floatingQuickDock.querySelectorAll('.dock-btn');
+        dockBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                SoundFX.playClick();
+            });
         });
     }
 
@@ -2024,6 +2063,13 @@ def analyze_customs_tariffs(file_path: str) -> pd.DataFrame:
     const paletteCloseBtn = document.getElementById('paletteCloseBtn');
     if (paletteCloseBtn) {
         paletteCloseBtn.addEventListener('click', closeCommandPalette);
+    }
+    const footerPaletteTrigger = document.getElementById('footerPaletteTrigger');
+    if (footerPaletteTrigger) {
+        footerPaletteTrigger.addEventListener('click', openCommandPalette);
+    }
+    if (typeof trapFocusInModal === 'function') {
+        trapFocusInModal(paletteModal, closeCommandPalette);
     }
 
     if (paletteSearchInput) {

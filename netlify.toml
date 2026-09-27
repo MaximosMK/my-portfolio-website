@@ -1,0 +1,75 @@
+# ==============================================================================
+# NETLIFY CONFIGURATION - MOHAMED KAROUCH PORTFOLIO
+# ==============================================================================
+
+[build]
+  publish = "."
+
+# ------------------------------------------------------------------------------
+# MAINTENANCE MODE TOGGLE
+# To put the entire site into maintenance mode, UNCOMMENT the redirect block below
+# and push to git. Netlify will serve maintenance.html with a 503 status code
+# for all visitor traffic while letting assets (/css, /js, /logo, /images) load.
+# ------------------------------------------------------------------------------
+# [[redirects]]
+#   from = "/*"
+#   to = "/maintenance.html"
+#   status = 503
+#   force = true
+#   conditions = { Language = [] }
+
+# Direct access to /maintenance preview / URL alias
+[[redirects]]
+  from = "/maintenance"
+  to = "/maintenance.html"
+  status = 200
+
+[[redirects]]
+  from = "/sitemap"
+  to = "/sitemap.xml"
+  status = 200
+
+# ------------------------------------------------------------------------------
+# SECURITY & PERFORMANCE HEADERS
+# ------------------------------------------------------------------------------
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https:;"
+
+# Cache static assets aggressively (1 year immutable)
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/logo/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Service Worker and HTML should never be cached permanently
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

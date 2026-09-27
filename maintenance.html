@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
+    <title>Scheduled Maintenance &amp; Upgrades | Mohamed Karouch</title>
+    <meta name="description" content="Mohamed Karouch's portfolio is currently undergoing scheduled performance optimizations and portfolio upgrades. Direct communication channels remain open.">
+    <meta name="author" content="Mohamed Karouch">
+    <meta name="robots" content="noindex, follow">
+
+    <!-- Theme Colors -->
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#090a10">
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8fafc">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="./logo/favicon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="./logo/apple-touch-icon.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-body: #090a10;
+            --bg-card: rgba(20, 25, 42, 0.7);
+            --border-card: rgba(255, 255, 255, 0.1);
+            --border-hover: rgba(139, 92, 246, 0.5);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-primary: #8b5cf6;
+            --accent-secondary: #06b6d4;
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-gradient: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+            --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg-body: #f8fafc;
+                --bg-card: rgba(255, 255, 255, 0.9);
+                --border-card: rgba(226, 232, 240, 0.9);
+                --text-primary: #0f172a;
+                --text-secondary: #475569;
+                --text-muted: #64748b;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+            padding: 24px 16px;
+            line-height: 1.6;
+        }
+
+        /* Ambient Glow Spheres */
+        .ambient-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.22;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .glow-top-left {
+            top: -100px;
+            left: -100px;
+            width: 450px;
+            height: 450px;
+            background: #8b5cf6;
+        }
+        .glow-bottom-right {
+            bottom: -100px;
+            right: -100px;
+            width: 450px;
+            height: 450px;
+            background: #06b6d4;
+        }
+
+        /* Container Card */
+        .maintenance-container {
+            position: relative;
+            z-index: 1;
+            max-width: 680px;
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 24px;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 48px 36px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .maintenance-container {
+                padding: 32px 20px;
+                border-radius: 20px;
+            }
+        }
+
+        /* Brand Logo */
+        .brand-header {
+            margin-bottom: 24px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .brand-logo-mark {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 1.25rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding: 6px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            background-color: rgba(139, 92, 246, 0.08);
+        }
+        .brand-logo-text {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--text-primary);
+        }
+
+        /* Status Badge */
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 9999px;
+            background: rgba(245, 158, 11, 0.12);
+            border: 1px solid rgba(245, 158, 11, 0.35);
+            color: var(--accent-amber);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .pulse-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--accent-amber);
+            box-shadow: 0 0 10px var(--accent-amber);
+            animation: pulseGlow 1.8s infinite;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.3); }
+        }
+
+        /* Headings */
+        .maintenance-title {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 14px;
+            color: var(--text-primary);
+        }
+        .gradient-span {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        @media (max-width: 600px) {
+            .maintenance-title {
+                font-size: 1.75rem;
+            }
+        }
+
+        .maintenance-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* System Telemetry Row */
+        .telemetry-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 32px;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-card);
+            border-radius: 16px;
+        }
+        @media (max-width: 540px) {
+            .telemetry-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+        }
+        .telemetry-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .telemetry-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .telemetry-value {
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .val-emerald { color: var(--accent-emerald); }
+        .val-purple { color: #a78bfa; }
+
+        /* Direct Action & Orders Banner */
+        .urgent-inquiry-box {
+            background: rgba(139, 92, 246, 0.08);
+            border: 1px dashed rgba(139, 92, 246, 0.35);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 28px;
+            text-align: left;
+        }
+        .urgent-inquiry-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .urgent-inquiry-desc {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+        }
+
+        /* Buttons Group */
+        .actions-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 13px 24px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            border: none;
+            min-height: 48px;
+        }
+        @media (max-width: 500px) {
+            .btn {
+                width: 100%;
+            }
+        }
+        .btn-whatsapp {
+            background: #25D366;
+            color: #ffffff;
+            box-shadow: 0 4px 18px rgba(37, 211, 102, 0.3);
+        }
+        .btn-whatsapp:hover {
+            background: #20bd5a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(37, 211, 102, 0.45);
+        }
+        .btn-email {
+            background: var(--accent-gradient);
+            color: #ffffff;
+            box-shadow: 0 4px 18px rgba(139, 92, 246, 0.3);
+        }
+        .btn-email:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(139, 92, 246, 0.45);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-card);
+        }
+        .btn-outline:hover {
+            border-color: var(--border-hover);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Footer info */
+        .footer-note {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-top: 12px;
+        }
+        .footer-note a {
+            color: var(--text-secondary);
+            text-decoration: underline;
+        }
+        .footer-note a:hover {
+            color: var(--accent-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-glow glow-top-left" aria-hidden="true"></div>
+    <div class="ambient-glow glow-bottom-right" aria-hidden="true"></div>
+
+    <main class="maintenance-container">
+        <!-- Brand Header -->
+        <a href="index.html" class="brand-header" title="Mohamed Karouch Home">
+            <span class="brand-logo-mark">&lt;MK /&gt;</span>
+            <span class="brand-logo-text">Mohamed Karouch</span>
+        </a>
+
+        <!-- Status Indicator -->
+        <div>
+            <div class="status-pill">
+                <span class="pulse-indicator"></span>
+                <span>System Upgrade &amp; Deployments In Progress</span>
+            </div>
+        </div>
+
+        <h1 class="maintenance-title">
+            Refining Performance &amp; <span class="gradient-span">Case Studies</span>
+        </h1>
+
+        <p class="maintenance-subtitle">
+            I'm currently rolling out performance optimizations, updated project deliverables, and infrastructure enhancements. Normal site browsing will resume shortly.
+        </p>
+
+        <!-- System Telemetry Row -->
+        <div class="telemetry-grid">
+            <div class="telemetry-item">
+                <span class="telemetry-label">Client Dispatch</span>
+                <span class="telemetry-value val-emerald">● 100% Active</span>
+            </div>
+            <div class="telemetry-item">
+                <span class="telemetry-label">Deploy Release</span>
+                <span class="telemetry-value val-purple">v3.2 PWA / SEO</span>
+            </div>
+            <div class="telemetry-item">
+                <span class="telemetry-label">Inquiry Turnaround</span>
+                <span class="telemetry-value">&lt; 24 Hours</span>
+            </div>
+        </div>
+
+        <!-- Orders & Inquiries Active Notice -->
+        <div class="urgent-inquiry-box">
+            <div class="urgent-inquiry-title">
+                <span>⚡</span>
+                <span>Freelance Client Orders &amp; Consultations are OPEN</span>
+            </div>
+            <p class="urgent-inquiry-desc">
+                Need a new WordPress website, web application, Python automation script, or SEO performance audit? Direct communication channels are fully operational.
+            </p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="actions-group">
+            <a href="https://wa.me/212680165532?text=Hi%20Mohamed,%20I%20saw%20your%20portfolio%20maintenance%20page%20and%20would%20like%20to%20place%20an%20order%20or%20inquire%20about%20a%20project!" class="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm5.79 14.07c-.24.68-1.39 1.31-1.92 1.39-.5.08-1.14.12-3.69-.93-2.73-1.12-4.48-3.9-4.62-4.08-.14-.19-1.11-1.48-1.11-2.82 0-1.34.7-2 1-2.28.24-.23.53-.29.71-.29.17 0 .35 0 .5.01.16.01.37-.06.58.44.22.52.75 1.82.81 1.96.07.14.11.31.02.49-.09.18-.14.29-.28.45-.14.16-.29.35-.42.47-.14.14-.29.29-.12.58.17.29.74 1.22 1.6 1.98 1.1 1 2.03 1.31 2.32 1.45.29.14.46.12.63-.07.18-.2.75-.87.95-1.17.2-.3.4-.25.68-.15.28.1.1.78 3.86 1.88 4.09.1.22.17.37.2.44.02.07.02.41-.22 1.09z"/></svg>
+                <span>Instant Order on WhatsApp</span>
+            </a>
+
+            <a href="mailto:karouchmohamed21@gmail.com?subject=Project%20Inquiry%20%2F%20Order%20Proposition&body=Hi%20Mohamed,%0A%0AI'd%20like%20to%20discuss%20a%20new%20project.%0A%0AProject%20Scope:%20%0ABudget:%20%0ATimeline:%20%0A%0AThanks!" class="btn btn-email">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                <span>Email Project Inquiry</span>
+            </a>
+
+            <a href="index.html" class="btn btn-outline">
+                <span>View Portfolio Live</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </a>
+        </div>
+
+        <p class="footer-note">
+            Direct Phone: <a href="tel:+212680165532">+212 680-165532</a> &bull; Marrakech, Morocco (GMT+1)
+        </p>
+    </main>
+</body>
+</html>
