@@ -81,6 +81,16 @@ body.light-theme .project-metric-badge {
     border-color: rgba(16, 185, 129, 0.35);
 }
 
+body.light-theme .project-media {
+    background-color: #e2e8f0;
+}
+
+body.light-theme .project-category-tag {
+    background: rgba(255, 255, 255, 0.92);
+    color: #0f172a;
+    border-color: rgba(203, 213, 225, 0.9);
+}
+
 .project-body {
     padding: 24px;
     display: flex;
@@ -122,6 +132,12 @@ body.light-theme .project-metric-badge {
     font-family: var(--font-mono);
     padding: 3px 8px;
     border-radius: var(--radius-sm);
+}
+
+body.light-theme .project-tech-pills span {
+    background: rgba(241, 245, 249, 0.95);
+    color: #334155;
+    border-color: rgba(203, 213, 225, 0.85);
 }
 
 .project-footer {
@@ -638,5 +654,64 @@ body.light-theme .project-metric-badge {
     padding: 4px 9px;
     border-radius: var(--radius-full);
     white-space: nowrap;
+}
+
+/* Light Theme Overrides for Projects & Journey */
+body.light-theme .tilt-card {
+    background: linear-gradient(135deg, rgba(79, 70, 229, 0.14), rgba(2, 132, 199, 0.14));
+    border-color: rgba(203, 213, 225, 0.9);
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+}
+
+body.light-theme .tilt-card-content h4 {
+    color: #0f172a;
+}
+
+body.light-theme .tilt-card-content p {
+    color: #334155;
+}
+
+body.light-theme .tilt-chip {
+    background: rgba(15, 23, 42, 0.8);
+    color: #ffffff;
+}
+
+body.light-theme .tilt-footer {
+    color: #64748b;
+}
+
+body.light-theme .reactive-bg-container {
+    background-color: #ffffff;
+    border-color: rgba(203, 213, 225, 0.85);
+    background-image: radial-gradient(
+        circle 180px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(79, 70, 229, 0.15) 0%,
+        rgba(2, 132, 199, 0.08) 40%,
+        transparent 80%
+    );
+}
+
+body.light-theme .geometric-field-container {
+    background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
+    border-color: rgba(203, 213, 225, 0.85);
+}
+
+body.light-theme .cube-face {
+    background: rgba(79, 70, 229, 0.12);
+    border-color: #4f46e5;
+    color: #312e81;
+    box-shadow: inset 0 0 15px rgba(79, 70, 229, 0.18);
+}
+
+body.light-theme .timeline-icon {
+    background: #ffffff;
+    border-color: #4f46e5;
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.15);
+}
+
+body.light-theme .timeline-tag {
+    background: rgba(241, 245, 249, 0.95);
+    border-color: rgba(203, 213, 225, 0.8);
+    color: #475569;
 }
 

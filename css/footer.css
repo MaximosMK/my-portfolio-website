@@ -348,3 +348,12 @@ body.light-theme .main-footer {
         align-items: flex-start;
     }
 }
+
+body.light-theme .main-footer {
+    background: #ffffff;
+    border-top: 1px solid rgba(226, 232, 240, 0.9);
+}
+
+body.light-theme .footer-meta-bar {
+    border-top: 1px solid rgba(226, 232, 240, 0.9);
+}

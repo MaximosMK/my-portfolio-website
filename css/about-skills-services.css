@@ -596,3 +596,25 @@ body.light-theme .calc-results-panel {
     justify-content: center;
 }
 
+/* Light Theme Overrides for Skills & Services */
+body.light-theme .skill-icon-wrap {
+    background: rgba(241, 245, 249, 0.95);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+}
+
+body.light-theme .spoken-languages-bar {
+    background: rgba(255, 255, 255, 0.92);
+    border-color: rgba(203, 213, 225, 0.85);
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+}
+
+body.light-theme .service-card {
+    background: rgba(255, 255, 255, 0.90);
+    border-color: rgba(203, 213, 225, 0.85);
+}
+
+body.light-theme .calc-summary-panel {
+    background: rgba(248, 250, 252, 0.95);
+    border-color: rgba(203, 213, 225, 0.85);
+}
+

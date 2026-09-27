@@ -735,13 +735,25 @@ def analyze_customs_tariffs(file_path: str) -> pd.DataFrame:
             ctx.scale(DPR, DPR);
         }
 
+        const mouse = { x: -1000, y: -1000, radius: 130 };
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        }, { passive: true });
+        window.addEventListener('mouseout', () => {
+            mouse.x = -1000;
+            mouse.y = -1000;
+        }, { passive: true });
+
         class Particle {
             constructor() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.4;
-                this.vy = (Math.random() - 0.5) * 0.4;
-                this.radius = Math.random() * 1.5 + 0.5;
+                this.vx = (Math.random() - 0.5) * 0.45;
+                this.vy = (Math.random() - 0.5) * 0.45;
+                this.radius = Math.random() * 1.6 + 1.4;
+                const roll = Math.random();
+                this.tone = roll > 0.55 ? 0 : (roll > 0.25 ? 1 : 2);
             }
 
             update() {
@@ -750,31 +762,45 @@ def analyze_customs_tariffs(file_path: str) -> pd.DataFrame:
 
                 if (this.x < 0 || this.x > width) this.vx *= -1;
                 if (this.y < 0 || this.y > height) this.vy *= -1;
+
+                if (mouse.x > 0 && mouse.y > 0) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < mouse.radius && dist > 1) {
+                        const force = (1 - dist / mouse.radius) * 1.8;
+                        this.x -= (dx / dist) * force;
+                        this.y -= (dy / dist) * force;
+                    }
+                }
             }
 
-            draw(color) {
+            draw(isLight) {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = color;
+                if (isLight) {
+                    if (this.tone === 0) ctx.fillStyle = 'rgba(79, 70, 229, 0.95)';
+                    else if (this.tone === 1) ctx.fillStyle = 'rgba(2, 132, 199, 0.95)';
+                    else ctx.fillStyle = 'rgba(124, 58, 237, 0.95)';
+                } else {
+                    if (this.tone === 0) ctx.fillStyle = 'rgba(167, 139, 250, 0.75)';
+                    else if (this.tone === 1) ctx.fillStyle = 'rgba(56, 189, 248, 0.75)';
+                    else ctx.fillStyle = 'rgba(192, 132, 252, 0.75)';
+                }
                 ctx.fill();
             }
         }
 
-        let particleColor = 'rgba(139, 92, 246, 0.4)';
-        let lineColor = 'rgba(139, 92, 246, 0.08)';
-
         function reInitParticleColors() {
-            const isLight = document.body && document.body.classList.contains('light-theme');
-            particleColor = isLight ? 'rgba(99, 102, 241, 0.15)' : 'rgba(139, 92, 246, 0.45)';
-            lineColor = isLight ? 'rgba(99, 102, 241, 0.04)' : 'rgba(139, 92, 246, 0.08)';
+            if (typeof renderParticles === 'function' && isPageVisible) {
+                renderParticles();
+            }
         }
         window.reInitParticleColors = reInitParticleColors;
-        reInitParticleColors();
 
         function initParticles() {
             particles = [];
-            // Target ~45 particles for smooth 60fps rendering without battery drain
-            const count = Math.min(50, Math.floor((width * height) / 25000));
+            const count = Math.min(80, Math.max(35, Math.floor((width * height) / 18000)));
             for (let i = 0; i < count; i++) {
                 particles.push(new Particle());
             }
@@ -783,6 +809,8 @@ def analyze_customs_tariffs(file_path: str) -> pd.DataFrame:
         function renderParticles() {
             if (!isPageVisible) return;
             ctx.clearRect(0, 0, width, height);
+            const isLight = document.body && (document.body.classList.contains('light-theme') || document.documentElement.classList.contains('light-theme'));
+            const maxDist = isLight ? 140 : 125;
 
             // Draw connecting lines
             for (let i = 0; i < particles.length; i++) {
@@ -791,11 +819,27 @@ def analyze_customs_tariffs(file_path: str) -> pd.DataFrame:
                     const dy = particles[i].y - particles[j].y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
 
-                    if (dist < 120) {
+                    if (dist < maxDist) {
+                        const alpha = (1 - dist / maxDist) * (isLight ? 0.36 : 0.15);
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = lineColor;
+                        ctx.strokeStyle = isLight ? 'rgba(79, 70, 229, ' + alpha + ')' : 'rgba(139, 92, 246, ' + alpha + ')';
+                        ctx.lineWidth = isLight ? 1.2 : 0.8;
+                        ctx.stroke();
+                    }
+                }
+
+                if (mouse.x > 0 && mouse.y > 0) {
+                    const mdx = particles[i].x - mouse.x;
+                    const mdy = particles[i].y - mouse.y;
+                    const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+                    if (mdist < 140) {
+                        const malpha = (1 - mdist / 140) * (isLight ? 0.45 : 0.22);
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.strokeStyle = isLight ? 'rgba(2, 132, 199, ' + malpha + ')' : 'rgba(6, 182, 212, ' + malpha + ')';
                         ctx.lineWidth = 1;
                         ctx.stroke();
                     }
@@ -805,7 +849,7 @@ def analyze_customs_tariffs(file_path: str) -> pd.DataFrame:
             // Draw particles
             particles.forEach(p => {
                 p.update();
-                p.draw(particleColor);
+                p.draw(isLight);
             });
 
             animationFrameId = requestAnimationFrame(renderParticles);

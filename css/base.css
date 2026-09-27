@@ -49,37 +49,56 @@
     --transition-slow: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* --- Light Theme Overrides (Calm, Soft-Slate, Glare-Free) --- */
+/* --- Light Theme Overrides (Luxury Porcelain, Electric Indigo & Sapphire) --- */
 :root.light-theme, html.light-theme, body.light-theme {
-    --bg-body: #e6ebf2;
-    --bg-surface: #f1f4f9;
-    --bg-card: #ffffff;
+    --bg-body: #f4f6fa;
+    --bg-surface: #ffffff;
+    --bg-card: rgba(255, 255, 255, 0.88);
     --bg-card-hover: #ffffff;
-    --bg-glass: rgba(255, 255, 255, 0.95);
-    --border-card: #cbd5e1;
-    --border-hover: rgba(99, 102, 241, 0.40);
-    --border-focus: #6366f1;
+    --bg-glass: rgba(255, 255, 255, 0.84);
+    --border-card: rgba(203, 213, 225, 0.8);
+    --border-hover: rgba(79, 70, 229, 0.5);
+    --border-focus: #4f46e5;
 
     --text-primary: #0f172a;
     --text-secondary: #334155;
     --text-muted: #64748b;
     --text-inverse: #ffffff;
 
-    --accent-primary: #6366f1;
-    --accent-secondary: #0ea5e9;
-    --accent-gradient: linear-gradient(135deg, #6366f1 0%, #0ea5e9 100%);
-    --accent-gradient-hover: linear-gradient(135deg, #4f46e5 0%, #0284c7 100%);
-    --accent-glow: rgba(99, 102, 241, 0.10);
+    --accent-primary: #4f46e5;
+    --accent-secondary: #0284c7;
+    --accent-emerald: #059669;
+    --accent-gradient: linear-gradient(135deg, #4f46e5 0%, #0284c7 100%);
+    --accent-gradient-hover: linear-gradient(135deg, #4338ca 0%, #0369a1 100%);
+    --accent-glow: rgba(79, 70, 229, 0.16);
 
-    --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.04);
-    --shadow-md: 0 4px 16px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
-    --shadow-lg: 0 10px 25px -4px rgba(15, 23, 42, 0.12), 0 4px 8px -2px rgba(15, 23, 42, 0.04);
-    --shadow-glow: 0 0 15px rgba(99, 102, 241, 0.05);
+    --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+    --shadow-md: 0 4px 14px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(79, 70, 229, 0.05);
+    --shadow-lg: 0 16px 32px -6px rgba(15, 23, 42, 0.10), 0 6px 16px -3px rgba(79, 70, 229, 0.08);
+    --shadow-glow: 0 0 28px rgba(79, 70, 229, 0.15);
 }
 
 body.light-theme {
-    background-color: var(--bg-body) !important;
+    background-color: #f4f6fa !important;
+    background-image: 
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99, 102, 241, 0.12), transparent 70%),
+        radial-gradient(ellipse 60% 40% at 85% 100%, rgba(14, 165, 233, 0.09), transparent),
+        radial-gradient(circle at 10% 45%, rgba(244, 63, 94, 0.035), transparent 40%) !important;
+    background-attachment: fixed;
     color: var(--text-primary) !important;
+}
+
+body.light-theme .glass-card {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(79, 70, 229, 0.03);
+}
+
+body.light-theme .glass-card:hover {
+    border-color: rgba(79, 70, 229, 0.45);
+    box-shadow: 0 20px 35px -8px rgba(79, 70, 229, 0.14), 0 4px 12px -2px rgba(15, 23, 42, 0.06);
 }
 
 /* --- Reset & Global Defaults --- */
@@ -133,12 +152,14 @@ body.nav-open {
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: -1;
+    z-index: 1;
     pointer-events: none;
 }
 
 /* Container */
 .container {
+    position: relative;
+    z-index: 2;
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
@@ -196,6 +217,7 @@ img {
 .section-container {
     padding: 90px 0;
     position: relative;
+    z-index: 2;
 }
 
 .section-header {
@@ -317,5 +339,25 @@ img {
     border-color: transparent;
     box-shadow: 0 4px 12px var(--accent-glow);
     font-weight: 600;
+}
+
+body.light-theme .filter-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(203, 213, 225, 0.85);
+    color: var(--text-secondary);
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+body.light-theme .filter-btn:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    background: #ffffff;
+}
+
+body.light-theme .filter-btn.active {
+    background: var(--accent-gradient);
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
 }
 

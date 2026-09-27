@@ -176,8 +176,8 @@
         const tIcon = document.getElementById('themeIcon');
         if (tIcon) tIcon.textContent = isLight ? '☀️' : '🌙';
         setSafeStorage(STORAGE_KEY, isLight ? 'light' : 'dark');
-        if (typeof reInitParticleColors === 'function') {
-            reInitParticleColors();
+        if (typeof window.reInitParticleColors === 'function') {
+            window.reInitParticleColors();
         }
     }
 
