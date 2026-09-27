@@ -1,5 +1,12 @@
 // Mohamed Karouch Portfolio - Audio Engine & Theme System
 (function() {
+    function getSafeStorage(key, fallback = null) {
+        try { return localStorage.getItem(key) || fallback; } catch (e) { return fallback; }
+    }
+    function setSafeStorage(key, val) {
+        try { localStorage.setItem(key, val); } catch (e) {}
+    }
+
     // ==========================================================================
     // 3. TOAST NOTIFICATION UTILITY
     // ==========================================================================
@@ -48,7 +55,7 @@
 
     const SoundFX = (() => {
         let ctx = null;
-        let isMuted = localStorage.getItem(SOUND_STORAGE_KEY) !== 'enabled';
+        let isMuted = getSafeStorage(SOUND_STORAGE_KEY) !== 'enabled';
 
         function getContext() {
             if (!ctx) {
@@ -85,7 +92,7 @@
             isMuted: () => isMuted,
             toggle: () => {
                 isMuted = !isMuted;
-                localStorage.setItem(SOUND_STORAGE_KEY, isMuted ? 'disabled' : 'enabled');
+                setSafeStorage(SOUND_STORAGE_KEY, isMuted ? 'disabled' : 'enabled');
                 if (!isMuted) {
                     getContext();
                     SoundFX.playPop();
@@ -118,6 +125,7 @@
             }
         };
     })();
+    window.SoundFX = SoundFX;
 
     function updateSoundUI() {
         const enabled = !SoundFX.isMuted();
@@ -167,13 +175,13 @@
         document.body.classList.toggle('light-theme', isLight);
         const tIcon = document.getElementById('themeIcon');
         if (tIcon) tIcon.textContent = isLight ? '☀️' : '🌙';
-        localStorage.setItem(STORAGE_KEY, isLight ? 'light' : 'dark');
+        setSafeStorage(STORAGE_KEY, isLight ? 'light' : 'dark');
         if (typeof reInitParticleColors === 'function') {
             reInitParticleColors();
         }
     }
 
-    const savedTheme = localStorage.getItem(STORAGE_KEY);
+    const savedTheme = getSafeStorage(STORAGE_KEY, 'dark');
     if (savedTheme === 'light') {
         applyTheme('light');
     } else {

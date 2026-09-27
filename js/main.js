@@ -1,5 +1,7 @@
 // Mohamed Karouch Portfolio - Main Controller & Navigation
 document.addEventListener('DOMContentLoaded', () => {
+    const SoundFX = window.SoundFX || { playClick:()=>{}, playToggle:()=>{}, playPop:()=>{}, playSuccess:()=>{}, toggle:()=>false, isMuted:()=>true };
+
     // ==========================================================================
     // 2. MOBILE NAVIGATION & SCROLLSPY
     // ==========================================================================
@@ -52,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (mobileQuickPaletteBtn) {
             mobileQuickPaletteBtn.addEventListener('click', () => {
                 closeMobileNav();
-                if (typeof openCommandPalette === 'function') openCommandPalette();
+                if (typeof window.openCommandPalette === 'function') window.openCommandPalette();
             });
         }
         if (mobileQuickScopeBtn) {
@@ -64,14 +66,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (mobileQuickResumeBtn) {
             mobileQuickResumeBtn.addEventListener('click', () => {
                 closeMobileNav();
-                if (typeof openResumeModal === 'function') openResumeModal();
+                if (typeof window.openResumeModal === 'function') window.openResumeModal();
             });
         }
         const mobileQuickTerminalBtn = document.getElementById('mobileQuickTerminalBtn');
         if (mobileQuickTerminalBtn) {
             mobileQuickTerminalBtn.addEventListener('click', () => {
                 closeMobileNav();
-                if (typeof toggleDevConsole === 'function') toggleDevConsole();
+                if (typeof window.toggleDevConsole === 'function') window.toggleDevConsole();
             });
         }
         const mobileQuickSoundBtn = document.getElementById('mobileQuickSoundBtn');

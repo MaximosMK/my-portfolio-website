@@ -1,5 +1,6 @@
 // Mohamed Karouch Portfolio - Interactive Components & Modals
 (function() {
+    const SoundFX = window.SoundFX || { playClick:()=>{}, playToggle:()=>{}, playPop:()=>{}, playSuccess:()=>{}, toggle:()=>false, isMuted:()=>true };
 
     // Ensure Modal DOM Containers are mounted
     function ensureComponentModals() {
@@ -564,6 +565,7 @@ def analyze_customs_tariffs(file_path: str) -> pd.DataFrame:
         if (typeof SoundFX !== 'undefined' && SoundFX.playClick) SoundFX.playClick();
     }
 
+    const projectCards = document.querySelectorAll('.project-card');
     projectCards.forEach(card => {
         card.addEventListener('click', () => {
             openProjectModal(card);
@@ -714,8 +716,9 @@ def analyze_customs_tariffs(file_path: str) -> pd.DataFrame:
     // 12. HIGH-PERFORMANCE PARTICLE CANVAS
     // ==========================================================================
     const canvas = document.getElementById('globalParticleCanvas');
-    if (canvas) {
+    if (canvas && typeof canvas.getContext === 'function') {
         const ctx = canvas.getContext('2d');
+        if (!ctx) return;
         let particles = [];
         let animationFrameId;
         let isPageVisible = true;
@@ -760,11 +763,12 @@ def analyze_customs_tariffs(file_path: str) -> pd.DataFrame:
         let particleColor = 'rgba(139, 92, 246, 0.4)';
         let lineColor = 'rgba(139, 92, 246, 0.08)';
 
-        window.reInitParticleColors = function() {
-            const isLight = document.body.classList.contains('light-theme');
-            particleColor = isLight ? 'rgba(99, 102, 241, 0.35)' : 'rgba(139, 92, 246, 0.45)';
-            lineColor = isLight ? 'rgba(99, 102, 241, 0.08)' : 'rgba(139, 92, 246, 0.08)';
-        };
+        function reInitParticleColors() {
+            const isLight = document.body && document.body.classList.contains('light-theme');
+            particleColor = isLight ? 'rgba(99, 102, 241, 0.15)' : 'rgba(139, 92, 246, 0.45)';
+            lineColor = isLight ? 'rgba(99, 102, 241, 0.04)' : 'rgba(139, 92, 246, 0.08)';
+        }
+        window.reInitParticleColors = reInitParticleColors;
         reInitParticleColors();
 
         function initParticles() {
@@ -832,7 +836,7 @@ def analyze_customs_tariffs(file_path: str) -> pd.DataFrame:
     // ==========================================================================
     // 13. HERO CODE WINDOW 3D PERSPECTIVE TILT (DESKTOP / POINTER ONLY)
     // ==========================================================================
-    const isTouchDevice = window.matchMedia('(hover: none) or (pointer: coarse)').matches;
+    const isTouchDevice = typeof window.matchMedia === 'function' ? window.matchMedia('(hover: none) or (pointer: coarse)').matches : false;
     const heroCodeWrapper = document.getElementById('heroCodeCardWrapper');
     const heroCodeWindow = document.getElementById('heroCodeWindow');
 

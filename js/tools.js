@@ -1,5 +1,6 @@
 // Mohamed Karouch Portfolio - Developer Tools & Command Suite
 (function() {
+    const SoundFX = window.SoundFX || { playClick:()=>{}, playToggle:()=>{}, playPop:()=>{}, playSuccess:()=>{}, toggle:()=>false, isMuted:()=>true };
 
     // Ensure Developer Tools DOM Containers are mounted
     function ensureToolModals() {
@@ -62,17 +63,29 @@
     const consoleOutput = document.getElementById('consoleOutput');
     const consoleInput = document.getElementById('consoleInput');
 
+    function closeDevConsole() {
+        const dConsole = document.getElementById('devConsole');
+        if (dConsole) dConsole.classList.remove('visible');
+    }
+
+    function openDevConsole() {
+        ensureToolModals();
+        const dConsole = document.getElementById('devConsole');
+        if (!dConsole) return;
+        dConsole.classList.add('visible');
+        const cInput = document.getElementById('consoleInput');
+        if (cInput) cInput.focus();
+    }
+
     function toggleDevConsole() {
         ensureToolModals();
         const dConsole = document.getElementById('devConsole');
         if (!dConsole) return;
         const isVisible = dConsole.classList.contains('visible');
         if (isVisible) {
-            dConsole.classList.remove('visible');
+            closeDevConsole();
         } else {
-            dConsole.classList.add('visible');
-            const cInput = document.getElementById('consoleInput');
-            if (cInput) cInput.focus();
+            openDevConsole();
         }
     }
 
@@ -777,8 +790,9 @@
 
 
     // Expose globals
-    window.toggleDevConsole = toggleDevConsole;
+    window.openDevConsole = openDevConsole;
     window.closeDevConsole = closeDevConsole;
+    window.toggleDevConsole = toggleDevConsole;
     window.openCommandPalette = openCommandPalette;
     window.closeCommandPalette = closeCommandPalette;
     window.toggleCommandPalette = toggleCommandPalette;
