@@ -1775,6 +1775,16 @@ def analyze_customs_tariffs(file_path: str) -> pd.DataFrame:
             action: () => document.getElementById('testimonials')?.scrollIntoView({ behavior: 'smooth' })
         },
         {
+            id: 'nav-faq',
+            group: 'Navigation',
+            icon: '❓',
+            label: 'Frequently Asked Questions (FAQ)',
+            desc: 'Turnaround times, WordPress, pricing, SEO & project workflow',
+            badge: 'Section',
+            keywords: 'faq questions answers help support turnaround timeline cost pricing wordpress seo',
+            action: () => document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' })
+        },
+        {
             id: 'nav-contact',
             group: 'Navigation',
             icon: '📬',
@@ -2118,6 +2128,53 @@ def analyze_customs_tariffs(file_path: str) -> pd.DataFrame:
             }
         }
     });
+
+    // ==========================================================================
+    // 16.5. FREQUENTLY ASKED QUESTIONS (FAQ) ACCORDION
+    // ==========================================================================
+    const faqItems = document.querySelectorAll('.faq-item');
+    if (faqItems.length > 0) {
+        faqItems.forEach((item, index) => {
+            const trigger = item.querySelector('.faq-trigger');
+            const panel = item.querySelector('.faq-answer-panel');
+            if (!trigger || !panel) return;
+
+            // Automatically open the first question for immediate engagement
+            if (index === 0) {
+                item.classList.add('active');
+                trigger.setAttribute('aria-expanded', 'true');
+                panel.removeAttribute('hidden');
+            }
+
+            trigger.addEventListener('click', () => {
+                const isCurrentlyActive = item.classList.contains('active');
+
+                // Collapse all other items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                        const otherTrigger = otherItem.querySelector('.faq-trigger');
+                        const otherPanel = otherItem.querySelector('.faq-answer-panel');
+                        if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
+                        if (otherPanel) otherPanel.setAttribute('hidden', '');
+                    }
+                });
+
+                // Toggle current item
+                if (isCurrentlyActive) {
+                    item.classList.remove('active');
+                    trigger.setAttribute('aria-expanded', 'false');
+                    panel.setAttribute('hidden', '');
+                    SoundFX.playClick();
+                } else {
+                    item.classList.add('active');
+                    trigger.setAttribute('aria-expanded', 'true');
+                    panel.removeAttribute('hidden');
+                    SoundFX.playPop();
+                }
+            });
+        });
+    }
 
     // ==========================================================================
     // 17. PROGRESSIVE WEB APP (PWA) SERVICE WORKER REGISTRATION
