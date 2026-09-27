@@ -85,8 +85,120 @@
         }
         if (!document.getElementById('resumeModal')) {
             const div = document.createElement('div');
-            div.innerHTML = ``.trim();
-            document.body.appendChild(div.firstElementChild);
+            div.innerHTML = `<div id="resumeModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="resumeTitle">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content glass-card resume-modal-card">
+            <button class="close-modal-btn" id="closeResumeBtn" aria-label="Close resume modal">&times;</button>
+            <div class="resume-modal-header">
+                <div>
+                    <h3 id="resumeTitle" class="resume-name">Mohamed Karouch</h3>
+                    <p class="resume-role">Web Developer &amp; Software Engineer &bull; Morocco</p>
+                </div>
+                <div class="resume-header-actions">
+                    <button type="button" class="btn btn-secondary btn-sm" id="printResumeBtn" title="Print or Save to PDF">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                        <span>Print / Save PDF</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="resume-modal-body">
+                <!-- Summary Section -->
+                <div class="resume-block">
+                    <h4 class="resume-section-title">Executive Summary</h4>
+                    <p class="resume-text">
+                        Dedicated Web Developer with 2+ years of professional freelance experience designing, building, and maintaining high-performance, SEO-optimized web applications. Currently advancing software engineering mastery as an enrolled student at 1337 Coding School in Morocco (42 Network), specializing in systems programming, memory safety, algorithms, and full-stack web solutions.
+                    </p>
+                </div>
+
+                <!-- Core Technologies -->
+                <div class="resume-block">
+                    <h4 class="resume-section-title">Technical Expertise</h4>
+                    <div class="resume-skills-categories">
+                        <div>
+                            <strong>Frontend &amp; CMS:</strong> WordPress, HTML5, CSS3, JavaScript (ES6+), Responsive UI Design, Cross-Browser Compatibility.
+                        </div>
+                        <div>
+                            <strong>Backend &amp; Databases:</strong> PHP, MySQL, SQL, Relational Schema Architecture, REST APIs.
+                        </div>
+                        <div>
+                            <strong>Systems &amp; Languages:</strong> C/C++ (1337 / 42 Network), Python, C#, R.
+                        </div>
+                        <div>
+                            <strong>Tools &amp; Marketing:</strong> Git/GitHub, Yoast SEO, On-Page SEO, Google PageSpeed Optimization, Flask, Tkinter.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience -->
+                <div class="resume-block">
+                    <h4 class="resume-section-title">Professional Experience</h4>
+                    <div class="resume-item">
+                        <div class="resume-item-header">
+                            <span class="resume-item-title">Freelance Web Developer</span>
+                            <span class="resume-item-dates">Oct 2023 – Present</span>
+                        </div>
+                        <span class="resume-item-subtitle">Self-Employed &bull; Remote</span>
+                        <ul class="resume-bullets">
+                            <li>Delivered tailored, responsive WordPress and PHP web solutions for SMB clients, driving measurable increases in user engagement and search visibility.</li>
+                            <li>Engineered custom layouts, optimized PageSpeed metrics to 90+, and implemented robust on-page SEO structures.</li>
+                            <li>Maintained persistent security hardening, backups, and ongoing technical support.</li>
+                        </ul>
+                    </div>
+
+                    <div class="resume-item">
+                        <div class="resume-item-header">
+                            <span class="resume-item-title">Software Engineering Intern</span>
+                            <span class="resume-item-dates">Sept – Dec 2022</span>
+                        </div>
+                        <span class="resume-item-subtitle">Moroccan Customs &amp; Indirect Taxes Administration (ADII)</span>
+                        <ul class="resume-bullets">
+                            <li>Assisted in algorithmic refinement for national budget forecasting models and automated anomaly fraud detection.</li>
+                            <li>Tuned complex relational database queries to resolve reporting bottlenecks and ensure transaction precision.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="resume-block">
+                    <h4 class="resume-section-title">Education &amp; Training</h4>
+                    <div class="resume-item">
+                        <div class="resume-item-header">
+                            <span class="resume-item-title">Software Engineering (42 Network)</span>
+                            <span class="resume-item-dates">Current &bull; Present</span>
+                        </div>
+                        <span class="resume-item-subtitle">1337 Coding School &bull; Morocco</span>
+                        <p class="resume-text">Rigorous, peer-to-peer engineering curriculum centered on C systems programming, data structures, memory management, and Unix environment.</p>
+                    </div>
+
+                    <div class="resume-item">
+                        <div class="resume-item-header">
+                            <span class="resume-item-title">Diploma in Informatics Development Techniques</span>
+                            <span class="resume-item-dates">2021 – 2022</span>
+                        </div>
+                        <span class="resume-item-subtitle">ISTA NTIC Syba &bull; Marrakech, Morocco</span>
+                    </div>
+
+                    <div class="resume-item">
+                        <div class="resume-item-header">
+                            <span class="resume-item-title">ALX Software Engineering (Foundations Phase)</span>
+                            <span class="resume-item-dates">2024 (2 Months)</span>
+                        </div>
+                        <span class="resume-item-subtitle">ALX Africa</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`.trim();
+            const modalEl = div.firstElementChild;
+            document.body.appendChild(modalEl);
+            const closeBtn = modalEl.querySelector('#closeResumeBtn');
+            if (closeBtn) closeBtn.addEventListener('click', closeResumeModal);
+            const backdrop = modalEl.querySelector('.modal-backdrop');
+            if (backdrop) backdrop.addEventListener('click', closeResumeModal);
+            const printBtn = modalEl.querySelector('#printResumeBtn');
+            if (printBtn) printBtn.addEventListener('click', () => window.print());
+            if (typeof trapFocusInModal === 'function') trapFocusInModal(modalEl, closeResumeModal);
         }
     }
     if (document.readyState === 'loading') {
@@ -465,38 +577,29 @@ def analyze_customs_tariffs(file_path: str) -> pd.DataFrame:
     if (modalBackdrop) modalBackdrop.addEventListener('click', closeProjectModal);
 
     // Resume Modal Elements & Handlers
-    const resumeModal = document.getElementById('resumeModal');
-    const openResumeBtn = document.getElementById('openResumeBtn');
-    const heroResumeBtn = document.getElementById('heroResumeBtn');
-    const closeResumeBtn = document.getElementById('closeResumeBtn');
-    const printResumeBtn = document.getElementById('printResumeBtn');
-    const resumeModalBackdrop = resumeModal ? resumeModal.querySelector('.modal-backdrop') : null;
-
     function openResumeModal() {
-        if (!resumeModal) return;
-        resumeModal.classList.add('visible');
+        ensureComponentModals();
+        const rModal = document.getElementById('resumeModal');
+        if (!rModal) return;
+        rModal.classList.add('visible');
         document.body.classList.add('modal-open');
         document.body.style.overflow = 'hidden';
     }
 
     function closeResumeModal() {
-        if (!resumeModal) return;
-        resumeModal.classList.remove('visible');
+        const rModal = document.getElementById('resumeModal');
+        if (!rModal) return;
+        rModal.classList.remove('visible');
         document.body.classList.remove('modal-open');
         document.body.style.overflow = '';
     }
 
+    const openResumeBtn = document.getElementById('openResumeBtn');
+    const heroResumeBtn = document.getElementById('heroResumeBtn');
     const footerResumeTrigger = document.getElementById('footerResumeTrigger');
-    if (footerResumeTrigger) footerResumeTrigger.addEventListener('click', openResumeModal);
     if (openResumeBtn) openResumeBtn.addEventListener('click', openResumeModal);
     if (heroResumeBtn) heroResumeBtn.addEventListener('click', openResumeModal);
-    if (closeResumeBtn) closeResumeBtn.addEventListener('click', closeResumeModal);
-    if (resumeModalBackdrop) resumeModalBackdrop.addEventListener('click', closeResumeModal);
-    if (printResumeBtn) {
-        printResumeBtn.addEventListener('click', () => {
-            window.print();
-        });
-    }
+    if (footerResumeTrigger) footerResumeTrigger.addEventListener('click', openResumeModal);
 
     // Modal Focus Trap Helper for Enterprise Accessibility
     function trapFocusInModal(modalEl, closeCallback) {
@@ -526,7 +629,7 @@ def analyze_customs_tariffs(file_path: str) -> pd.DataFrame:
     }
 
     trapFocusInModal(modal, closeProjectModal);
-    trapFocusInModal(resumeModal, closeResumeModal);
+    trapFocusInModal(document.getElementById('resumeModal'), closeResumeModal);
 
 
     // ==========================================================================
