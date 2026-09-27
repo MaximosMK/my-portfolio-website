@@ -100,6 +100,25 @@ body.light-theme .floating-quick-dock {
     box-shadow: 0 12px 35px rgba(148, 163, 184, 0.25);
 }
 
+/* On desktop (>768px), keep quick dock compact so it never obscures headings or cards */
+@media (min-width: 769px) {
+    .floating-quick-dock {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        padding: 0;
+    }
+    .floating-quick-dock .dock-btn-email,
+    .floating-quick-dock .dock-btn-quote {
+        display: none;
+    }
+    .floating-quick-dock .dock-btn-whatsapp {
+        box-shadow: 0 4px 18px rgba(37, 211, 102, 0.45);
+    }
+}
+
 .dock-btn {
     display: inline-flex;
     align-items: center;
