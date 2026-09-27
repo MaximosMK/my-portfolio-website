@@ -50,7 +50,7 @@
 }
 
 /* --- Light Theme Overrides --- */
-body.light-theme {
+html.light-theme, body.light-theme {
     --bg-body: #f8fafc;
     --bg-surface: #ffffff;
     --bg-card: rgba(255, 255, 255, 0.88);

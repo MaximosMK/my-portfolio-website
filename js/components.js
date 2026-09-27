@@ -201,11 +201,7 @@
             if (typeof trapFocusInModal === 'function') trapFocusInModal(modalEl, closeResumeModal);
         }
     }
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', ensureComponentModals);
-    } else {
-        ensureComponentModals();
-    }
+    ensureComponentModals();
 
     // ==========================================================================
     // ==========================================================================
@@ -553,18 +549,19 @@ def analyze_customs_tariffs(file_path: str) -> pd.DataFrame:
             modalDemoLink.style.display = 'none';
         }
 
-        modal.classList.add('visible');
+        const pModal = document.getElementById('projectModal');
+        if (pModal) pModal.classList.add('visible');
         document.body.classList.add('modal-open');
         document.body.style.overflow = 'hidden';
-        SoundFX.playPop();
+        if (typeof SoundFX !== 'undefined' && SoundFX.playPop) SoundFX.playPop();
     }
 
     function closeProjectModal() {
-        if (!modal) return;
-        modal.classList.remove('visible');
+        const pModal = document.getElementById('projectModal');
+        if (pModal) pModal.classList.remove('visible');
         document.body.classList.remove('modal-open');
         document.body.style.overflow = '';
-        SoundFX.playClick();
+        if (typeof SoundFX !== 'undefined' && SoundFX.playClick) SoundFX.playClick();
     }
 
     projectCards.forEach(card => {
@@ -573,8 +570,10 @@ def analyze_customs_tariffs(file_path: str) -> pd.DataFrame:
         });
     });
 
-    if (closeModalBtn) closeModalBtn.addEventListener('click', closeProjectModal);
-    if (modalBackdrop) modalBackdrop.addEventListener('click', closeProjectModal);
+    const cModalBtn = document.getElementById('closeModalBtn');
+    if (cModalBtn) cModalBtn.addEventListener('click', closeProjectModal);
+    const mBackdrop = document.querySelector('#projectModal .modal-backdrop');
+    if (mBackdrop) mBackdrop.addEventListener('click', closeProjectModal);
 
     // Resume Modal Elements & Handlers
     function openResumeModal() {

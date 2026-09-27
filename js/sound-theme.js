@@ -159,21 +159,15 @@
     // ==========================================================================
     // 1. THEME TOGGLE FUNCTIONALITY
     // ==========================================================================
-    const themeToggleBtn = document.getElementById('themeToggleBtn');
-    const themeIcon = document.getElementById('themeIcon');
-    const body = document.body;
     const STORAGE_KEY = 'mk_portfolio_theme';
 
     function applyTheme(theme) {
-        if (theme === 'light') {
-            body.classList.add('light-theme');
-            if (themeIcon) themeIcon.textContent = '☀️';
-            localStorage.setItem(STORAGE_KEY, 'light');
-        } else {
-            body.classList.remove('light-theme');
-            if (themeIcon) themeIcon.textContent = '🌙';
-            localStorage.setItem(STORAGE_KEY, 'dark');
-        }
+        const isLight = theme === 'light';
+        document.documentElement.classList.toggle('light-theme', isLight);
+        document.body.classList.toggle('light-theme', isLight);
+        const tIcon = document.getElementById('themeIcon');
+        if (tIcon) tIcon.textContent = isLight ? '☀️' : '🌙';
+        localStorage.setItem(STORAGE_KEY, isLight ? 'light' : 'dark');
         if (typeof reInitParticleColors === 'function') {
             reInitParticleColors();
         }
@@ -186,13 +180,19 @@
         applyTheme('dark');
     }
 
-    if (themeToggleBtn) {
-        themeToggleBtn.addEventListener('click', () => {
-            const isLight = body.classList.contains('light-theme');
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('#themeToggleBtn');
+        if (btn) {
+            const isLight = document.body.classList.contains('light-theme') || document.documentElement.classList.contains('light-theme');
             applyTheme(isLight ? 'dark' : 'light');
-            showToast(`Switched to ${isLight ? 'Dark' : 'Light'} Mode`);
-        });
-    }
+            if (typeof showToast === 'function') {
+                showToast(`Switched to ${isLight ? 'Dark' : 'Light'} Mode`);
+            }
+            if (typeof SoundFX !== 'undefined' && SoundFX.playToggle) {
+                SoundFX.playToggle();
+            }
+        }
+    });
 
 
     // Scroll Reading Progress Bar

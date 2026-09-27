@@ -1,5 +1,5 @@
 // Mohamed Karouch Portfolio - Service Worker
-const CACHE_NAME = 'mk-portfolio-v7';
+const CACHE_NAME = 'mk-portfolio-v8';
 
 const PRECACHE_ASSETS = [
     './',

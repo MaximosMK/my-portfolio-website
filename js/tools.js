@@ -5,20 +5,53 @@
     function ensureToolModals() {
         if (!document.getElementById('devConsole')) {
             const div = document.createElement('div');
-            div.innerHTML = ``.trim();
-            document.body.appendChild(div.firstElementChild);
+            div.innerHTML = `<div id="devConsole" class="dev-console" role="region" aria-label="Interactive Developer Console">
+        <div class="console-header">
+            <div class="console-title-group">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+                <span class="console-title">MK_Dev_Terminal_v2.1 — (Press Cmd/Ctrl + K or Ctrl + \ to toggle)</span>
+            </div>
+            <button id="closeConsoleBtn" class="console-close-btn" aria-label="Close Developer Console">&times;</button>
+        </div>
+        <div id="consoleOutput" class="console-output">
+            <p class="console-welcome">Welcome to Mohamed's Dev Terminal! Type '<span class="code-hl">help</span>' to inspect commands.</p>
+        </div>
+        <div class="console-input-row">
+            <span class="console-prompt">guest@mk-portfolio:~$</span>
+            <input type="text" id="consoleInput" class="console-input" placeholder="Type a command (e.g. help, skills, services, projects)..." autocomplete="off" spellcheck="false">
+        </div>
+    </div>`.trim();
+            if (div.firstElementChild) document.body.appendChild(div.firstElementChild);
         }
         if (!document.getElementById('commandPaletteModal')) {
             const div = document.createElement('div');
-            div.innerHTML = ``.trim();
-            document.body.appendChild(div.firstElementChild);
+            div.innerHTML = `<div id="commandPaletteModal" class="command-palette-modal" role="dialog" aria-modal="true" aria-label="Command Palette">
+        <div class="palette-backdrop" id="paletteBackdrop"></div>
+        <div class="palette-container glass-card">
+            <div class="palette-search-wrapper">
+                <svg class="palette-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="paletteSearchInput" class="palette-search-input" placeholder="Type a command or search (e.g. projects, whatsapp, theme)..." autocomplete="off" spellcheck="false">
+                <button type="button" class="palette-close-btn" id="paletteCloseBtn" aria-label="Close Command Palette">&times;</button>
+                <span class="palette-esc-badge">ESC</span>
+            </div>
+
+            <div class="palette-results-list" id="paletteResultsList" role="listbox">
+                <!-- Dynamically populated commands -->
+            </div>
+
+            <div class="palette-footer-hints">
+                <span class="hint-item"><kbd class="kbd-badge">↑</kbd><kbd class="kbd-badge">↓</kbd> Navigate</span>
+                <span class="hint-item"><kbd class="kbd-badge">↵</kbd> Select</span>
+                <span class="hint-item"><kbd class="kbd-badge">ESC</kbd> Close</span>
+            </div>
+        </div>
+    </div>`.trim();
+            if (div.firstElementChild) document.body.appendChild(div.firstElementChild);
         }
     }
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', ensureToolModals);
-    } else {
-        ensureToolModals();
-    }
+    ensureToolModals();
 
     // ==========================================================================
     // 9. DEV CONSOLE TERMINAL (EASTER EGG & TERMINAL TOOL)
@@ -30,13 +63,16 @@
     const consoleInput = document.getElementById('consoleInput');
 
     function toggleDevConsole() {
-        if (!devConsole) return;
-        const isVisible = devConsole.classList.contains('visible');
+        ensureToolModals();
+        const dConsole = document.getElementById('devConsole');
+        if (!dConsole) return;
+        const isVisible = dConsole.classList.contains('visible');
         if (isVisible) {
-            devConsole.classList.remove('visible');
+            dConsole.classList.remove('visible');
         } else {
-            devConsole.classList.add('visible');
-            if (consoleInput) consoleInput.focus();
+            dConsole.classList.add('visible');
+            const cInput = document.getElementById('consoleInput');
+            if (cInput) cInput.focus();
         }
     }
 
@@ -646,8 +682,10 @@
     }
 
     function openCommandPalette() {
-        if (!paletteModal) return;
-        paletteModal.classList.add('visible');
+        ensureToolModals();
+        const pModal = document.getElementById('commandPaletteModal');
+        if (!pModal) return;
+        pModal.classList.add('visible');
         document.body.classList.add('modal-open');
         if (paletteSearchInput) {
             paletteSearchInput.value = '';
