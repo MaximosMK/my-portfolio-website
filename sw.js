@@ -1,11 +1,24 @@
 // Mohamed Karouch Portfolio - Service Worker
-const CACHE_NAME = 'mk-portfolio-v4';
+const CACHE_NAME = 'mk-portfolio-v5';
 
 const PRECACHE_ASSETS = [
     './',
     './index.html',
     './maintenance.html',
+    './css/base.css',
+    './css/header.css',
+    './css/hero.css',
+    './css/about-skills-services.css',
+    './css/projects-journey.css',
+    './css/contact-faq.css',
+    './css/modals-tools.css',
+    './css/footer.css',
+    './css/responsive.css',
     './css/style.css',
+    './js/sound-theme.js',
+    './js/components.js',
+    './js/tools.js',
+    './js/main.js',
     './js/script.js',
     './logo/site.webmanifest',
     './logo/favicon.svg',
