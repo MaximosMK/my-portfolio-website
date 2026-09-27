@@ -162,3 +162,17 @@ To temporarily put the live site into maintenance mode:
    - Add the project's detailed modal data into the `PROJECT_DATA` dictionary in `js/components.js`.
 3. **Updating the Service Worker**:
    - When modifying core CSS or JS files, increment `CACHE_NAME` in `sw.js` (e.g., from `mk-portfolio-v5` to `mk-portfolio-v6`) to ensure returning visitors immediately receive updated caches.
+
+---
+
+## 🔒 License & Intellectual Property Rights
+
+**Copyright © 2026 Mohamed Karouch (MaximosMK). All Rights Reserved.**
+
+This repository and its contents (including design system, branding, codebase, typography, text, and project showcase assets) are strictly proprietary:
+- **No Unauthorized Duplication**: You may not copy, replicate, or host this website or any of its design elements for commercial or personal portfolio use.
+- **No Direct Modification**: GitHub's access controls restrict write/push access strictly to the repository owner. Unauthorized pull requests or modifications will not be accepted.
+- **Educational Inspection Only**: You are welcome to view and review the codebase for personal learning and technical evaluation.
+
+For collaboration or licensing inquiries, please contact [karouchmohamed21@gmail.com](mailto:karouchmohamed21@gmail.com).
+
